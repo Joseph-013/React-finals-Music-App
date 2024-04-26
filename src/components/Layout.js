@@ -8,7 +8,14 @@ const Layout = () => {
             <section className="pl-16 md:pl-60">
                 <div className="w-16 pt-16 md:w-60 mb-16 overflow-hidden fixed top-0 left-0 h-screen flex flex-col">
                     <div className="flex-1 z-30 pb-16 overflow-y-hidden px-2 text-center bg-[#19272E]" style={{ scrollBehavior: 'contain' }}>
-                        <nav className="h-full boundary overflow-y-auto">
+                        <nav className="h-full overflow-y-auto">
+                            <div className="h-20">test</div>
+                            <div className="h-20">test</div>
+                            <div className="h-20">test</div>
+                            <div className="h-20">test</div>
+                            <div className="h-20">test</div>
+                            <div className="h-20">test</div>
+                            <div className="h-20">test</div>
                             <div className="h-20">test</div>
                             <div className="h-20">test</div>
                             <div className="h-20">test</div>
