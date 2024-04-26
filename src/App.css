@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* fonts */
-@import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
-
 
 .App {
     text-align: center;

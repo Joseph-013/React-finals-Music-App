@@ -13,7 +13,7 @@ const Layout = () => {
             </section>
 
 
-            <section className="flex-1 flex flex-col mt-16 mb-16 bg-[#121C21]">
+            <section className="flex-1 flex flex-col mt-16 mb-20 bg-[#121C21]">
                 {/* header */}
                 <Header />
 
@@ -23,7 +23,7 @@ const Layout = () => {
                 </section>
             </section>
 
-            <section className="h-16 fixed bottom-0 overflow-hidden w-full z-50 bg-[#084868]">
+            <section className="h-20 fixed bottom-0 overflow-hidden w-full z-50 bg-[#084868] px-3 md:px-6 py-1">
                 <PlayerDocked />
             </section>
         </div>

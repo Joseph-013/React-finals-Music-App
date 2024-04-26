@@ -12,6 +12,8 @@ module.exports = {
         extend: {},
         fontFamily: {
             koulen: ['Koulen', 'sans-serif'],
+            roboto: ['Roboto', 'sans-serif'],
+            poppins: ['Poppins', 'sans-serif']
         },
     },
     plugins: [
