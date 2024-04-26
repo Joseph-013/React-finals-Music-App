@@ -7,7 +7,7 @@ import NoPage from './pages/NoPage';
 
 function App() {
     return (
-        <div className='w-full border'>
+        <div className='w-full border border-red-500'>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Layout />}>
