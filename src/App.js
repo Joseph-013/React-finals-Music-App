@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from './components/Layout';
+import Layout from './components/layoutComponents/Layout';
 import Home from './pages/Home';
 import Search from './pages/Search';
 import NoPage from './pages/NoPage';
