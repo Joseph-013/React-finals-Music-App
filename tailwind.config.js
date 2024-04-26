@@ -10,8 +10,11 @@ module.exports = {
     ],
     theme: {
         extend: {},
+        fontFamily: {
+            koulen: ['Koulen', 'sans-serif'],
+        },
     },
-    plugins: [    
+    plugins: [
         flowbite.plugin(),
     ],
 }
