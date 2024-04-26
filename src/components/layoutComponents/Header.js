@@ -1,18 +1,18 @@
-import HeaderNavigationButton from "./HeaderNavigationButton"
+import HeaderRoundedButton from "./HeaderRoundedButton"
 
 function Header() {
     return (
         <section className="fixed top-0 left-0 w-full h-16 z-40 flex flex-row text-center">
             <div className="w-60 flex">
-                <div className="w-16 bg-[#19272E]">
-                    <button type="button" className="flex justify-center items-center h-full w-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2 p-2 hover:bg-slate-700 rounded-full" width="45" height="45" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <div className="w-16 bg-[#19272E] flex items-center justify-center">
+                    <HeaderRoundedButton className="size-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2 p-2 size-full" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M4 6l16 0" />
                             <path d="M4 12l16 0" />
                             <path d="M4 18l16 0" />
                         </svg>
-                    </button>
+                    </HeaderRoundedButton>
                 </div>
                 <div className="flex-1 pl-3 md:bg-[#19272E] flex justify-left items-center font-koulen space-x-2 text-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#007BFE" class="bi bi-soundwave" viewBox="0 0 16 16">
@@ -23,21 +23,21 @@ function Header() {
             </div>
             <div className="flex-1 flex justify-between px-3 bg-[#121C21] items-center border-b border-slate-700">
                 <div className="h-full flex items-center space-x-2">
-                    <HeaderNavigationButton className="rounded-full hover:bg-slate-700 size-10">
+                    <HeaderRoundedButton className="size-10">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left p-2 size-full" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M15 6l-6 6l6 6" />
                         </svg>
-                    </HeaderNavigationButton>
-                    <HeaderNavigationButton className="rounded-full hover:bg-slate-700 size-10">
+                    </HeaderRoundedButton>
+                    <HeaderRoundedButton className="size-10">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right p-2 size-full" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M9 6l6 6l-6 6" />
                         </svg>
-                    </HeaderNavigationButton>
+                    </HeaderRoundedButton>
                 </div>
                 <div>Maybe Visualizer dito?</div>
-                <div>
+                <div className="">
                     profile
                 </div>
             </div>
