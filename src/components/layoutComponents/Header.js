@@ -37,8 +37,12 @@ function Header() {
                     </HeaderRoundedButton>
                 </div>
                 <div>Maybe Visualizer dito?</div>
-                <div className="">
-                    profile
+                <div className="flex items-center space-x-3">
+                    <div className="flex flex-col justify-center text-right h-full">
+                        <span>Rick</span>
+                        <span className="text-xs text-slate-500">@theRealRickAstley</span>
+                    </div>
+                    <img className="size-10 object-cover rounded-full" src="profile.jpg" alt="joseph" />
                 </div>
             </div>
         </section>
