@@ -113,8 +113,8 @@ function TrackControlsLong({ className }) {
 
 function PlayerFull(props) {
     return (
-        <section className="fixed inset-0 mb-20 mt-16 ml-16 md:ml-60 bounds z-50">
-            MAXIMUM PLAYER!
+        <section className="fixed inset-0 mb-20 mt-16 ml-16 md:ml-60 bg-[#121C21] z-50" style={{ overscrollBehavior: 'contain' }}>
+            Maximized player. pa set yung state to false para ma close
         </section>
     );
 }
