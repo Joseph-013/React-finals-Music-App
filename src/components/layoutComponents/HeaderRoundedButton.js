@@ -1,6 +1,6 @@
 function HeaderRoundedButton({ className, children }) {
     return (
-        <button className={`rounded-full bg-slate-800 hover:bg-slate-700 ` + className}>
+        <button className={`rounded-full hover:bg-slate-700 ${className}`}>
             {children}
         </button>
     )

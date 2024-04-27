@@ -7,8 +7,8 @@ function Header() {
         <section className="fixed top-0 left-0 w-full h-16 z-40 flex flex-row text-center">
             <div className="w-60 flex">
                 <div className="w-16 bg-[#19272E] flex items-center justify-center">
-                    <HeaderRoundedButton className="size-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-menu-2 p-2 size-full" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <HeaderRoundedButton className="size-10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-menu-2" height="25" width="25" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M4 6l16 0" />
                             <path d="M4 12l16 0" />
@@ -23,16 +23,18 @@ function Header() {
                     <div className="text-[#24A4DA]">Waveform</div>
                 </div>
             </div>
-            <div className="flex-1 flex justify-between px-3 bg-[#121C21] items-center border-b border-slate-700">
-                <div className="h-full flex items-center space-x-2">
-                    <HeaderRoundedButton className="size-10">
+            <div className="flex-1 flex justify-end sm:justify-between px-3 bg-[#121C21] items-center border-b border-slate-700">
+                <div className="h-full hidden sm:flex items-center space-x-2">
+                    <HeaderRoundedButton className="size-10 bg-slate-800">
                         <IconChevronLeft />
                     </HeaderRoundedButton>
-                    <HeaderRoundedButton className="size-10">
+                    <HeaderRoundedButton className="size-10 bg-slate-800">
                         <IconChevronRight />
                     </HeaderRoundedButton>
                 </div>
-                <div>Maybe Visualizer dito?</div>
+
+                <div className="hidden md:flex">Maybe Visualizer dito?</div>
+
                 <div className="flex items-center space-x-3">
                     <div className="flex flex-col justify-center text-right h-full">
                         <span>Rick</span>
