@@ -6,16 +6,16 @@ import IconSkipLeft from '../icons/IconSkipLeft';
 import IconSkipRight from '../icons/IconSkipRight';
 import IconHeart from '../icons/IconHeart';
 import { useState } from "react";
-
+import './VolumePop.css';
 
 function PlayerDocked() {
     const [maximized, useMaximized] = useState(true);
 
     return (
-        <div className="h-full flex flex-row items-center space-x-3">
+        <div className="h-full flex flex-row items-center space-x-3 py-1 sm:px-3">
             {(maximized ? <PlayerFull /> : '')}
-            <div className="w-1/3 h-full flex justify-start items-center">
-                <div className="md:w-52 lg:w-72 flex items-center">
+            <div className="w-3/5 sm:w-6/12 md:w-1/3 h-full flex justify-start items-center">
+                <div className="w-72 md:w-52 lg:w-72 flex items-center">
                     <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png" title="All Too Well [Explicit 18+] (69 Hour Version) asd asd asd asd asd asd asd" artist="Taylor Swift" />
                     <div className='h-full flex items-center'>
                         <button className='flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full'>
@@ -24,12 +24,43 @@ function PlayerDocked() {
                     </div>
                 </div>
             </div>
-            <div className="w-1/3 h-full flex justify-center">
-                <TrackControlsLong />
+            <div className="sm:w-5/12 md:w-1/3 h-full hidden sm:flex justify-center">
+                <TrackControls />
             </div>
-            <div className="w-1/3 h-full flex items-center justify-end space-x-9">
+            <div className="w-3/5 sm:w-1/12 md:w-1/3 h-full flex items-center justify-end space-x-9">
 
-                <div className="flex flex-row items-center space-x-2">
+                <div className="flex sm:hidden flex-row items-center pr-3">
+
+                    {/* dropdown content */}
+                    <div className="dropdown flex items-center">
+
+                        <div className="dropdown-content hidden justify-center items-center top-0 bottom-0 h-full w-44 px-5 rounded-full border z-50 border-[#d9d9d9] bg-[#084868]">
+                            <button className="size-10 rounded-full hover:bg-cyan-700 flex justify-center items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-volume" width="25" height="25" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M15 8a5 5 0 0 1 0 8" />
+                                    <path d="M17.7 5a9 9 0 0 1 0 14" />
+                                    <path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" />
+                                </svg>
+                            </button>
+                            <div className="flex-1">
+                                <div className="w-full h-1 bg-[#d9d9d9]"></div>
+                            </div>
+                        </div>
+
+                        <button className="dropbtn flex items-center justify-center size-10 rounded-full hover:bg-cyan-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-volume" width="25" height="25" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M15 8a5 5 0 0 1 0 8" />
+                                <path d="M17.7 5a9 9 0 0 1 0 14" />
+                                <path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" />
+                            </svg>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div className="hidden sm:flex flex-row items-center space-x-2">
                     <button className="size-10 rounded-full hover:bg-cyan-700 flex justify-center items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-volume" width="25" height="25" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -56,7 +87,7 @@ function PlayerDocked() {
                     </div>
                 </div>
 
-                <button className="text-[#d9d9d9]">
+                <button className="text-[#d9d9d9] hidden md:block">
                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-window-minimize" width="25" height="25" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M3 16m0 1a1 1 0 0 1 1 -1h3a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1z" />
@@ -78,11 +109,11 @@ function PlayerDocked() {
     )
 }
 
-function TrackControlsLong({ className }) {
+function TrackControls({ className }) {
     return (
         <div className={`${className} w-full flex flex-col items-center justify-between`}>
-            <div className="flex-1 flex w-full justify-between items-center pb-2">
-                <button className="flex items-center justify-center rounded-full size-9 hover:bg-cyan-700">
+            <div className="flex-1 flex w-full justify-center md:justify-between items-center md:pb-2">
+                <button className="hidden md:flex items-center justify-center rounded-full size-9 hover:bg-cyan-700">
                     <IconShuffle size={"25"} />
                 </button>
 
@@ -98,11 +129,11 @@ function TrackControlsLong({ className }) {
                     </button>
                 </div>
 
-                <button className="flex items-center justify-center rounded-full size-9 hover:bg-cyan-700">
+                <button className="hidden md:flex items-center justify-center rounded-full size-9 hover:bg-cyan-700">
                     <IconRepeat size={"25"} />
                 </button>
             </div>
-            <div className="w-full flex text-xs space-x-2 h-3">
+            <div className="w-full hidden md:flex text-xs space-x-2 h-3">
                 <div className="flex items-center w-10 justify-center">2:10</div>
                 <div className="flex-1 flex justify-center bg-white"></div>
                 <div className="flex items-center w-10 justify-center">4:20</div>

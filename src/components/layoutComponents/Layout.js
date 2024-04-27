@@ -21,7 +21,7 @@ const Layout = () => {
                 </section>
             </section>
             {/* Player */}
-            <section className="h-20 fixed bottom-0 overflow-hidden w-full z-50 bg-[#084868] px-3 md:px-6 py-1">
+            <section className="h-20 fixed bottom-0 overflow-hidden w-full z-50 bg-[#084868]">
                 <PlayerDocked />
             </section>
         </div>
