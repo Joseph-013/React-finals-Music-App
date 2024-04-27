@@ -4,17 +4,26 @@ import IconRepeat from '../icons/IconRepeat';
 import IconShuffle from '../icons/IconShuffle';
 import IconSkipLeft from '../icons/IconSkipLeft';
 import IconSkipRight from '../icons/IconSkipRight';
+import IconHeart from '../icons/IconHeart';
+
 
 function PlayerDocked() {
     return (
         <div className="h-full flex flex-row items-center space-x-3">
             <div className="w-1/3 h-full flex justify-start items-center">
-                <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png" title="All Too Well [Explicit 18+] (69 Hour Version) asd asd asd asd asd asd asd" artist="Taylor Swift" />
+                <div className="md:w-52 lg:w-72 flex items-center">
+                    <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png" title="All Too Well [Explicit 18+] (69 Hour Version) asd asd asd asd asd asd asd" artist="Taylor Swift" />
+                    <div className='h-full flex items-center'>
+                        <button className='flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full'>
+                            <IconHeart size="30" />
+                        </button>
+                    </div>
+                </div>
             </div>
             <div className="w-1/3 h-full flex justify-center">
                 <TrackControlsLong />
             </div>
-            <div className="w-1/3 h-full flex items-center justify-end">
+            <div className="w-1/3 h-full flex items-center justify-end boundary">
                 Volume Controls
             </div>
         </div>
@@ -46,9 +55,9 @@ function TrackControlsLong() {
                 </button>
             </div>
             <div className="w-full flex text-xs space-x-2 h-3">
-                <div className="flex items-center">30:12</div>
+                <div className="flex items-center w-10 justify-center">2:10</div>
                 <div className="flex-1 flex justify-center bg-white"></div>
-                <div className="flex items-center">30:12</div>
+                <div className="flex items-center w-10 justify-center">4:20</div>
             </div>
         </div>
     );
