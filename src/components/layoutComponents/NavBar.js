@@ -72,7 +72,7 @@ function NavBarItem({ children, className, to, name }) {
         <li className={`flex flex-row items-center space-x-3 md:px-5 h-12 rounded-lg ` + className}>
             <Link to={to} className="w-full h-full flex items-center md:justify-start justify-center space-x-3">
                 {children}
-                <span className="hidden md:block tracking-wide">{name}</span>
+                <span className="hidden md:block">{name}</span>
             </Link>
         </li>
     );

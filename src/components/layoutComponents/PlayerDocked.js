@@ -9,7 +9,7 @@ import { useState } from "react";
 
 
 function PlayerDocked() {
-    const [maximized, useMaximized] = useState(false);
+    const [maximized, useMaximized] = useState(true);
 
     return (
         <div className="h-full flex flex-row items-center space-x-3">
@@ -113,7 +113,9 @@ function TrackControlsLong({ className }) {
 
 function PlayerFull(props) {
     return (
-        <>test</>
+        <section className="fixed inset-0 mb-20 mt-16 ml-16 md:ml-60 bounds z-50">
+            MAXIMUM PLAYER!
+        </section>
     );
 }
 
