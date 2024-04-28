@@ -33,12 +33,12 @@ const Layout = () => {
                 <NavBar navBarState={navBarToggle} />
             </section>
 
-            <section className="flex-1 flex flex-col mt-16 mb-20 bg-[#121C21]">
+            <section className="flex-1 flex flex-col mt-16 mb-20 bg-[#121C21] h-full">
                 {/* header */}
                 <Header onNavBarToggle={handleNavBarToggle} navBarState={navBarToggle} />
 
                 {/* Content */}
-                <section className="py-3 text-center" style={{ overflow: `overlay` }}>
+                <section className="py-3 text-center h-full" style={{ overflow: `overlay` }}>
                     <Outlet />
                 </section>
             </section>
