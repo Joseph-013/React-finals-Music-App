@@ -3,10 +3,11 @@ import Header from "./Header";
 import NavBar from "./NavBar";
 import PlayerDocked from "./PlayerDocked";
 import { useState, useEffect } from "react";
-import { NavbarToggle } from "flowbite-react";
+// import { NavbarToggle } from "flowbite-react";
 
 const Layout = () => {
     const [navBarToggle, setNavBarToggle] = useState(true);
+    // const [windowWidth, setWindowWidth] = useState('');
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -42,6 +43,7 @@ const Layout = () => {
                     <Outlet />
                 </section>
             </section>
+
             {/* Player */}
             <section className="h-20 fixed bottom-0 overflow-hidden w-full z-50 bg-[#084868]">
                 <PlayerDocked />

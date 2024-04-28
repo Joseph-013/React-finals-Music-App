@@ -18,7 +18,6 @@ function Header({ onNavBarToggle, navBarStatus }) {
                         </svg>
                     </HeaderRoundedButton>
                 </div>
-                {/* md:bg-[#19272E] */}
                 <div className={(navBarStatus ? `bg-[#19272E]` : ``) + ` flex-1 pl-3 flex justify-left items-center font-koulen space-x-2 text-2xl`}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#007BFE" className="bi bi-soundwave" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5" />
@@ -38,8 +37,8 @@ function Header({ onNavBarToggle, navBarStatus }) {
 
                 <div className="hidden md:flex">Maybe Visualizer dito?</div>
 
-                <div className="flex items-center space-x-3">
-                    <div className="flex flex-col justify-center text-right h-full">
+                <div className="flex items-center sm:space-x-3">
+                    <div className="hidden sm:flex flex-col justify-center text-right h-full">
                         <span>Rick</span>
                         <span className="text-xs text-slate-500">@theRealRickAstley</span>
                     </div>
