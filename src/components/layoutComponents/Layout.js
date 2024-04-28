@@ -16,7 +16,7 @@ const Layout = () => {
                 <Header />
 
                 {/* Content */}
-                <section className="py-3 text-center">
+                <section className="py-3 text-center" style={{ overflow: `overlay` }}>
                     <Outlet />
                 </section>
             </section>

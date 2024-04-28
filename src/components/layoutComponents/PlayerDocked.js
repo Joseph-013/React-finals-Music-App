@@ -9,14 +9,14 @@ import { useState } from "react";
 import './VolumePop.css';
 
 function PlayerDocked() {
-    const [maximized, useMaximized] = useState(true);
+    const [maximized, useMaximized] = useState(false);
 
     return (
         <div className="h-full flex flex-row items-center space-x-3 py-1 sm:px-3">
             {(maximized ? <PlayerFull /> : '')}
             <div className="w-3/5 sm:w-6/12 md:w-1/3 h-full flex justify-start items-center">
                 <div className="w-72 md:w-52 lg:w-72 flex items-center">
-                    <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png" title="All Too Well [Explicit 18+] (69 Hour Version) asd asd asd asd asd asd asd" artist="Taylor Swift" />
+                    <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png" title="All Too Well" artist="Taylor Swift" />
                     <div className='h-full flex items-center'>
                         <button className='flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full'>
                             <IconHeart size="30" />
@@ -29,7 +29,7 @@ function PlayerDocked() {
             </div>
             <div className="w-3/5 sm:w-1/12 md:w-1/3 h-full flex items-center justify-end space-x-9">
 
-                <div className="flex sm:hidden flex-row items-center pr-3">
+                <div className="flex md:hidden flex-row items-center pr-3">
 
                     {/* dropdown content */}
                     <div className="dropdown flex items-center">
@@ -60,7 +60,7 @@ function PlayerDocked() {
 
                 </div>
 
-                <div className="hidden sm:flex flex-row items-center space-x-2">
+                <div className="hidden md:flex flex-row items-center space-x-2">
                     <button className="size-10 rounded-full hover:bg-cyan-700 flex justify-center items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-volume" width="25" height="25" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -144,9 +144,12 @@ function TrackControls({ className }) {
 
 function PlayerFull(props) {
     return (
-        <section className="fixed inset-0 mb-20 mt-16 ml-16 md:ml-60 bg-[#121C21] z-50" style={{ overscrollBehavior: 'contain' }}>
-            Maximized player. pa set yung state to false para ma close
-        </section>
+        <div className="size-0 p-0 -mr-3">
+            <section className="fixed inset-0 mb-20 mt-16 ml-16 md:ml-60 bg-[#121C21] z-50" style={{ overscrollBehavior: 'contain' }}>
+                Maximized player. pa set yung state to false para ma close
+            </section>
+        </div>
+
     );
 }
 
