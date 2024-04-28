@@ -2,15 +2,37 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import NavBar from "./NavBar";
 import PlayerDocked from "./PlayerDocked";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { NavbarToggle } from "flowbite-react";
 
 const Layout = () => {
     const [navBarToggle, setNavBarToggle] = useState(true);
 
-    // function handleNavBarToggle() {
-    //     // let toggle = (navBarToggle) ? false : true;
-    //     setNavBarToggle(!navBarToggle);
-    // }
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+        // Set initial state based on media query
+        setNavBarToggle(!mediaQuery.matches);
+
+        // Update state when media query changes
+        const handleMediaQueryChange = (e) => {
+            setNavBarToggle(e.matches);
+        };
+
+        mediaQuery.addEventListener('change', handleMediaQueryChange);
+
+        return () => {
+            mediaQuery.removeEventListener('change', handleMediaQueryChange);
+        };
+    }, []);
+
+    window.matchMedia('(max-width: 768px)').addEventListener('change', () => {
+        if (navBarToggle) {
+            setNavBarToggle(false);
+        } else {
+            setNavBarToggle(true);
+        }
+    });
 
     const handleNavBarToggle = () => {
         console.log(navBarToggle)
