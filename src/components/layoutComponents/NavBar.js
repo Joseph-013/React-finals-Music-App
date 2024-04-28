@@ -8,13 +8,13 @@ import IconPlaylist from "../icons/IconPlaylist";
 import IconHeart from "../icons/IconHeart";
 
 
-function NavBar({ navBarStatus }) {
+function NavBar({ navBarState }) {
     const iconSize = "25";
-    let navBarWidth = (navBarStatus) ? 'w-60' : 'w-16';
+    let navBarWidth = (navBarState) ? 'w-60' : 'w-16';
 
     return (
         <div className={navBarWidth + ` pt-16 mb-20 overflow-hidden fixed top-0 left-0 h-screen flex flex-col`}>
-            <div className={(navBarStatus ? `px-5` : `px-2`) + ` flex-1 z-30 pb-20 overflow-y-hidden text-center bg-[#19272E]`} style={{ overscrollBehavior: 'contain' }}>
+            <div className={(navBarState ? `px-5` : `px-2`) + ` flex-1 z-30 pb-20 overflow-y-hidden text-center bg-[#19272E]`} style={{ overscrollBehavior: 'contain' }}>
                 <nav className="h-full pb-4 overflow-y-auto">
                     <NavBarSection name="MENU">
                         <NavBarItem to="/" name="Home" >
@@ -50,8 +50,8 @@ function NavBar({ navBarStatus }) {
 
     function NavBarSection({ children, className, name }) {
         return (
-            <div className={(navBarStatus ? `text-left` : `text-center`) + ` flex flex-col mt-8`}>
-                <span className={(navBarStatus ? `text-base` : `text-[0.7rem]`) + ` font-roboto tracking-wider text-slate-400`} >{name}</span>
+            <div className={(navBarState ? `text-left` : `text-center`) + ` flex flex-col mt-8`}>
+                <span className={(navBarState ? `text-base` : `text-[0.7rem]`) + ` font-roboto tracking-wider text-slate-400`} >{name}</span>
                 <ul className={`mt-3 ` + className}>
                     {children}
                 </ul>
@@ -69,10 +69,10 @@ function NavBar({ navBarStatus }) {
         }
 
         return (
-            <li className={(!navBarStatus || `px-5`) + ` flex flex-row items-center space-x-3 h-12 rounded-lg ` + className}>
-                <Link to={to} className={(navBarStatus ? `justify-start` : `justify-center`) + ` w-full h-full flex items-center space-x-3`}>
+            <li className={(!navBarState || `px-5`) + ` flex flex-row items-center space-x-3 h-12 rounded-lg ` + className}>
+                <Link to={to} className={(navBarState ? `justify-start` : `justify-center`) + ` w-full h-full flex items-center space-x-3`}>
                     {children}
-                    <span className={navBarStatus ? `block` : 'hidden'}>{name}</span>
+                    <span className={navBarState ? `block` : 'hidden'}>{name}</span>
                 </Link>
             </li>
         );

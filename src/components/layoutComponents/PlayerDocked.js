@@ -8,7 +8,7 @@ import IconHeart from '../icons/IconHeart';
 import { useState } from "react";
 import './VolumePop.css';
 
-function PlayerDocked({ navBarStatus }) {
+function PlayerDocked({ navBarState }) {
     const [maximized, setMaximized] = useState(false);
 
     const togglePlayerMaximized = () => {
@@ -153,7 +153,7 @@ function PlayerDocked({ navBarStatus }) {
     function PlayerFull(props) {
         return (
             <div className="size-0 p-0 -mr-3">
-                <section className={(navBarStatus ? `ml-60` : `ml-16`) + ` fixed inset-0 mb-20 mt-16 bg-[#072C40] z-50 flex justify-center items-center`} style={{ overscrollBehavior: 'contain' }} onClick={(e) => { e.stopPropagation() }}>
+                <section className={(navBarState ? `ml-60` : `ml-16`) + ` fixed inset-0 mb-20 mt-16 bg-[#072C40] z-50 flex justify-center items-center`} style={{ overscrollBehavior: 'contain' }} onClick={(e) => { e.stopPropagation() }}>
                     Maximized player. pa set yung state to false para ma close
                 </section>
             </div>

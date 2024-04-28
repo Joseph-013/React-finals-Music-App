@@ -30,12 +30,12 @@ const Layout = () => {
         <div className="flex flex-row h-full">
             {/* NavBar */}
             <section className={(navBarToggle ? `pl-16 md:pl-60` : `pl-16`) + ` `}>
-                <NavBar navBarStatus={navBarToggle} />
+                <NavBar navBarState={navBarToggle} />
             </section>
 
             <section className="flex-1 flex flex-col mt-16 mb-20 bg-[#121C21]">
                 {/* header */}
-                <Header onNavBarToggle={handleNavBarToggle} navBarStatus={navBarToggle} />
+                <Header onNavBarToggle={handleNavBarToggle} navBarState={navBarToggle} />
 
                 {/* Content */}
                 <section className="py-3 text-center" style={{ overflow: `overlay` }}>
@@ -45,7 +45,7 @@ const Layout = () => {
 
             {/* Player */}
             <section className="h-20 fixed bottom-0 overflow-hidden w-full z-50 bg-[#084868]">
-                <PlayerDocked navBarStatus={navBarToggle} />
+                <PlayerDocked navBarState={navBarToggle} />
             </section>
         </div>
     );
