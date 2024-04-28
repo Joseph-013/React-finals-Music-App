@@ -1,12 +1,21 @@
 import HeaderRoundedButton from "./HeaderRoundedButton";
 import IconChevronLeft from '../icons/IconChevronLeft';
 import IconChevronRight from '../icons/IconChevronRight';
+import { useNavigate } from 'react-router-dom';
 
 function Header({ onNavBarToggle, navBarState }) {
+    const navigate = useNavigate();
 
+    const goBack = () => {
+        navigate(-1);
+    };
+
+    const goForward = () => {
+        navigate(+1);
+    };
 
     return (
-        <section className="fixed top-0 left-0 w-full h-16 z-40 flex flex-row text-center border-b border-[#1A2930]">
+        <section className="fixed top-0 left-0 w-full h-16 z-40 flex flex-row text-center border-b border-[#19272E]">
             <div className="w-60 flex">
                 <div className="w-16 bg-[#19272E] flex items-center justify-center">
                     <HeaderRoundedButton className="size-10 flex items-center justify-center" onClick={() => onNavBarToggle()}>
@@ -27,10 +36,10 @@ function Header({ onNavBarToggle, navBarState }) {
             </div>
             <div className="flex-1 flex justify-end sm:justify-between px-3 bg-[#121C21] items-center">
                 <div className="h-full hidden sm:flex items-center space-x-2">
-                    <HeaderRoundedButton className="size-10 bg-slate-800">
+                    <HeaderRoundedButton className="size-10 bg-slate-800" onClick={goBack}>
                         <IconChevronLeft />
                     </HeaderRoundedButton>
-                    <HeaderRoundedButton className="size-10 bg-slate-800">
+                    <HeaderRoundedButton className="size-10 bg-slate-800" onClick={goForward}>
                         <IconChevronRight />
                     </HeaderRoundedButton>
                 </div>
