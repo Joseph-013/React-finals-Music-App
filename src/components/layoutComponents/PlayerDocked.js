@@ -8,7 +8,7 @@ import IconHeart from '../icons/IconHeart';
 import { useState } from "react";
 import './VolumePop.css';
 
-function PlayerDocked() {
+function PlayerDocked({ navBarStatus }) {
     const [maximized, setMaximized] = useState(false);
 
     const togglePlayerMaximized = () => {
@@ -19,8 +19,8 @@ function PlayerDocked() {
         <div className="h-full flex flex-row items-center space-x-3 py-1 sm:px-3" onClick={() => { togglePlayerMaximized() }}>
             {(maximized ? <PlayerFull /> : '')}
             <div className="w-3/5 sm:w-6/12 md:w-1/3 h-full flex justify-start items-center">
-                <div className="w-72 md:w-52 lg:w-72 flex items-center">
-                    <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png" title="All Too Well" artist="Taylor Swift" />
+                <div className="max-w-96 md:max-w-56 w-min lg:max-w-72 flex items-center">
+                    <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png" title="All Too Well All Too Well All Too Well " artist="Taylor Swift" />
                     <div className='h-full flex items-center'>
                         <button className='flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full' onClick={(e) => { e.stopPropagation() }}>
                             <IconHeart size="30" />
@@ -111,50 +111,57 @@ function PlayerDocked() {
             </div>
         </div>
     )
-}
 
-function TrackControls({ className }) {
-    return (
-        <div className={`${className} w-full flex flex-col items-center justify-between`}>
-            <div className="flex-1 flex w-full justify-center md:justify-between items-center md:pb-2">
-                <button className="hidden md:flex items-center justify-center rounded-full size-9 hover:bg-cyan-700" onClick={(e) => { e.stopPropagation() }}>
-                    <IconShuffle size={"25"} />
-                </button>
 
-                <div className="flex items-center space-x-4">
-                    <button className="flex items-center justify-center rounded-full size-9 hover:bg-cyan-700" onClick={(e) => { e.stopPropagation() }}>
-                        <IconSkipLeft size={"25"} />
+
+
+
+
+    function TrackControls({ className }) {
+        return (
+            <div className={`${className} w-full flex flex-col items-center justify-between`}>
+                <div className="flex-1 flex w-full justify-center md:justify-between items-center md:pb-2">
+                    <button className="hidden md:flex items-center justify-center rounded-full size-9 hover:bg-cyan-700" onClick={(e) => { e.stopPropagation() }}>
+                        <IconShuffle size={"25"} />
                     </button>
-                    <button className="flex items-center justify-center bg-[#d9d9d9] hover:bg-[#ACACAC] size-11 rounded-full text-[#084868]" onClick={(e) => { e.stopPropagation() }}>
-                        <IconPlayFilled size={"25"} />
-                    </button>
-                    <button className="flex items-center justify-center rounded-full size-9 hover:bg-cyan-700" onClick={(e) => { e.stopPropagation() }}>
-                        <IconSkipRight size={"25"} />
+
+                    <div className="flex items-center space-x-4">
+                        <button className="flex items-center justify-center rounded-full size-9 hover:bg-cyan-700" onClick={(e) => { e.stopPropagation() }}>
+                            <IconSkipLeft size={"25"} />
+                        </button>
+                        <button className="flex items-center justify-center bg-[#d9d9d9] hover:bg-[#ACACAC] size-11 rounded-full text-[#084868]" onClick={(e) => { e.stopPropagation() }}>
+                            <IconPlayFilled size={"25"} />
+                        </button>
+                        <button className="flex items-center justify-center rounded-full size-9 hover:bg-cyan-700" onClick={(e) => { e.stopPropagation() }}>
+                            <IconSkipRight size={"25"} />
+                        </button>
+                    </div>
+
+                    <button className="hidden md:flex items-center justify-center rounded-full size-9 hover:bg-cyan-700" onClick={(e) => { e.stopPropagation() }}>
+                        <IconRepeat size={"25"} />
                     </button>
                 </div>
+                <div className="w-full hidden md:flex text-xs space-x-2 h-3">
+                    <div className="flex items-center w-10 justify-center">2:10</div>
+                    <div className="flex-1 flex justify-center bg-white"></div>
+                    <div className="flex items-center w-10 justify-center">4:20</div>
+                </div>
+            </div>
+        );
+    }
 
-                <button className="hidden md:flex items-center justify-center rounded-full size-9 hover:bg-cyan-700" onClick={(e) => { e.stopPropagation() }}>
-                    <IconRepeat size={"25"} />
-                </button>
+    function PlayerFull(props) {
+        return (
+            <div className="size-0 p-0 -mr-3">
+                <section className={(navBarStatus ? `ml-60` : `ml-16`) + ` fixed inset-0 mb-20 mt-16 bg-[#072C40] z-50 flex justify-center items-center`} style={{ overscrollBehavior: 'contain' }} onClick={(e) => { e.stopPropagation() }}>
+                    Maximized player. pa set yung state to false para ma close
+                </section>
             </div>
-            <div className="w-full hidden md:flex text-xs space-x-2 h-3">
-                <div className="flex items-center w-10 justify-center">2:10</div>
-                <div className="flex-1 flex justify-center bg-white"></div>
-                <div className="flex items-center w-10 justify-center">4:20</div>
-            </div>
-        </div>
-    );
+
+        );
+    }
 }
 
-function PlayerFull(props) {
-    return (
-        <div className="size-0 p-0 -mr-3">
-            <section className="fixed inset-0 mb-20 mt-16 ml-16 md:ml-60 bg-[#072C40] z-50 flex justify-center items-center" style={{ overscrollBehavior: 'contain' }} onClick={(e) => { e.stopPropagation() }}>
-                Maximized player. pa set yung state to false para ma close
-            </section>
-        </div>
 
-    );
-}
 
 export default PlayerDocked
