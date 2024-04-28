@@ -23,7 +23,6 @@ const Layout = () => {
     });
 
     const handleNavBarToggle = () => {
-        console.log(navBarToggle)
         setNavBarToggle(!navBarToggle);
     }
 
