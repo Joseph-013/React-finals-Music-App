@@ -10,20 +10,7 @@ const Layout = () => {
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(max-width: 768px)');
-
-        // Set initial state based on media query
         setNavBarToggle(!mediaQuery.matches);
-
-        // Update state when media query changes
-        const handleMediaQueryChange = (e) => {
-            setNavBarToggle(e.matches);
-        };
-
-        mediaQuery.addEventListener('change', handleMediaQueryChange);
-
-        return () => {
-            mediaQuery.removeEventListener('change', handleMediaQueryChange);
-        };
     }, []);
 
     window.matchMedia('(max-width: 768px)').addEventListener('change', () => {
