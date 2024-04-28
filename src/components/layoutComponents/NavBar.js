@@ -51,7 +51,7 @@ function NavBar({ navBarState }) {
     function NavBarSection({ children, className, name }) {
         return (
             <div className={(navBarState ? `text-left` : `text-center`) + ` flex flex-col mt-8`}>
-                <span className={(navBarState ? `text-base` : `text-[0.7rem]`) + ` font-roboto tracking-wider text-slate-400`} >{name}</span>
+                <span className={(navBarState ? `text-base` : `text-[0.7rem]`) + ` flex font-roboto tracking-wider text-slate-400 h-7 items-end`} >{name}</span>
                 <ul className={`mt-3 ` + className}>
                     {children}
                 </ul>
