@@ -2,18 +2,31 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import NavBar from "./NavBar";
 import PlayerDocked from "./PlayerDocked";
+import { useState } from "react";
 
 const Layout = () => {
+    const [navBarToggle, setNavBarToggle] = useState(true);
+
+    // function handleNavBarToggle() {
+    //     // let toggle = (navBarToggle) ? false : true;
+    //     setNavBarToggle(!navBarToggle);
+    // }
+
+    const handleNavBarToggle = () => {
+        console.log(navBarToggle)
+        setNavBarToggle(!navBarToggle);
+    }
+
     return (
         <div className="flex flex-row h-full">
             {/* NavBar */}
-            <section className="pl-16 md:pl-60">
-                <NavBar />
+            <section className={(navBarToggle ? `pl-16 md:pl-60` : `pl-16`) + ` `}>
+                <NavBar navBarStatus={navBarToggle} />
             </section>
 
             <section className="flex-1 flex flex-col mt-16 mb-20 bg-[#121C21]">
                 {/* header */}
-                <Header />
+                <Header onNavBarToggle={handleNavBarToggle} navBarStatus={navBarToggle} />
 
                 {/* Content */}
                 <section className="py-3 text-center" style={{ overflow: `overlay` }}>
