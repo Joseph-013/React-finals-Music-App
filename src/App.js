@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from './components/layoutComponents/Layout';
@@ -9,10 +8,13 @@ import Recent from './pages/Recent';
 import Playlists from './pages/Playlists';
 import Favorites from './pages/Favorites';
 import NoPage from './pages/NoPage';
+import unsplash from './img/unsplash.jpg';
 
 function App() {
     return (
-        <div className='w-full min-h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide'>
+        <div className='w-full min-h-screen text-white tracking-wide test'>
+            <img className='fixed top-0 left-0 h-screen w-screen object-cover object-center' src={unsplash} alt='' />
+            <div className='fixed inset-0 h-screen w-screen z-0 bgBlur'></div>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Layout />}>

@@ -33,18 +33,18 @@ const Layout = () => {
                 <NavBar navBarState={navBarToggle} />
             </section>
 
-            <section className="flex-1 flex flex-col mt-16 mb-20 bg-[#121C21] h-full">
+            <section className="flex-1 flex flex-col mt-16 mb-20 h-full">
                 {/* header */}
                 <Header onNavBarToggle={handleNavBarToggle} navBarState={navBarToggle} />
 
                 {/* Content */}
-                <section className="py-3 text-center h-full" style={{ overflow: `overlay` }}>
+                <section className="py-3 text-center h-full z-20" style={{ overflow: `overlay` }}>
                     <Outlet />
                 </section>
             </section>
 
             {/* Player */}
-            <section className="h-20 fixed bottom-0 overflow-hidden w-full z-50 bg-[#084868]">
+            <section className="h-20 fixed bottom-0 overflow-hidden w-full z-50">
                 <PlayerDocked navBarState={navBarToggle} />
             </section>
         </div>

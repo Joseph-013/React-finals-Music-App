@@ -14,7 +14,7 @@ function NavBar({ navBarState }) {
 
     return (
         <div className={navBarWidth + ` pt-16 mb-20 overflow-hidden fixed top-0 left-0 h-screen flex flex-col`}>
-            <div className={(navBarState ? `px-5` : `px-2`) + ` flex-1 z-30 pb-20 overflow-y-hidden text-center bg-[#19272E]`} style={{ overscrollBehavior: 'contain' }}>
+            <div className={(navBarState ? `px-5` : `px-2`) + ` flex-1 z-30 pb-20 overflow-y-hidden text-center`} style={{ overscrollBehavior: 'contain' }}>
                 <nav className="h-full pb-4 overflow-y-auto">
                     <NavBarSection name="MENU">
                         <NavBarItem to="/" name="Home" >
@@ -51,7 +51,7 @@ function NavBar({ navBarState }) {
     function NavBarSection({ children, className, name }) {
         return (
             <div className={(navBarState ? `text-left` : `text-center`) + ` flex flex-col mt-8`}>
-                <span className={(navBarState ? `text-base justify-start` : `text-[0.7rem] justify-center`) + ` flex font-roboto tracking-wider text-slate-400 h-7 items-end`} >{name}</span>
+                <span className={(navBarState ? `justify-start` : `justify-center`) + ` text-[0.7rem] flex font-roboto tracking-wider text-slate-400 h-7 items-end`} >{name}</span>
                 <ul className={`mt-3 ` + className}>
                     {children}
                 </ul>
@@ -63,9 +63,9 @@ function NavBar({ navBarState }) {
         const location = useLocation();
 
         if (location.pathname === to) {
-            className += " bg-cyan-700 text-white";
+            // className += " bg-cyan-700 text-white";
         } else {
-            className += " hover:bg-cyan-950";
+            // className += " hover:bg-cyan-950";
         }
 
         return (
