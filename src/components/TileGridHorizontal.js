@@ -1,11 +1,12 @@
+import SectionContainer from "./SectionContainer"
+
 function TileGridHorizontal({ children, title }) {
     return (
-        <div className="w-full flex flex-col font-poppins space-y-3">
-            <span className="w-full text-left text-lg md:text-2xl font-bold">{title}</span>
+        <SectionContainer title={title}>
             <ul className="max-w-full grid grid-rows-1 grid-flow-col overflow-x-auto gap-x-10 justify-start font-poppins">
                 {children}
             </ul>
-        </div>
+        </SectionContainer>
     )
 }
 
