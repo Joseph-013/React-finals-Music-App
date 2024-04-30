@@ -29,11 +29,11 @@ const Layout = () => {
     return (
         <div className="flex flex-row h-full">
             {/* NavBar */}
-            <section className={(navBarToggle ? `pl-16 md:pl-60` : `pl-16`) + ` `}>
-                <NavBar navBarState={navBarToggle} />
-            </section>
+            {/* <section className={(navBarToggle ? `pl-16 md:pl-60` : `pl-16`) + ` b`}> */}
+            <NavBar navBarState={navBarToggle} />
+            {/* </section> */}
 
-            <section className="flex-1 flex flex-col mt-16 mb-20 bg-[#121C21] h-full">
+            <section className={(navBarToggle ? `pl-16 md:pl-60` : `pl-16`) + ` flex-1 flex flex-col pt-16 h-screen w-screen pb-20 b bg-[#121C21]`}>
                 {/* header */}
                 <Header onNavBarToggle={handleNavBarToggle} navBarState={navBarToggle} />
 
