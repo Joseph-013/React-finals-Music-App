@@ -31,14 +31,11 @@ const Layout = () => {
             {/* NavBar */}
             {/* <section className={(navBarToggle ? `pl-16 md:pl-60` : `pl-16`) + ` b`}> */}
             <NavBar navBarState={navBarToggle} />
-            {/* </section> */}
+            <Header onNavBarToggle={handleNavBarToggle} navBarState={navBarToggle} />
 
-            <section className={(navBarToggle ? `pl-16 md:pl-60` : `pl-16`) + ` flex-1 flex flex-col pt-16 h-screen w-screen pb-20 b bg-[#121C21]`}>
-                {/* header */}
-                <Header onNavBarToggle={handleNavBarToggle} navBarState={navBarToggle} />
-
-                {/* Content */}
-                <section className="py-3 text-center h-full" style={{ overflow: `overlay` }}>
+            <section className={(navBarToggle ? `pl-16 md:pl-60` : `pl-16`) + ` flex-1 flex flex-col pt-16 h-screen w-screen pb-20 bg-[#121C21] overflow-x-hidden`}>
+                {/* <section className="p-3 text-center h-full" style={{ overflow: `overlay` }}> */}
+                <section className="py-5 px-6 text-center h-full w-full overflow-x-hidden overflow-y-auto">
                     <Outlet />
                 </section>
             </section>

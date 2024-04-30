@@ -12,7 +12,7 @@ import NoPage from './pages/NoPage';
 
 function App() {
     return (
-        <div className='w-full min-h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide'>
+        <div className='w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide'>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Layout />}>
