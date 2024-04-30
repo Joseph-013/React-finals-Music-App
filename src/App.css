@@ -44,7 +44,11 @@
 
 
 
-.b * {
+.b {
+    border: 1px solid red;
+}
+
+.bc * {
     border: 1px solid red;
 }
 
