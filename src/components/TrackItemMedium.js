@@ -6,7 +6,10 @@ function TrackItemMedium(track) {
     const [hovered, setHovered] = useState(false);
 
     return (
-        <div className="w-full h-full flex items-center justify-between text-left space-x-2 cursor-pointer hover:bg-cyan-700 p-2 -mx-2 rounded-lg">
+        <div className="w-full h-full flex items-center justify-between text-left space-x-2 cursor-pointer hover:bg-cyan-700 p-2 -mx-2 rounded-lg"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+        >
             <div className="h-full flex items-center space-x-3 w-3/5">
                 <div className="relative">
                     {(!track.playing) || <img src={visualizerGif} alt='Play' className='opacity-40 absolute' />}
