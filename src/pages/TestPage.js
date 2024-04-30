@@ -23,8 +23,8 @@ function TestPage() {
             </TileGridHorizontal>
 
             <ListGridVertical title="Songs for You">
-                <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" album="But" artist="Regine Velasquez" />
-                <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" artist="Regine Velasquez" />
+                <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" album="But" artist="Regine Velasquez" ID="1212" />
+                <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" artist="Regine Velasquez" playing />
                 <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" artist="Regine Velasquez" />
                 <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" artist="Regine Velasquez" />
             </ListGridVertical>
@@ -38,7 +38,7 @@ function TestPage() {
             </ListGridVertical>
 
             <ListGridVertical>
-                <TrackItemMedium cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet Blue Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet" artist="Regine Velasquez" duration="3:45" />
+                <TrackItemMedium cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet Blue Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet" artist="Regine Velasquez" duration="3:45" playing />
                 <TrackItemMedium cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet Blue Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet" artist="Regine Velasquez" duration="3:45" />
                 <TrackItemMedium cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet Blue Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet" artist="Regine Velasquez" duration="3:45" />
 
