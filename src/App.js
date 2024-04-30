@@ -9,6 +9,7 @@ import Recent from './pages/Recent';
 import Playlists from './pages/Playlists';
 import Favorites from './pages/Favorites';
 import NoPage from './pages/NoPage';
+import TestPage from './pages/TestPage';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
+                        <Route path='testpage' element={<TestPage />} />
                         <Route path='discover' element={<Discover />} />
                         <Route path='trending' element={<Trending />} />
                         <Route path='recent' element={<Recent />} />

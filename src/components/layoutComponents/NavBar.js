@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import IconTrending from "../icons/IconTrending";
 import IconSearch from "../icons/IconSearch";
 import IconHome from "../icons/IconHome";
@@ -40,6 +39,12 @@ function NavBar({ navBarState }) {
                         </NavBarItem>
 
                         <NavBarItem to="/favorites" name="Favorites" >
+                            <IconHeart size={iconSize} />
+                        </NavBarItem>
+                    </NavBarSection>
+
+                    <NavBarSection name="DEVS">
+                        <NavBarItem to="/testpage" name="TestPage" >
                             <IconHeart size={iconSize} />
                         </NavBarItem>
                     </NavBarSection>
