@@ -35,7 +35,7 @@ const Layout = () => {
 
             <section className={(navBarToggle ? `pl-16 md:pl-60` : `pl-16`) + ` flex-1 flex flex-col pt-16 h-screen w-screen pb-20 bg-[#121C21] overflow-x-hidden`}>
                 {/* <section className="p-3 text-center h-full" style={{ overflow: `overlay` }}> */}
-                <section className="py-5 px-6 text-center h-full w-full overflow-x-hidden overflow-y-auto">
+                <section className="p-3 sm:p-6 text-center h-full w-full overflow-x-hidden overflow-y-auto">
                     <Outlet />
                 </section>
             </section>
