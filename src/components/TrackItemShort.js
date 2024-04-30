@@ -1,5 +1,4 @@
-
-export default function TrackItemTiny(track) {
+export default function TrackItemShort(track) {
     return (
         <div className="w-full h-full flex items-center space-x-3 text-left">
             <img src={track.cover} alt={track.title + ` Picture`} className="size-12" />
