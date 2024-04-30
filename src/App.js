@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from './components/layoutComponents/Layout';
 import Home from './pages/Home';
-import Search from './pages/Search';
+import Discover from './pages/Discover';
 import Trending from './pages/Trending';
 import Recent from './pages/Recent';
 import Playlists from './pages/Playlists';
@@ -17,7 +17,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
-                        <Route path='search' element={<Search />} />
+                        <Route path='discover' element={<Discover />} />
                         <Route path='trending' element={<Trending />} />
                         <Route path='recent' element={<Recent />} />
                         <Route path='playlists' element={<Playlists />} />

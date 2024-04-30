@@ -19,8 +19,8 @@ function PlayerDocked({ navBarState }) {
         <div className="h-full flex flex-row items-center space-x-3 py-1 px-3" onClick={() => { togglePlayerMaximized() }}>
             {(maximized ? <PlayerFull /> : '')}
             <div className="w-3/5 sm:w-6/12 md:w-1/3 h-full flex justify-start items-center">
-                <div className="max-w-96 md:max-w-56 w-min lg:max-w-72 flex items-center">
-                    <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png" title="All Too Well All Too Well All Too Well " artist="Taylor Swift" />
+                <div className="max-w-96 md:max-w-56 lg:max-w-72 w-fit flex items-center">
+                    <TrackItemTiny cover="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png" title="All Too Well" artist="Taylor Swift" />
                     <div className='h-full flex items-center'>
                         <button className='flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full' onClick={(e) => { e.stopPropagation() }}>
                             <IconHeart size="30" />

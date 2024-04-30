@@ -21,7 +21,7 @@ function NavBar({ navBarState }) {
                             <IconHome size={iconSize} />
                         </NavBarItem>
 
-                        <NavBarItem to="/search" name="Search" >
+                        <NavBarItem to="/discover" name="Discover" >
                             <IconSearch size={iconSize} />
                         </NavBarItem>
 
