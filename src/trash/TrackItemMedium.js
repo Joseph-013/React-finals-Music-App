@@ -13,9 +13,10 @@ function TrackItemMedium(track) {
             <div className="h-full flex items-center space-x-3 w-3/5">
                 <div className="relative">
                     {(!track.playing) || <img src={visualizerGif} alt='Play' className='opacity-40 absolute' />}
-                    <IconPlayFilled size="25" className={`absolute justify-center items-center h-full w-full p-2 bg-gray-900 opacity-60 ` + (hovered && !track.playing ? `flex` : `hidden`)} />
+                    <IconPlayFilled size="25" className={`absolute justify-center items-center h-full w-full p-2 bg-gray-900 opacity-60 ` + (hovered && !track.playing && !track.playerComponent ? `flex` : `hidden`)} />
                     <img src={track.cover} alt={track.title} className="size-12" />
-                </div>                <div className="flex-1 flex flex-col truncate font-poppins w-fit">
+                </div>
+                <div className="flex-1 flex flex-col truncate font-poppins w-fit">
                     <span className="text-sm truncate tracking-normal">{track.title}</span>
                     <span className="text-sm text-slate-400 truncate">{track.artist}</span>
                 </div>

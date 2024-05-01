@@ -7,7 +7,7 @@ export default function TrackItemTiny(track) {
 
     return (
         <div
-            className={`w-full h-full flex items-center space-x-3 text-left ` + (track.playerComponent || `cursor-pointer hover:bg-cyan-700 p-2 -mx-2 rounded-lg`)}
+            className={`w-full h-full flex items-center justify-between space-x-3 text-left ` + (track.playerComponent || `cursor-pointer hover:bg-cyan-700 p-2 -mx-2 rounded-lg`)}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
