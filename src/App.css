@@ -60,3 +60,18 @@
 .test {
     height: 5000px;
 }
+
+.z-header,
+.z-header * {
+    z-index: 9992;
+}
+
+.z-navbar,
+.z-navbar * {
+    z-index: 9991;
+}
+
+.z-player,
+.z-player * {
+    z-index: 9993;
+}

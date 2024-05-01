@@ -15,7 +15,7 @@ function Header({ onNavBarToggle, navBarState }) {
     };
 
     return (
-        <section className="fixed top-0 left-0 w-full h-16 z-40 flex flex-row text-center border-b border-[#19272E]">
+        <section className="fixed top-0 left-0 w-full h-16 z-40 flex flex-row text-center border-b border-[#19272E] z-header">
             <div className="w-60 flex select-none">
                 <div className="w-16 bg-[#19272E] flex items-center justify-center">
                     <HeaderRoundedButton className="size-10 flex items-center justify-center" onClick={() => onNavBarToggle()}>

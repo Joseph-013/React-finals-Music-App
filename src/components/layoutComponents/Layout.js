@@ -41,7 +41,7 @@ const Layout = () => {
             </section>
 
             {/* Player */}
-            <section className="h-20 fixed bottom-0 overflow-hidden w-full z-50 bg-[#084868]">
+            <section className="h-20 fixed bottom-0 overflow-hidden w-full z-player bg-[#084868]">
                 <PlayerDocked navBarState={navBarToggle} />
             </section>
         </div>

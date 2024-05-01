@@ -12,7 +12,7 @@ function NavBar({ navBarState }) {
     let navBarWidth = (navBarState) ? 'w-60' : 'w-16';
 
     return (
-        <div className={navBarWidth + ` pt-16 mb-20 overflow-hidden fixed top-0 left-0 h-screen flex flex-col`}>
+        <div className={navBarWidth + ` pt-16 mb-20 overflow-hidden fixed top-0 left-0 h-screen flex flex-col z-navbar`}>
             <div className={(navBarState ? `px-5` : `px-2`) + ` flex-1 z-30 pb-20 overflow-y-hidden text-center bg-[#19272E]`} style={{ overscrollBehavior: 'contain' }}>
                 <nav className="h-full pb-4 overflow-y-auto">
                     <NavBarSection name="MENU">
