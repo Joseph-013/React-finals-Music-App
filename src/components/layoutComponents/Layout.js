@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 
 const Layout = () => {
     const [navBarToggle, setNavBarToggle] = useState(true);
-    // const [windowWidth, setWindowWidth] = useState('');
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(max-width: 768px)');
