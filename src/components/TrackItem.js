@@ -34,7 +34,11 @@ function TrackItem(track) {
       <div className={`h-full flex items-center space-x-3 ` + width}>
         <div className="relative w-fit">
           {!track.playing || (
-            <img src={visualizerGif} alt="Play" className="opacity-40 absolute" />
+            <img
+              src={visualizerGif}
+              alt="Play"
+              className="opacity-40 absolute"
+            />
           )}
           <IconPlayFilled
             size="25"
@@ -48,8 +52,12 @@ function TrackItem(track) {
           <img src={track.cover} alt={track.title} className="size-12" />
         </div>
         <div className="flex-1 flex flex-col truncate font-poppins w-fit">
-          <span className="text-sm truncate tracking-normal">{track.title}</span>
-          <span className="text-sm text-slate-400 truncate">{track.artist}</span>
+          <span className="text-sm truncate tracking-normal">
+            {track.title}
+          </span>
+          <span className="text-sm text-slate-400 truncate">
+            {track.artist}
+          </span>
         </div>
       </div>
       {!track.genre || (
@@ -57,7 +65,7 @@ function TrackItem(track) {
           {track.genre}
         </span>
       )}
-      <button class="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full">
+      <button className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full">
         <IconHeart size="25" />
       </button>{" "}
       {!track.duration || (
@@ -65,7 +73,7 @@ function TrackItem(track) {
           {track.duration}
         </span>
       )}
-      <button class="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full">
+      <button className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full">
         ...
       </button>{" "}
     </div>
