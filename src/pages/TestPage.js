@@ -30,13 +30,13 @@ function TestPage() {
                 <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" artist="Regine Velasquez" />
             </ListGridVertical>
 
-            <ListGridVertical>
+            <ListGridVertical cols="3">
                 <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet" artist="Regine Velasquez" duration="3:45" />
                 <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" artist="Regine Velasquez" duration="3:45" />
                 <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" artist="Regine Velasquez" duration="3:45" />
             </ListGridVertical>
 
-            <ListGridVertical>
+            <ListGridVertical cols="1">
                 <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet Blue Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet" artist="Regine Velasquez" duration="3:45" playing />
                 <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet Blue Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet" artist="Regine Velasquez" genre="Pop" duration="3:45" />
                 <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet Blue Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet Red Green Violet Blue Red Green Violet" artist="Regine Velasquez" genre="Trap" duration="3:45" />

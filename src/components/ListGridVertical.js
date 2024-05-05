@@ -1,7 +1,6 @@
 import SectionContainer from "./SectionContainer"
 
 function ListGridVertical({ children, className, title, cols }) {
-    console.log(cols)
 
     return (
         <SectionContainer title={title}>
