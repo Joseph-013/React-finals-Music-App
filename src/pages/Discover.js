@@ -63,20 +63,6 @@ export default function Discover({
     }
   }
 
-  const toggleLiked = (trackId) => {
-    setLikedTracks((prevState) => {
-      console.log("prevState:", prevState);
-      console.log("prevState.tracks:", prevState?.tracks);
-
-      return {
-        ...prevState,
-        tracks: (prevState?.tracks || []).map((track) =>
-          track.id === trackId ? { ...track, liked: !track.liked } : track
-        ),
-      };
-    });
-  };
-
   function convertMsToTime(duration_ms) {
     var seconds = Math.floor((duration_ms / 1000) % 60);
     var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);
@@ -154,13 +140,15 @@ export default function Discover({
           {discover.tracks.map((music) => (
             <TrackItem
               key={music.id}
+              trackId={music.id}
               cover={music.album.images[0]?.url}
               artist={music.artists[0].name}
               title={music.name}
               type="Songs"
               duration={convertMsToTime(music.duration_ms)}
               liked={music.liked}
-              onLike={() => toggleLiked(music.id)}
+              accessToken={accessToken}
+              setLikedTracks={setLikedTracks}
               onClick={() => handleItemClick(music, "tracks")}
             />
           ))}

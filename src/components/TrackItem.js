@@ -4,6 +4,7 @@ import IconPlayFilled from "./icons/IconPlayFilled";
 import IconHeart from "./icons/IconHeart";
 
 function TrackItem({
+  accessToken,
   cover,
   artist,
   title,
@@ -12,9 +13,11 @@ function TrackItem({
   liked,
   onLike,
   onClick,
+  trackId,
   genre,
   playing,
   playerComponent,
+  setLikedTracks,
 }) {
   const [hovered, setHovered] = useState(false);
   let widthCount = 0;
@@ -33,6 +36,44 @@ function TrackItem({
     default:
       width = "w-full";
   }
+
+  const toggleLiked = async (track) => {
+    try {
+      const response = await fetch(
+        `https://api.spotify.com/v1/tracks/${track.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch track details");
+      }
+
+      const trackData = await response.json();
+
+      setLikedTracks((prevLikedTracks) => {
+        const trackIndex = prevLikedTracks.findIndex(
+          (likedTrack) => likedTrack.id === track.id
+        );
+        if (trackIndex !== -1) {
+          // If track is already liked, remove it from likedTracks
+          const updatedLikedTracks = [...prevLikedTracks];
+          updatedLikedTracks.splice(trackIndex, 1);
+          return updatedLikedTracks;
+        } else {
+          // If track is not liked yet, add it to likedTracks
+          return [...prevLikedTracks, trackData];
+        }
+      });
+    } catch (error) {
+      console.error("Error toggling liked track:", error);
+    }
+  };
 
   return (
     <div
@@ -73,7 +114,7 @@ function TrackItem({
       )}
       <button
         className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full"
-        onClick={onLike}
+        onClick={() => toggleLiked(trackId)}
       >
         <IconHeart size="25" />
       </button>{" "}
