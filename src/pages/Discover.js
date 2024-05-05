@@ -6,11 +6,17 @@ import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
 import { useEffect, useState } from "react";
 
-export default function Discover({ accessToken }) {
+export default function Discover({
+  accessToken,
+  setRecent,
+  discover,
+  setDiscover,
+}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [musics, setMusic] = useState([]);
   const [likedTracks, setLikedTracks] = useState([]);
+
   // const [accessToken, setAccessToken] = useState("");
   //   const [data, setData] = useState(null);
 
@@ -42,7 +48,7 @@ export default function Discover({ accessToken }) {
 
       const data = await response.json();
 
-      setMusic({
+      setDiscover({
         albums: data.albums.items,
         artists: data.artists.items,
         tracks: data.tracks.items.map((track) => ({ ...track, liked: false })),
@@ -77,6 +83,20 @@ export default function Discover({ accessToken }) {
     return displayMinutes + ":" + displaySeconds;
   }
 
+  const handleItemClick = (item, category) => {
+    item.status = true;
+
+    setRecent((prevRecent) => {
+      // Create a new object for the updated recent state
+      const updatedRecent = {
+        ...prevRecent,
+        [category]: [...prevRecent[category], item], // Add the item to the specified category
+      };
+
+      return updatedRecent; // Return the updated recent state
+    });
+  };
+
   return (
     <div className="w-full space-y-10">
       <div className="relative w-full font-poppins md:w-1/2 flex justify-start h-10">
@@ -98,13 +118,14 @@ export default function Discover({ accessToken }) {
 
       {showSearchResults && (
         <TileGridHorizontal title="Albums">
-          {musics.albums.map((music) => (
+          {discover.albums.map((music) => (
             <TileSquared
               key={music.id}
               src={music.images[0]?.url}
               type="Album"
               title={music.name}
               subTitle={music.artists[0].name}
+              onClick={() => handleItemClick(music, "albums")}
             />
           ))}
         </TileGridHorizontal>
@@ -112,12 +133,13 @@ export default function Discover({ accessToken }) {
 
       {showSearchResults && (
         <TileGridHorizontal title="Artists">
-          {musics.artists.map((music) => (
+          {discover.artists.map((music) => (
             <TileRounded
               key={music.id}
               src={music.images[0]?.url}
               type="Artist"
               title={music.name}
+              onClick={() => handleItemClick(music, "artists")}
             />
           ))}
         </TileGridHorizontal>
@@ -125,7 +147,7 @@ export default function Discover({ accessToken }) {
 
       {showSearchResults && (
         <ListGridVertical title="Songs" cols="2">
-          {musics.tracks.map((music) => (
+          {discover.tracks.map((music) => (
             <TrackItem
               key={music.id}
               cover={music.album.images[0]?.url}
@@ -135,6 +157,7 @@ export default function Discover({ accessToken }) {
               duration={convertMsToTime(music.duration_ms)}
               liked={music.liked}
               onLike={() => toggleLiked(music.id)}
+              onClick={() => handleItemClick(music, "tracks")}
             />
           ))}
         </ListGridVertical>

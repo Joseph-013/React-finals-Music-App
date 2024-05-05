@@ -16,6 +16,12 @@ const CLIENT_SECRET = "48dfec19fefc4ae48dfdfd5e48cdaa40";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
+  const [recent, setRecent] = useState({ albums: [], artists: [], tracks: [] });
+  const [discover, setDiscover] = useState({
+    albums: [],
+    artists: [],
+    tracks: [],
+  });
 
   // useEffect(() => {
   //     var authParameters = {
@@ -62,10 +68,17 @@ function App() {
             <Route path="testpage" element={<TestPage />} />
             <Route
               path="discover"
-              element={<Discover accessToken={accessToken} />}
+              element={
+                <Discover
+                  accessToken={accessToken}
+                  setRecent={setRecent}
+                  discover={discover}
+                  setDiscover={setDiscover}
+                />
+              }
             />
             <Route path="trending" element={<Trending />} />
-            <Route path="recent" element={<Recent />} />
+            <Route path="recent" element={<Recent recent={recent} />} />
             <Route path="playlists" element={<Playlists />} />
             <Route path="favorites" element={<Favorites />} />
           </Route>
