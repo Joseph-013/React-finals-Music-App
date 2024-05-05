@@ -57,7 +57,7 @@ function TrackItem(track) {
           {track.genre}
         </span>
       )}
-      <button class="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full">
+      <button className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full">
         <IconHeart size="25" />
       </button>{" "}
       {!track.duration || (
@@ -65,7 +65,7 @@ function TrackItem(track) {
           {track.duration}
         </span>
       )}
-      <button class="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full">
+      <button className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full">
         ...
       </button>{" "}
     </div>
