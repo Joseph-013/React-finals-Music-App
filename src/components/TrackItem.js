@@ -32,7 +32,7 @@ function TrackItem(track) {
                 </div>
             </div>
             {(!track.genre) || <span className="h-full w-fit flex items-center text-center max-w-24 text-slate-400 line-clamp-2">{track.genre}</span>}
-            {(trackHovered) ? <button className='size-10 flex items-center justify-center rounded-full hover:bg-cyan-600'><IconPlaylistAdd size="25" /></button> : (!track.duration) || <span className="h-full w-fit flex items-center text-slate-400">{track.duration}</span>}
+            {(trackHovered && !track.playerComponent) ? <button className='size-10 flex items-center justify-center rounded-full hover:bg-cyan-600'><IconPlaylistAdd size="25" /></button> : (!track.duration) || <span className="h-full w-fit flex items-center text-slate-400">{track.duration}</span>}
         </div>
     )
 }
