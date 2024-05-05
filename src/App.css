@@ -3,86 +3,90 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 100%;
+  width: 5px;
+  height: 100%;
 }
 
 ::-webkit-scrollbar-track {
-    background: #00354d5e;
+  background: #00354d5e;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #0076b63f;
-    border-radius: 4px;
+  background: #0076b63f;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0076b6cb;
 }
 
 .App {
-    text-align: center;
+  text-align: center;
 }
 
 .App-logo {
-    height: 40vmin;
-    pointer-events: none;
+  height: 40vmin;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
 .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .App-link {
-    color: #61dafb;
+  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
 
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .hover-underline:hover * {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .b {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .bc * {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .test {
-    height: 5000px;
+  height: 5000px;
 }
 
 .z-header,
 .z-header * {
-    z-index: 9992;
+  z-index: 9992;
 }
 
 .z-navbar,
 .z-navbar * {
-    z-index: 9991;
+  z-index: 9991;
 }
 
 .z-player,
 .z-player * {
-    z-index: 9993;
+  z-index: 9993;
 }
