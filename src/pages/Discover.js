@@ -6,9 +6,10 @@ import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
 import { useEffect, useState } from "react";
 
-export default function Discover({ accessToken, setMusic, musics }) {
+export default function Discover({ accessToken }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [musics, setMusic] = useState([]);
   // const [accessToken, setAccessToken] = useState("");
   //   const [data, setData] = useState(null);
 

@@ -15,7 +15,6 @@ const CLIENT_ID = "1b6704c6a4c340899a3d4f5f0e407358";
 const CLIENT_SECRET = "48dfec19fefc4ae48dfdfd5e48cdaa40";
 
 function App() {
-  const [musics, setMusic] = useState([]);
   const [accessToken, setAccessToken] = useState("");
 
   // useEffect(() => {
@@ -59,17 +58,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
+            <Route index element={<Home accessToken={accessToken} />} />
             <Route path="testpage" element={<TestPage />} />
             <Route
               path="discover"
-              element={
-                <Discover
-                  accessToken={accessToken}
-                  musics={musics}
-                  setMusic={setMusic}
-                />
-              }
+              element={<Discover accessToken={accessToken} />}
             />
             <Route path="trending" element={<Trending />} />
             <Route path="recent" element={<Recent />} />
