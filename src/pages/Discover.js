@@ -10,6 +10,7 @@ export default function Discover({ accessToken }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [musics, setMusic] = useState([]);
+  const [likedTracks, setLikedTracks] = useState([]);
   // const [accessToken, setAccessToken] = useState("");
   //   const [data, setData] = useState(null);
 
@@ -44,7 +45,7 @@ export default function Discover({ accessToken }) {
       setMusic({
         albums: data.albums.items,
         artists: data.artists.items,
-        tracks: data.tracks.items,
+        tracks: data.tracks.items.map((track) => ({ ...track, liked: false })),
       });
 
       console.log("Albums:", data.albums.items);
@@ -56,6 +57,15 @@ export default function Discover({ accessToken }) {
       console.error("Error fetching data:", error);
     }
   }
+
+  const toggleLiked = (trackId) => {
+    setMusic((prevState) => ({
+      ...prevState,
+      tracks: prevState.tracks.map((track) =>
+        track.id === trackId ? { ...track, liked: !track.liked } : track
+      ),
+    }));
+  };
 
   function convertMsToTime(duration_ms) {
     var seconds = Math.floor((duration_ms / 1000) % 60);
@@ -123,6 +133,8 @@ export default function Discover({ accessToken }) {
               title={music.name}
               type="Songs"
               duration={convertMsToTime(music.duration_ms)}
+              liked={music.liked}
+              onLike={() => toggleLiked(music.id)}
             />
           ))}
         </ListGridVertical>
