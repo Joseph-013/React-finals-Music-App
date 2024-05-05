@@ -1,107 +1,131 @@
-import IconSearch from '../components/icons/IconSearch';
-import TileGridHorizontal from '../components/TileGridHorizontal';
-import TileSquared from '../components/TileSquared';
-import TileRounded from '../components/TileRounded';
-import ListGridVertical from '../components/ListGridVertical';
-import TrackItem from '../components/TrackItem';
-import { useEffect, useState } from 'react';
+import IconSearch from "../components/icons/IconSearch";
+import TileGridHorizontal from "../components/TileGridHorizontal";
+import TileSquared from "../components/TileSquared";
+import TileRounded from "../components/TileRounded";
+import ListGridVertical from "../components/ListGridVertical";
+import TrackItem from "../components/TrackItem";
+import { useEffect, useState } from "react";
 
-export default function Discover({ getAccessToken }) {
-    const [searchQuery, setSearchQuery] = useState('');
-    // const [accessToken, setAccessToken] = useState("");
-    const [data, setData] = useState(null);
+export default function Discover({ accessToken, setMusic, musics }) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  // const [accessToken, setAccessToken] = useState("");
+  //   const [data, setData] = useState(null);
 
-    const handleInputChange = (e) => {
-        setSearchQuery(e.target.value);
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // const [data, setData] = useState({});
+
+  // let DATA
+
+  async function search() {
+    console.log("Searching for.. " + searchQuery);
+    var trackParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
     };
 
-    // const [data, setData] = useState({});
+    try {
+      var response = await fetch(
+        "https://api.spotify.com/v1/search?q=" +
+          searchQuery +
+          "&type=album,artist,track&limit=50",
+        trackParameters
+      );
 
-    // let DATA
+      const data = await response.json();
 
-    async function search(searchQuery) {
-        let trackParameters = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + getAccessToken(),
-            },
-        };
+      setMusic({
+        albums: data.albums.items,
+        artists: data.artists.items,
+        tracks: data.tracks.items,
+      });
 
-        // await fetch(
-        //     // let tracks = await fetch(
-        //     "https://api.spotify.com/v1/search?q=" + searchQuery + "&type=track&limit=50",
-        //     trackParameters
-        // )
-        //     .then((res) => res.json())
-        //     .then((data) => DATA = data);
+      console.log("Albums:", data.albums.items);
+      console.log("Artists:", data.artists.items);
+      console.log("Tracks:", data.tracks.items);
 
-        // // let DATA;
-
-        try {
-            const response = await fetch(
-                "https://api.spotify.com/v1/search?q=" + searchQuery + "&type=track&limit=50",
-                trackParameters
-            );
-            const data = await response.json();
-            setData(data);
-            console.log(data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+      setShowSearchResults(true);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
+  }
 
+  function convertMsToTime(duration_ms) {
+    var seconds = Math.floor((duration_ms / 1000) % 60);
+    var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);
 
-    return (
-        <div className="w-full space-y-10">
-            <div className='relative w-full font-poppins md:w-1/2 flex justify-start h-10'>
-                <input
-                    type="text"
-                    className="h-full w-full rounded-lg bg-[#19272E] border-none pr-16 pl-5"
-                    placeholder="Search for albums, artists, or tracks..."
-                    value={searchQuery}
-                    onChange={handleInputChange}
-                    onKeyDown={(e) => e.key === 'Enter' && search()}
-                />
-                <button onClick={() => search()} className='flex px-4 bg-[#243943] hover:bg-cyan-700 my-1 mr-1 rounded-lg items-center justify-center absolute right-0 top-0 bottom-0'>
-                    <IconSearch size="20" />
-                </button>
-            </div>
+    var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+    var displayMinutes = minutes < 10 ? "0" + minutes : minutes;
 
-            {/* <div>
-                {data && (
-                    <>
-                        <TileGridHorizontal title="Search Results">
-                            {data.tracks.items.map((item) => (
-                                <TileSquared
-                                    key={item.id}
-                                    src={item.album.images[0].url}
-                                    type="Track"
-                                    title={item.name}
-                                    subTitle={item.artists.map((artist) => artist.name).join(', ')}
-                                />
-                            ))}
-                        </TileGridHorizontal>
-                    </>
-                )}
-            </div> */}
+    return displayMinutes + ":" + displaySeconds;
+  }
 
-            <TileGridHorizontal title="Albums">
-                <TileSquared src="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" type="Album" title="Red" subTitle="Taylor Swift" />
-                <TileSquared src="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" type="Album" title="Red" subTitle="Taylor Swift" />
-            </TileGridHorizontal>
+  return (
+    <div className="w-full space-y-10">
+      <div className="relative w-full font-poppins md:w-1/2 flex justify-start h-10">
+        <input
+          type="text"
+          className="h-full w-full rounded-lg bg-[#19272E] border-none pr-16 pl-5"
+          placeholder="Search for albums, artists, or tracks..."
+          value={searchQuery}
+          onChange={handleInputChange}
+          onKeyDown={(e) => e.key === "Enter" && search()}
+        />
+        <button
+          onClick={() => search()}
+          className="flex px-4 bg-[#243943] hover:bg-cyan-700 my-1 mr-1 rounded-lg items-center justify-center absolute right-0 top-0 bottom-0"
+        >
+          <IconSearch size="20" />
+        </button>
+      </div>
 
-            <TileGridHorizontal title="Artists">
-                <TileRounded src="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" type="Album" title="Red" subTitle="Taylor Swift" />
-                <TileRounded src="https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png" type="Album" title="Reputation" subTitle="Taylor Swift" />
-            </TileGridHorizontal>
+      {showSearchResults && (
+        <TileGridHorizontal title="Albums">
+          {musics.albums.map((music) => (
+            <TileSquared
+              key={music.id}
+              src={music.images[0]?.url}
+              type="Album"
+              title={music.name}
+              subTitle={music.artists[0].name}
+            />
+          ))}
+        </TileGridHorizontal>
+      )}
 
-            <ListGridVertical title="Songs">
-                <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet" artist="Regine Velasquez" duration="3:45" />
-                <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" artist="Regine Velasquez" duration="3:45" />
-                <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Blue Red Green Violet" artist="Regine Velasquez" duration="3:45" />
-                <TrackItem cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Red" artist="Regine Velasquez" duration="3:45" />
-            </ListGridVertical>
-        </div>
-    );
+      {showSearchResults && (
+        <TileGridHorizontal title="Artists">
+          {musics.artists.map((music) => (
+            <TileRounded
+              key={music.id}
+              src={music.images[0]?.url}
+              type="Artist"
+              title={music.name}
+            />
+          ))}
+        </TileGridHorizontal>
+      )}
+
+      {showSearchResults && (
+        <ListGridVertical title="Songs">
+          {musics.tracks.map((music) => (
+            <TrackItem
+              key={music.id}
+              cover={music.album.images[0]?.url}
+              artist={music.artists[0].name}
+              title={music.name}
+              type="Songs"
+              duration={convertMsToTime(music.duration_ms)}
+            />
+          ))}
+        </ListGridVertical>
+      )}
+    </div>
+  );
 }
