@@ -11,11 +11,10 @@ export default function Discover({
   setRecent,
   discover,
   setDiscover,
+  setLikedTracks,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const [musics, setMusic] = useState([]);
-  const [likedTracks, setLikedTracks] = useState([]);
 
   // const [accessToken, setAccessToken] = useState("");
   //   const [data, setData] = useState(null);
@@ -65,12 +64,17 @@ export default function Discover({
   }
 
   const toggleLiked = (trackId) => {
-    setMusic((prevState) => ({
-      ...prevState,
-      tracks: prevState.tracks.map((track) =>
-        track.id === trackId ? { ...track, liked: !track.liked } : track
-      ),
-    }));
+    setLikedTracks((prevState) => {
+      console.log("prevState:", prevState);
+      console.log("prevState.tracks:", prevState?.tracks);
+
+      return {
+        ...prevState,
+        tracks: (prevState?.tracks || []).map((track) =>
+          track.id === trackId ? { ...track, liked: !track.liked } : track
+        ),
+      };
+    });
   };
 
   function convertMsToTime(duration_ms) {

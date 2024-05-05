@@ -22,6 +22,7 @@ function App() {
     artists: [],
     tracks: [],
   });
+  const [likedTracks, setLikedTracks] = useState([]);
 
   // useEffect(() => {
   //     var authParameters = {
@@ -74,13 +75,17 @@ function App() {
                   setRecent={setRecent}
                   discover={discover}
                   setDiscover={setDiscover}
+                  setLikedTracks={setLikedTracks}
                 />
               }
             />
             <Route path="trending" element={<Trending />} />
             <Route path="recent" element={<Recent recent={recent} />} />
             <Route path="playlists" element={<Playlists />} />
-            <Route path="favorites" element={<Favorites />} />
+            <Route
+              path="favorites"
+              element={<Favorites likedTracks={likedTracks} />}
+            />
           </Route>
           <Route path="*" element={<NoPage />} />
         </Routes>
