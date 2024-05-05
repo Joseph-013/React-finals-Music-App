@@ -5,7 +5,6 @@ import IconPlaylistAdd from './icons/IconPlaylistAdd';
 
 function TrackItem(track) {
     const [trackHovered, setTrackHovered] = useState(false);
-    // const []
     let widthCount = 0;
     let width;
     if (track.duration) ++widthCount;
@@ -17,7 +16,7 @@ function TrackItem(track) {
     }
 
     return (
-        <div className={`w-full h-full flex items-center justify-between text-left space-x-2 cursor-pointer hover:bg-cyan-700 p-2 -mx-2 rounded-lg ` + (!track.playing || 'border border-cyan-600')}
+        <div role='dialog' className={`w-full h-full flex items-center justify-between text-left space-x-2 cursor-pointer hover:bg-cyan-700 p-2 -mx-2 rounded-lg ` + (!track.playing || 'border border-cyan-600')}
             onMouseEnter={() => setTrackHovered(true)}
             onMouseLeave={() => setTrackHovered(false)}
         >

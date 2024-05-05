@@ -1,10 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import IconTrending from "../icons/IconTrending";
-import IconSearch from "../icons/IconSearch";
 import IconHome from "../icons/IconHome";
 import IconRecent from "../icons/IconRecent";
 import IconPlaylist from "../icons/IconPlaylist";
 import IconHeart from "../icons/IconHeart";
+import IconCompass from "../icons/IconCompass";
 
 
 function NavBar({ navBarState }) {
@@ -21,7 +21,7 @@ function NavBar({ navBarState }) {
                         </NavBarItem>
 
                         <NavBarItem to="/discover" name="Discover" >
-                            <IconSearch size={iconSize} />
+                            <IconCompass size={iconSize} />
                         </NavBarItem>
 
                         <NavBarItem to="/trending" name="Trending" >
