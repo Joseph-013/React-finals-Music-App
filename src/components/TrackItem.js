@@ -5,34 +5,17 @@ import IconHeart from "./icons/IconHeart";
 import IconDotsVerical from "./icons/IconDotsVertical";
 import { hover } from "@testing-library/user-event/dist/hover";
 
-function TrackItem({
-  accessToken,
-  cover,
-  artist,
-  title,
-  type,
-  duration,
-  liked,
-  onLike,
-  onClick,
-  trackId,
-  genre,
-  playing,
-  playerComponent,
-  setLikedTracks,
-  playlists = {},
-  onRemove,
-}) {
+function TrackItem(track) {
   const [hovered, setHovered] = useState(false);
   const [contextDisplay, setContextDisplay] = useState("hidden"); //or block
 
   let widthCount = 0;
   let width;
 
-  let test = playlists;
+  let test = track.playlists || {};
 
-  if (duration) ++widthCount;
-  if (genre) ++widthCount;
+  if (track.duration) ++widthCount;
+  if (track.genre) ++widthCount;
 
   switch (widthCount) {
     case 2: {
@@ -56,7 +39,7 @@ function TrackItem({
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + accessToken,
+            Authorization: "Bearer " + track.accessToken,
           },
         }
       );
@@ -67,7 +50,7 @@ function TrackItem({
 
       const trackData = await response.json();
 
-      setLikedTracks((prevLikedTracks) => {
+      track.setLikedTracks((prevLikedTracks) => {
         const trackIndex = prevLikedTracks.findIndex(
           (likedTrack) => likedTrack.id === track.id
         );
@@ -90,7 +73,7 @@ function TrackItem({
     <div
       className={
         `w-full h-full flex items-center justify-between text-left space-x-2 cursor-pointer hover:bg-cyan-700 p-2 -mx-2 rounded-lg ` +
-        (!playing || "border border-cyan-600")
+        (!track.playing || "border border-cyan-600")
       }
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -98,7 +81,7 @@ function TrackItem({
       {/* <span>{Object.keys(test)[0]}</span> */}
       <div className={`h-full flex items-center space-x-3 ` + width}>
         <div className="relative w-fit">
-          {!playing || (
+          {!track.playing || (
             <img
               src={visualizerGif}
               alt="Play"
@@ -109,37 +92,43 @@ function TrackItem({
             size="25"
             className={
               `absolute justify-center items-center h-full w-full p-2 bg-gray-900 opacity-60 ` +
-              (hovered && !playing && !playerComponent ? `flex` : `hidden`)
+              (hovered && !track.playing && !track.playerComponent
+                ? `flex`
+                : `hidden`)
             }
           />
-          <img src={cover} alt={title} className="size-12" />
+          <img src={track.cover} alt={track.title} className="size-12" />
         </div>
         <div className="flex-1 flex flex-col truncate font-poppins w-fit">
-          <span className="text-sm truncate tracking-normal">{title}</span>
-          <span className="text-sm text-slate-400 truncate">{artist}</span>
+          <span className="text-sm truncate tracking-normal">
+            {track.title}
+          </span>
+          <span className="text-sm text-slate-400 truncate">
+            {track.artist}
+          </span>
         </div>
       </div>
-      {!genre || (
+      {!track.genre || (
         <span className="h-full w-fit flex items-center text-center max-w-24 text-slate-400 line-clamp-2">
-          {genre}
+          {track.genre}
         </span>
       )}
       <button
         className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full"
         onClick={() => {
-          if (liked) {
-            onRemove();
+          if (track.liked) {
+            track.onRemove();
           } else {
-            onLike();
+            track.onLike();
           }
         }}
       >
         <IconHeart size="25" />
       </button>
       <span className="h-full w-fit flex items-center text-slate-400">
-        {duration}
+        {track.duration}
       </span>
-      <TrackItemContext playlists={playlists} />
+      <TrackItemContext playlists={track.playlists || {}} />
     </div>
   );
 
