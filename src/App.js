@@ -23,6 +23,7 @@ function App() {
     tracks: [],
   });
   const [likedTracks, setLikedTracks] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
   // useEffect(() => {
   //     var authParameters = {
@@ -57,15 +58,73 @@ function App() {
 
     fetch("https://accounts.spotify.com/api/token", authParameters)
       .then((res) => res.json())
-      .then((data) => setAccessToken(data.access_token));
+      .then((data) => {
+        setAccessToken(data.access_token);
+        setLoading(false); // Update loading state once access token is fetched
+      });
   }, []);
+
+  // const toggleLiked = (trackId) => {
+  //   setLikedTracks((prevLikedTracks) => {
+  //     return {
+  //       ...prevLikedTracks,
+  //       [trackId]: {
+  //         ...prevLikedTracks[trackId],
+  //         liked: !prevLikedTracks[trackId].liked,
+  //       },
+  //     };
+  //   });
+  // };
+
+  const toggleLiked = (trackId) => {
+    setLikedTracks((prevState) => {
+      const updatedLikedTracks = { ...prevState };
+      if (updatedLikedTracks[trackId]) {
+        updatedLikedTracks[trackId].liked = !updatedLikedTracks[trackId].liked;
+      } else {
+        // Assuming discover is available in the scope of this function
+        const foundTrack = discover.tracks.find((track) => track.id === trackId);
+        if (foundTrack) {
+          foundTrack.liked = true;
+          updatedLikedTracks[trackId] = foundTrack;
+        }
+      }
+      return updatedLikedTracks;
+    });
+  };
+
+  const removeTrack = (trackId) => {
+    setLikedTracks((prevLikedTracks) => {
+      const updatedLikedTracks = Object.fromEntries(
+        Object.entries(prevLikedTracks).filter(([id, track]) => id !== trackId)
+      );
+      return updatedLikedTracks;
+    });
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home accessToken={accessToken} />} />
+            <Route
+              index
+              element={
+                <Home
+                  accessToken={accessToken}
+                  setRecent={setRecent}
+                  likedTracks={likedTracks}
+                  discover={discover}
+                  setDiscover={setDiscover}
+                  setLikedTracks={setLikedTracks}
+                  toggleLiked={toggleLiked}
+                />
+              }
+            />
             <Route path="testpage" element={<TestPage />} />
             <Route
               path="discover"
@@ -73,9 +132,11 @@ function App() {
                 <Discover
                   accessToken={accessToken}
                   setRecent={setRecent}
+                  likedTracks={likedTracks}
                   discover={discover}
                   setDiscover={setDiscover}
                   setLikedTracks={setLikedTracks}
+                  toggleLiked={toggleLiked}
                 />
               }
             />
@@ -84,7 +145,13 @@ function App() {
             <Route path="playlists" element={<Playlists />} />
             <Route
               path="favorites"
-              element={<Favorites likedTracks={likedTracks} />}
+              element={
+                <Favorites
+                  likedTracks={likedTracks}
+                  toggleLiked={toggleLiked}
+                  removeTrack={removeTrack}
+                />
+              }
             />
           </Route>
           <Route path="*" element={<NoPage />} />

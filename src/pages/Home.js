@@ -5,7 +5,15 @@ import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
 import { useEffect, useState } from "react";
 
-export default function Home({ accessToken }) {
+export default function Home({
+  accessToken,
+  likedTracks,
+  toggleLiked,
+  removeTrack,
+  setLikedTracks,
+  setRecent,
+  discover,
+}) {
   const initialMusicsState = {
     albums: [],
     artists: [],
@@ -75,6 +83,19 @@ export default function Home({ accessToken }) {
     }
   }
 
+  // const handleItemClick = (item, category) => {
+  //   item.status = true;
+
+  //   setRecent((prevRecent) => {
+  //     const updatedRecent = {
+  //       ...prevRecent,
+  //       [category]: [...prevRecent[category], item],
+  //     };
+
+  //     return updatedRecent;
+  //   });
+  // };
+
   function convertMsToTime(duration_ms) {
     var seconds = Math.floor((duration_ms / 1000) % 60);
     var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);
@@ -122,6 +143,8 @@ export default function Home({ accessToken }) {
               title={music.name}
               type="Songs"
               duration={convertMsToTime(music.duration_ms)}
+              liked={music.liked}
+              onLike={() => toggleLiked(music.id)}
             />
           ))}
       </ListGridVertical>

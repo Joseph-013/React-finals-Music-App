@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function IconHeart({ size }) {
+function IconHeart({ size, onClick }) {
   const [liked, setLiked] = useState(false);
 
   const handleHeartClick = () => {

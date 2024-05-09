@@ -15,6 +15,7 @@ function TrackItem({
   genre,
   playing,
   playerComponent,
+  onRemove,
 }) {
   const [hovered, setHovered] = useState(false);
   let widthCount = 0;
@@ -46,11 +47,7 @@ function TrackItem({
       <div className={`h-full flex items-center space-x-3 ` + width}>
         <div className="relative w-fit">
           {!playing || (
-            <img
-              src={visualizerGif}
-              alt="Play"
-              className="opacity-40 absolute"
-            />
+            <img src={visualizerGif} alt="Play" className="opacity-40 absolute" />
           )}
           <IconPlayFilled
             size="25"
@@ -73,7 +70,13 @@ function TrackItem({
       )}
       <button
         className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full"
-        onClick={onLike}
+        onClick={() => {
+          if (liked) {
+            onRemove();
+          } else {
+            onLike();
+          }
+        }}
       >
         <IconHeart size="25" />
       </button>{" "}
