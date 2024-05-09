@@ -176,6 +176,7 @@ export default function Discover({
               type="Songs"
               duration={convertMsToTime(music.duration_ms)}
               liked={music.liked}
+              onLike={() => toggleLiked(music.id)}
               accessToken={accessToken}
               setLikedTracks={setLikedTracks}
               onClick={() => handleItemClick(music, "tracks")}
