@@ -12,6 +12,7 @@ export default function Discover({
   discover,
   setDiscover,
   setLikedTracks,
+  toggleLiked,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -63,6 +64,35 @@ export default function Discover({
     }
   }
 
+  // const toggleLiked = (trackId) => {
+  //   setLikedTracks((prevState) => {
+  //     console.log("prevState:", prevState);
+  //     console.log("prevState.tracks:", prevState?.tracks);
+
+  //     return {
+  //       ...prevState,
+  //       tracks: (prevState?.tracks || []).map((track) =>
+  //         track.id === trackId ? { ...track, liked: !track.liked } : track
+  //       ),
+  //     };
+  //   });
+  // };
+
+  // const toggleLiked = (trackId) => {
+  //   setLikedTracks((prevState) => {
+  //     const updatedLikedTracks = { ...prevState };
+  //     if (updatedLikedTracks[trackId]) {
+  //       updatedLikedTracks[trackId].liked = !updatedLikedTracks[trackId].liked;
+  //     } else {
+  //       updatedLikedTracks[trackId] = discover.tracks.find(
+  //         (track) => track.id === trackId
+  //       );
+  //       updatedLikedTracks[trackId].liked = true;
+  //     }
+  //     return updatedLikedTracks;
+  //   });
+  // };
+
   function convertMsToTime(duration_ms) {
     var seconds = Math.floor((duration_ms / 1000) % 60);
     var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);
@@ -77,13 +107,12 @@ export default function Discover({
     item.status = true;
 
     setRecent((prevRecent) => {
-      // Create a new object for the updated recent state
       const updatedRecent = {
         ...prevRecent,
-        [category]: [...prevRecent[category], item], // Add the item to the specified category
+        [category]: [...prevRecent[category], item],
       };
 
-      return updatedRecent; // Return the updated recent state
+      return updatedRecent;
     });
   };
 

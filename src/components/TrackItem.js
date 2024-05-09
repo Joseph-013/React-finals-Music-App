@@ -21,6 +21,7 @@ function TrackItem({
   playerComponent,
   setLikedTracks,
   playlists = {},
+  onRemove,
 }) {
   const [hovered, setHovered] = useState(false);
   const [contextDisplay, setContextDisplay] = useState("hidden"); //or block
@@ -125,7 +126,13 @@ function TrackItem({
       )}
       <button
         className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full"
-        onClick={() => toggleLiked(trackId)}
+        onClick={() => {
+          if (liked) {
+            onRemove();
+          } else {
+            onLike();
+          }
+        }}
       >
         <IconHeart size="25" />
       </button>
