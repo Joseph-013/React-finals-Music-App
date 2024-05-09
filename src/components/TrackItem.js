@@ -20,7 +20,7 @@ function TrackItem({
   playing,
   playerComponent,
   setLikedTracks,
-  playlists,
+  playlists = {},
 }) {
   const [hovered, setHovered] = useState(false);
   const [contextDisplay, setContextDisplay] = useState("hidden"); //or block
@@ -137,9 +137,9 @@ function TrackItem({
   );
 
   function TrackItemContext({ playlists }) {
+    let test = playlists;
     const handleButtonClick = (e) => {
-      console.log("test");
-      console.log(playlists);
+      console.log(test);
       e.stopPropagation();
       setContextDisplay(contextDisplay === "hidden" ? "block" : "hidden");
     };
@@ -161,9 +161,11 @@ function TrackItem({
           <li className="h-12 px-2 flex items-center hover:bg-slate-500">
             Add to Favorites
           </li>
-          {/* {playlists.map((playlist) => (
-            <li>test 1</li>
-          ))} */}
+          {Object.keys(playlists).map((playlistName) => (
+            <li className="h-12 px-2 flex items-center hover:bg-slate-500">
+              {playlistName}
+            </li>
+          ))}
         </ul>
       </div>
     );
