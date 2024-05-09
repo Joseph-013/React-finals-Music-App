@@ -5,15 +5,7 @@ import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
 import { useEffect, useState } from "react";
 
-export default function Home({
-  accessToken,
-  likedTracks,
-  toggleLiked,
-  removeTrack,
-  setLikedTracks,
-  setRecent,
-  discover,
-}) {
+export default function Home(home) {
   const initialMusicsState = {
     albums: [],
     artists: [],
@@ -40,7 +32,7 @@ export default function Home({
       }
     };
     fetchData();
-  }, [accessToken]);
+  }, [home.accessToken]);
 
   async function search() {
     const randomSearch = getRandomSearch();
@@ -55,7 +47,7 @@ export default function Home({
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + accessToken,
+            Authorization: "Bearer " + home.accessToken,
           },
         }
       );
@@ -144,7 +136,7 @@ export default function Home({
               type="Songs"
               duration={convertMsToTime(music.duration_ms)}
               liked={music.liked}
-              onLike={() => toggleLiked(music.id)}
+              onLike={() => home.toggleLiked(music.id)}
             />
           ))}
       </ListGridVertical>
