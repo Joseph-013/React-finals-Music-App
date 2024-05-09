@@ -10,6 +10,7 @@ import Playlists from "./pages/Playlists";
 import Favorites from "./pages/Favorites";
 import NoPage from "./pages/NoPage";
 import TestPage from "./pages/TestPage";
+import NewPlaylist from "./components/NewPlaylist";
 
 const CLIENT_ID = "1b6704c6a4c340899a3d4f5f0e407358";
 const CLIENT_SECRET = "48dfec19fefc4ae48dfdfd5e48cdaa40";
@@ -22,25 +23,9 @@ function App() {
     artists: [],
     tracks: [],
   });
+
+  const [playlists, setPlaylists] = useState({});
   const [likedTracks, setLikedTracks] = useState([]);
-
-  // useEffect(() => {
-  //     var authParameters = {
-  //         method: "POST",
-  //         headers: {
-  //             "Content-Type": "application/x-www-form-urlencoded"
-  //         },
-  //         body: "grant_type=client_credentials&client_id=" +
-  //             CLIENT_ID +
-  //             "&client_secret=" +
-  //             CLIENT_SECRET,
-  //     };
-
-  //     fetch("https://accounts.spotify.com/api/token", authParameters)
-  //         .then((res) => res.json())
-  //         // .then(data => console.log(data.access_token))
-  //         .then((data) => setAccessToken(data.access_token));
-  // }, [])
 
   useEffect(() => {
     var authParameters = {
@@ -66,7 +51,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home accessToken={accessToken} />} />
-            <Route path="testpage" element={<TestPage />} />
+            <Route
+              path="testpage"
+              element={
+                <TestPage playlists={playlists}>
+                  <NewPlaylist setPlaylists={setPlaylists} />
+                </TestPage>
+              }
+            />
             <Route
               path="discover"
               element={
