@@ -136,7 +136,10 @@ function App() {
                 />
               }
             />
-            <Route path="trending" element={<Trending />} />
+            <Route
+              path="trending"
+              element={<Trending accessToken={accessToken} />}
+            />
             <Route path="recent" element={<Recent recent={recent} />} />
             <Route path="playlists" element={<Playlists />} />
             <Route
