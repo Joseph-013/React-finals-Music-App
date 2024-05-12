@@ -139,14 +139,12 @@ function TrackItem({
       <span className="h-full w-fit flex items-center text-slate-400">
         {duration}
       </span>
-      <TrackItemContext playlists={playlists || {}} />
+      <TrackItemContext playlists={playlists} />
     </div>
   );
 
   function TrackItemContext({ playlists }) {
-    let test = playlists;
     const handleButtonClick = (e) => {
-      console.log(test);
       e.stopPropagation();
       setContextDisplay(contextDisplay === "hidden" ? "block" : "hidden");
     };

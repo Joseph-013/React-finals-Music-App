@@ -14,6 +14,10 @@ import NewPlaylist from "./components/NewPlaylist";
 
 const CLIENT_ID = "1b6704c6a4c340899a3d4f5f0e407358";
 const CLIENT_SECRET = "48dfec19fefc4ae48dfdfd5e48cdaa40";
+const tmpPlaylists = {
+  "test playlist 1": ["song 1", "song 2"],
+  "test playlist 2": ["song 3", "song 4"],
+};
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
@@ -24,7 +28,7 @@ function App() {
     tracks: [],
   });
 
-  const [playlists, setPlaylists] = useState({});
+  const [playlists, setPlaylists] = useState(tmpPlaylists);
   const [likedTracks, setLikedTracks] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
 
@@ -132,15 +136,21 @@ function App() {
                   setDiscover={setDiscover}
                   setLikedTracks={setLikedTracks}
                   toggleLiked={toggleLiked}
+                  playlists={playlists}
                 />
               }
             />
             <Route
               path="trending"
-              element={<Trending accessToken={accessToken} />}
+              element={
+                <Trending accessToken={accessToken} playlists={playlists} />
+              }
             />
             <Route path="recent" element={<Recent recent={recent} />} />
-            <Route path="playlists" element={<Playlists />} />
+            <Route
+              path="playlists"
+              element={<Playlists playlists={playlists} />}
+            />
             <Route
               path="favorites"
               element={
