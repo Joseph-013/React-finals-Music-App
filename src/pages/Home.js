@@ -9,8 +9,8 @@ export default function Home({
   accessToken,
   setRecent,
   likedTracks,
-  discover,
-  setDiscover,
+  data,
+  setData,
   setLikedTracks,
   toggleLiked,
   playlists,
@@ -66,6 +66,13 @@ export default function Home({
       }
 
       const data = await response.json();
+
+      setData({
+        albums: data.albums.items,
+        artists: data.artists.items,
+        tracks: data.tracks.items.map((track) => ({ ...track, liked: false })),
+      });
+
       console.log("Albums:", data.albums.items);
       console.log("Artists:", data.artists.items);
       console.log("Tracks:", data.tracks.items);
@@ -83,19 +90,6 @@ export default function Home({
       };
     }
   }
-
-  // const handleItemClick = (item, category) => {
-  //   item.status = true;
-
-  //   setRecent((prevRecent) => {
-  //     const updatedRecent = {
-  //       ...prevRecent,
-  //       [category]: [...prevRecent[category], item],
-  //     };
-
-  //     return updatedRecent;
-  //   });
-  // };
 
   function convertMsToTime(duration_ms) {
     var seconds = Math.floor((duration_ms / 1000) % 60);
@@ -139,6 +133,7 @@ export default function Home({
           musics.tracks.map((music) => (
             <TrackItem
               key={music.id}
+              trackId={music.id}
               cover={music.album.images[0]?.url}
               artist={music.artists[0].name}
               title={music.name}
@@ -146,7 +141,8 @@ export default function Home({
               duration={convertMsToTime(music.duration_ms)}
               liked={music.liked}
               onLike={() => toggleLiked(music.id)}
-              playlists={playlists}
+              accessToken={accessToken}
+              setLikedTracks={setLikedTracks}
             />
           ))}
       </ListGridVertical>

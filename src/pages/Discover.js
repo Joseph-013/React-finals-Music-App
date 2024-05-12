@@ -9,9 +9,8 @@ import { useEffect, useState } from "react";
 export default function Discover({
   accessToken,
   setRecent,
-  likedTracks,
-  discover,
-  setDiscover,
+  data,
+  setData,
   setLikedTracks,
   toggleLiked,
   playlists,
@@ -50,7 +49,7 @@ export default function Discover({
 
       const data = await response.json();
 
-      setDiscover({
+      setData({
         albums: data.albums.items,
         artists: data.artists.items,
         tracks: data.tracks.items.map((track) => ({ ...track, liked: false })),
@@ -139,7 +138,7 @@ export default function Discover({
 
       {showSearchResults && (
         <TileGridHorizontal title="Albums">
-          {discover.albums.map((music) => (
+          {data.albums.map((music) => (
             <TileSquared
               key={music.id}
               src={music.images[0]?.url}
@@ -154,7 +153,7 @@ export default function Discover({
 
       {showSearchResults && (
         <TileGridHorizontal title="Artists">
-          {discover.artists.map((music) => (
+          {data.artists.map((music) => (
             <TileRounded
               key={music.id}
               src={music.images[0]?.url}
@@ -168,7 +167,7 @@ export default function Discover({
 
       {showSearchResults && (
         <ListGridVertical title="Songs" cols="2">
-          {discover.tracks.map((music) => (
+          {data.tracks.map((music) => (
             <TrackItem
               key={music.id}
               trackId={music.id}

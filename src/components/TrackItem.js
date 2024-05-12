@@ -49,41 +49,7 @@ function TrackItem({
       width = "w-full";
   }
 
-  const toggleLiked = async (track) => {
-    console.log(test);
-    try {
-      const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch track details");
-      }
-
-      const trackData = await response.json();
-
-      setLikedTracks((prevLikedTracks) => {
-        const trackIndex = prevLikedTracks.findIndex(
-          (likedTrack) => likedid === id
-        );
-        if (trackIndex !== -1) {
-          // If track is already liked, remove it from likedTracks
-          const updatedLikedTracks = [...prevLikedTracks];
-          updatedLikedTracks.splice(trackIndex, 1);
-          return updatedLikedTracks;
-        } else {
-          // If track is not liked yet, add it to likedTracks
-          return [...prevLikedTracks, trackData];
-        }
-      });
-    } catch (error) {
-      console.error("Error toggling liked track:", error);
-    }
-  };
+  console.log("Is track liked?", liked);
 
   return (
     <div
@@ -99,11 +65,7 @@ function TrackItem({
       <div className={`h-full flex items-center space-x-3 ` + width}>
         <div className="relative w-fit">
           {!playing || (
-            <img
-              src={visualizerGif}
-              alt="Play"
-              className="opacity-40 absolute"
-            />
+            <img src={visualizerGif} alt="Play" className="opacity-40 absolute" />
           )}
           <IconPlayFilled
             size="25"
@@ -134,7 +96,7 @@ function TrackItem({
           }
         }}
       >
-        <IconHeart size="25" />
+        <IconHeart size="25" liked={liked} />
       </button>
       <span className="h-full w-fit flex items-center text-slate-400">
         {duration}

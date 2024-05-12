@@ -11,6 +11,7 @@ import Favorites from "./pages/Favorites";
 import NoPage from "./pages/NoPage";
 import TestPage from "./pages/TestPage";
 import NewPlaylist from "./components/NewPlaylist";
+import Overlay from "./components/Overlay";
 
 const CLIENT_ID = "1b6704c6a4c340899a3d4f5f0e407358";
 const CLIENT_SECRET = "48dfec19fefc4ae48dfdfd5e48cdaa40";
@@ -20,84 +21,70 @@ const tmpPlaylists = {
 };
 
 function App() {
-  const [accessToken, setAccessToken] = useState("");
-  const [recent, setRecent] = useState({ albums: [], artists: [], tracks: [] });
-  const [discover, setDiscover] = useState({
-    albums: [],
-    artists: [],
-    tracks: [],
-  });
+    const [accessToken, setAccessToken] = useState("");
+    const [recent, setRecent] = useState({ albums: [], artists: [], tracks: [] });
+    const [data, setData] = useState({
+        albums: [],
+        artists: [],
+        tracks: [],
+    });
+  
+    const [playlists, setPlaylists] = useState(tmpPlaylists);
+    const [likedTracks, setLikedTracks] = useState([]);
+    const [loading, setLoading] = useState(true); // Loading state
+    const [overlay, setOverlay] = useState("createPlaylistForm");
 
-  const [playlists, setPlaylists] = useState(tmpPlaylists);
-  const [likedTracks, setLikedTracks] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+    useEffect(() => {
+        var authParameters = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body:
+                "grant_type=client_credentials&client_id=" +
+                CLIENT_ID +
+                "&client_secret=" +
+                CLIENT_SECRET,
+        };
 
-  useEffect(() => {
-    var authParameters = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body:
-        "grant_type=client_credentials&client_id=" +
-        CLIENT_ID +
-        "&client_secret=" +
-        CLIENT_SECRET,
+        fetch("https://accounts.spotify.com/api/token", authParameters)
+            .then((res) => res.json())
+            .then((data) => {
+                setAccessToken(data.access_token);
+                setLoading(false); // Update loading state once access token is fetched
+            });
+    }, []);
+
+    const removeTrack = (trackId) => {
+        setLikedTracks((prevLikedTracks) => {
+            const updatedLikedTracks = Object.fromEntries(
+                Object.entries(prevLikedTracks).filter(([id, track]) => id !== trackId)
+            );
+            return updatedLikedTracks;
+        });
     };
 
-    fetch("https://accounts.spotify.com/api/token", authParameters)
-      .then((res) => res.json())
-      .then((data) => {
-        setAccessToken(data.access_token);
-        setLoading(false); // Update loading state once access token is fetched
-      });
-  }, []);
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-  // const toggleLiked = (trackId) => {
-  //   setLikedTracks((prevLikedTracks) => {
-  //     return {
-  //       ...prevLikedTracks,
-  //       [trackId]: {
-  //         ...prevLikedTracks[trackId],
-  //         liked: !prevLikedTracks[trackId].liked,
-  //       },
-  //     };
-  //   });
-  // };
+    const toggleLiked = (trackId) => {
+        setLikedTracks((prevState) => {
+            const updatedLikedTracks = { ...prevState };
+            if (updatedLikedTracks[trackId]) {
+                updatedLikedTracks[trackId].liked = !updatedLikedTracks[trackId].liked;
+            } else {
+                const foundTrack = data.tracks.find((track) => track.id === trackId);
+                if (foundTrack) {
+                    foundTrack.liked = true;
+                    updatedLikedTracks[trackId] = foundTrack;
+                }
+            }
+            return updatedLikedTracks;
+        });
+    };
 
-  const toggleLiked = (trackId) => {
-    setLikedTracks((prevState) => {
-      const updatedLikedTracks = { ...prevState };
-      if (updatedLikedTracks[trackId]) {
-        updatedLikedTracks[trackId].liked = !updatedLikedTracks[trackId].liked;
-      } else {
-        // Assuming discover is available in the scope of this function
-        const foundTrack = discover.tracks.find(
-          (track) => track.id === trackId
-        );
-        if (foundTrack) {
-          foundTrack.liked = true;
-          updatedLikedTracks[trackId] = foundTrack;
-        }
-      }
-      return updatedLikedTracks;
-    });
-  };
-
-  const removeTrack = (trackId) => {
-    setLikedTracks((prevLikedTracks) => {
-      const updatedLikedTracks = Object.fromEntries(
-        Object.entries(prevLikedTracks).filter(([id, track]) => id !== trackId)
-      );
-      return updatedLikedTracks;
-    });
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
+    return (
     <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
       <BrowserRouter>
         <Routes>
@@ -165,8 +152,7 @@ function App() {
           <Route path="*" element={<NoPage />} />
         </Routes>
       </BrowserRouter>
+      <Overlay overlay={overlay} setOverlay={setOverlay} />
     </div>
   );
-}
-
 export default App;

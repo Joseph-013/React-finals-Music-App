@@ -1,7 +1,7 @@
 import React from "react";
 import TrackItem from "../components/TrackItem";
 
-export default function Favorites({ likedTracks, toggleLiked, removeTrack }) {
+export default function Favorites(fav) {
   function convertMsToTime(duration_ms) {
     var seconds = Math.floor((duration_ms / 1000) % 60);
     var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);
@@ -13,14 +13,14 @@ export default function Favorites({ likedTracks, toggleLiked, removeTrack }) {
   }
 
   const handleRemoveTrack = (trackId) => {
-    removeTrack(trackId);
+    fav.removeTrack(trackId);
   };
 
   return (
     <div>
       <h1>Favorites</h1>
-      {likedTracks && Object.values(likedTracks).length > 0 ? (
-        Object.values(likedTracks).map((track) => (
+      {fav.likedTracks && Object.values(fav.likedTracks).length > 0 ? (
+        Object.values(fav.likedTracks).map((track) => (
           <TrackItem
             key={track.id}
             cover={track.album.images[0]?.url}
@@ -29,7 +29,7 @@ export default function Favorites({ likedTracks, toggleLiked, removeTrack }) {
             type="Songs"
             duration={convertMsToTime(track.duration_ms)}
             liked={true}
-            onLike={() => toggleLiked(track.id)}
+            onLike={() => fav.toggleLiked(track.id)}
             onRemove={() => handleRemoveTrack(track.id)}
           />
         ))
