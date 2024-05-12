@@ -5,16 +5,7 @@ import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
 import { useEffect, useState } from "react";
 
-export default function Home({
-  accessToken,
-  setRecent,
-  likedTracks,
-  discover,
-  setDiscover,
-  setLikedTracks,
-  toggleLiked,
-  playlists,
-}) {
+export default function Home({ accessToken, setRecent, data, setData }) {
   const initialMusicsState = {
     albums: [],
     artists: [],
@@ -66,6 +57,13 @@ export default function Home({
       }
 
       const data = await response.json();
+
+      setData({
+        albums: data.albums.items,
+        artists: data.artists.items,
+        tracks: data.tracks.items.map((track) => ({ ...track, liked: false })),
+      });
+
       console.log("Albums:", data.albums.items);
       console.log("Artists:", data.artists.items);
       console.log("Tracks:", data.tracks.items);
@@ -139,6 +137,7 @@ export default function Home({
           musics.tracks.map((music) => (
             <TrackItem
               key={music.id}
+              trackId={music.id}
               cover={music.album.images[0]?.url}
               artist={music.artists[0].name}
               title={music.name}
@@ -146,7 +145,8 @@ export default function Home({
               duration={convertMsToTime(music.duration_ms)}
               liked={music.liked}
               onLike={() => toggleLiked(music.id)}
-              playlists={playlists}
+              accessToken={accessToken}
+              setLikedTracks={setLikedTracks}
             />
           ))}
       </ListGridVertical>

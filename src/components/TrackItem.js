@@ -29,6 +29,7 @@ function TrackItem({
 }) {
   const [hovered, setHovered] = useState(false);
   const [contextDisplay, setContextDisplay] = useState("hidden"); //or block
+  const [liked, setLiked] = useState(true); // Initialize liked state as true for favorites
 
   let widthCount = 0;
   let width;
@@ -49,41 +50,46 @@ function TrackItem({
       width = "w-full";
   }
 
-  const toggleLiked = async (track) => {
-    console.log(test);
-    try {
-      const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
-        },
-      });
+  console.log("Is track liked?", track.liked);
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch track details");
-      }
+  // const toggleLiked = async (track) => {
+  //   console.log(test);
+  //   try {
+  //     const response = await fetch(
+  //       `https://api.spotify.com/v1/tracks/${track.id}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Bearer " + track.accessToken,
+  //         },
+  //       }
+  //     );
 
-      const trackData = await response.json();
+  //     if (!response.ok) {
+  //       throw new Error("Failed to fetch track details");
+  //     }
 
-      setLikedTracks((prevLikedTracks) => {
-        const trackIndex = prevLikedTracks.findIndex(
-          (likedTrack) => likedid === id
-        );
-        if (trackIndex !== -1) {
-          // If track is already liked, remove it from likedTracks
-          const updatedLikedTracks = [...prevLikedTracks];
-          updatedLikedTracks.splice(trackIndex, 1);
-          return updatedLikedTracks;
-        } else {
-          // If track is not liked yet, add it to likedTracks
-          return [...prevLikedTracks, trackData];
-        }
-      });
-    } catch (error) {
-      console.error("Error toggling liked track:", error);
-    }
-  };
+  //     const trackData = await response.json();
+
+  //     track.setLikedTracks((prevLikedTracks) => {
+  //       const trackIndex = prevLikedTracks.findIndex(
+  //         (likedTrack) => likedTrack.id === track.id
+  //       );
+  //       if (trackIndex !== -1) {
+  //         // If track is already liked, remove it from likedTracks
+  //         const updatedLikedTracks = [...prevLikedTracks];
+  //         updatedLikedTracks.splice(trackIndex, 1);
+  //         return updatedLikedTracks;
+  //       } else {
+  //         // If track is not liked yet, add it to likedTracks
+  //         return [...prevLikedTracks, trackData];
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error("Error toggling liked track:", error);
+  //   }
+  // };
 
   return (
     <div
@@ -98,12 +104,8 @@ function TrackItem({
       {/* <span>{Object.keys(test)[0]}</span> */}
       <div className={`h-full flex items-center space-x-3 ` + width}>
         <div className="relative w-fit">
-          {!playing || (
-            <img
-              src={visualizerGif}
-              alt="Play"
-              className="opacity-40 absolute"
-            />
+          {!track.playing || (
+            <img src={visualizerGif} alt="Play" className="opacity-40 absolute" />
           )}
           <IconPlayFilled
             size="25"
@@ -115,8 +117,8 @@ function TrackItem({
           <img src={cover} alt={title} className="size-12" />
         </div>
         <div className="flex-1 flex flex-col truncate font-poppins w-fit">
-          <span className="text-sm truncate tracking-normal">{title}</span>
-          <span className="text-sm text-slate-400 truncate">{artist}</span>
+          <span className="text-sm truncate tracking-normal">{track.title}</span>
+          <span className="text-sm text-slate-400 truncate">{track.artist}</span>
         </div>
       </div>
       {!genre || (
@@ -134,7 +136,7 @@ function TrackItem({
           }
         }}
       >
-        <IconHeart size="25" />
+        <IconHeart size="25" liked={track.liked} />
       </button>
       <span className="h-full w-fit flex items-center text-slate-400">
         {duration}
