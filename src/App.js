@@ -98,7 +98,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home accessToken={accessToken} />} />
             <Route
               path="testpage"
               element={
@@ -118,10 +117,10 @@ function App() {
                   setDiscover={setDiscover}
                   setLikedTracks={setLikedTracks}
                   toggleLiked={toggleLiked}
+                  playlists={playlists}
                 />
               }
             />
-            <Route path="testpage" element={<TestPage />} />
             <Route
               path="discover"
               element={
