@@ -29,7 +29,6 @@ function TrackItem({
 }) {
   const [hovered, setHovered] = useState(false);
   const [contextDisplay, setContextDisplay] = useState("hidden"); //or block
-  const [liked, setLiked] = useState(true); // Initialize liked state as true for favorites
 
   let widthCount = 0;
   let width;
@@ -50,7 +49,7 @@ function TrackItem({
       width = "w-full";
   }
 
-  console.log("Is track liked?", track.liked);
+  console.log("Is track liked?", liked);
 
   // const toggleLiked = async (track) => {
   //   console.log(test);
@@ -104,7 +103,7 @@ function TrackItem({
       {/* <span>{Object.keys(test)[0]}</span> */}
       <div className={`h-full flex items-center space-x-3 ` + width}>
         <div className="relative w-fit">
-          {!track.playing || (
+          {!playing || (
             <img src={visualizerGif} alt="Play" className="opacity-40 absolute" />
           )}
           <IconPlayFilled
@@ -117,8 +116,8 @@ function TrackItem({
           <img src={cover} alt={title} className="size-12" />
         </div>
         <div className="flex-1 flex flex-col truncate font-poppins w-fit">
-          <span className="text-sm truncate tracking-normal">{track.title}</span>
-          <span className="text-sm text-slate-400 truncate">{track.artist}</span>
+          <span className="text-sm truncate tracking-normal">{title}</span>
+          <span className="text-sm text-slate-400 truncate">{artist}</span>
         </div>
       </div>
       {!genre || (
@@ -136,7 +135,7 @@ function TrackItem({
           }
         }}
       >
-        <IconHeart size="25" liked={track.liked} />
+        <IconHeart size="25" liked={liked} />
       </button>
       <span className="h-full w-fit flex items-center text-slate-400">
         {duration}

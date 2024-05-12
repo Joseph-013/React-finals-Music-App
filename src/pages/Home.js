@@ -5,7 +5,16 @@ import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
 import { useEffect, useState } from "react";
 
-export default function Home({ accessToken, setRecent, data, setData }) {
+export default function Home({
+  accessToken,
+  setRecent,
+  likedTracks,
+  data,
+  setData,
+  setLikedTracks,
+  toggleLiked,
+  playlists,
+}) {
   const initialMusicsState = {
     albums: [],
     artists: [],
