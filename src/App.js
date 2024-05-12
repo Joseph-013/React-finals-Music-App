@@ -15,6 +15,10 @@ import Overlay from "./components/Overlay";
 
 const CLIENT_ID = "1b6704c6a4c340899a3d4f5f0e407358";
 const CLIENT_SECRET = "48dfec19fefc4ae48dfdfd5e48cdaa40";
+const tmpPlaylists = {
+  "test playlist 1": ["song 1", "song 2"],
+  "test playlist 2": ["song 3", "song 4"],
+};
 
 function App() {
     const [accessToken, setAccessToken] = useState("");
@@ -24,11 +28,10 @@ function App() {
         artists: [],
         tracks: [],
     });
-
-    const [playlists, setPlaylists] = useState({});
+  
+    const [playlists, setPlaylists] = useState(tmpPlaylists);
     const [likedTracks, setLikedTracks] = useState([]);
-    const [loading, setLoading] = useState(true);
-
+    const [loading, setLoading] = useState(true); // Loading state
     const [overlay, setOverlay] = useState("createPlaylistForm");
 
     useEffect(() => {
@@ -82,69 +85,74 @@ function App() {
     };
 
     return (
-        <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Layout />}>
-                        <Route
-                            index
-                            element={
-                                <Home
-                                    accessToken={accessToken}
-                                    setRecent={setRecent}
-                                    likedTracks={likedTracks}
-                                    data={data}
-                                    setData={setData}
-                                    setLikedTracks={setLikedTracks}
-                                    toggleLiked={toggleLiked}
-                                />
-                            }
-                        />
-                        <Route
-                            path="testpage"
-                            element={
-                                <TestPage playlists={playlists}>
-                                    <NewPlaylist setPlaylists={setPlaylists} />
-                                </TestPage>
-                            }
-                        />
-
-                        <Route path="testpage" element={<TestPage />} />
-                        <Route
-                            path="discover"
-                            element={
-                                <Discover
-                                    accessToken={accessToken}
-                                    setRecent={setRecent}
-                                    likedTracks={likedTracks}
-                                    data={data}
-                                    setData={setData}
-                                    setLikedTracks={setLikedTracks}
-                                    toggleLiked={toggleLiked}
-                                />
-                            }
-                        />
-                        <Route path="trending" element={<Trending />} />
-                        <Route path="recent" element={<Recent recent={recent} />} />
-                        <Route path="playlists" element={<Playlists />} />
-                        <Route
-                            path="favorites"
-                            element={
-                                <Favorites
-                                    likedTracks={likedTracks}
-                                    toggleLiked={toggleLiked}
-                                    removeTrack={removeTrack}
-                                />
-                            }
-                        />
-                    </Route>
-                    <Route path="*" element={<NoPage />} />
-                </Routes>
-            </BrowserRouter>
-
-            <Overlay overlay={overlay} setOverlay={setOverlay} />
-        </div>
-    );
-}
-
+    <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route
+              path="testpage"
+              element={
+                <TestPage playlists={playlists}>
+                  <NewPlaylist setPlaylists={setPlaylists} />
+                </TestPage>
+              }
+            />
+            <Route
+              index
+              element={
+                <Home
+                  accessToken={accessToken}
+                  setRecent={setRecent}
+                  likedTracks={likedTracks}
+                  discover={discover}
+                  setDiscover={setDiscover}
+                  setLikedTracks={setLikedTracks}
+                  toggleLiked={toggleLiked}
+                  playlists={playlists}
+                />
+              }
+            />
+            <Route
+              path="discover"
+              element={
+                <Discover
+                  accessToken={accessToken}
+                  setRecent={setRecent}
+                  likedTracks={likedTracks}
+                  discover={discover}
+                  setDiscover={setDiscover}
+                  setLikedTracks={setLikedTracks}
+                  toggleLiked={toggleLiked}
+                  playlists={playlists}
+                />
+              }
+            />
+            <Route
+              path="trending"
+              element={
+                <Trending accessToken={accessToken} playlists={playlists} />
+              }
+            />
+            <Route path="recent" element={<Recent recent={recent} />} />
+            <Route
+              path="playlists"
+              element={<Playlists playlists={playlists} />}
+            />
+            <Route
+              path="favorites"
+              element={
+                <Favorites
+                  likedTracks={likedTracks}
+                  toggleLiked={toggleLiked}
+                  removeTrack={removeTrack}
+                />
+              }
+            />
+          </Route>
+          <Route path="*" element={<NoPage />} />
+        </Routes>
+      </BrowserRouter>
+      <Overlay overlay={overlay} setOverlay={setOverlay} />
+    </div>
+  );
 export default App;

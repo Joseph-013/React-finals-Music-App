@@ -12,7 +12,7 @@ const formatDuration = (ms) => {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
 
-export default function Trending({ accessToken }) {
+export default function Trending({ accessToken, playlists }) {
   const [tracks, setTracks] = useState([]);
   const [randomAlbumTracks, setRandomAlbumTracks] = useState([]);
   const [spotlightArtistTracks, setSpotlightArtistTracks] = useState([]);
@@ -62,7 +62,9 @@ export default function Trending({ accessToken }) {
     const randomIndex = Math.floor(Math.random() * items.length);
     const randomTrack = items[randomIndex].track;
     setRandomAlbum(randomTrack.album);
-    setRandomAlbumTracks(items.filter(item => item.track.album.id === randomTrack.album.id));
+    setRandomAlbumTracks(
+      items.filter((item) => item.track.album.id === randomTrack.album.id)
+    );
   };
 
   const selectSpotlightArtist = async (items) => {
@@ -93,11 +95,11 @@ export default function Trending({ accessToken }) {
     const url = `https://api.spotify.com/v1/artists/${artistId}`;
     const response = await fetch(url, {
       headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
     if (!response.ok) {
-      throw new Error('Failed to fetch artist details');
+      throw new Error("Failed to fetch artist details");
     }
     return await response.json();
   };
@@ -109,9 +111,10 @@ export default function Trending({ accessToken }) {
           <TrackItem
             key={item.track.id}
             cover={item.track.album.images[0]?.url || "default_album_image.jpg"}
-            artist={item.track.artists.map(artist => artist.name).join(", ")}
+            artist={item.track.artists.map((artist) => artist.name).join(", ")}
             title={item.track.name}
             duration={formatDuration(item.track.duration_ms)}
+            playlists={playlists}
           />
         ))}
       </ListGridVertical>
@@ -120,18 +123,25 @@ export default function Trending({ accessToken }) {
           <TileSquared
             src={randomAlbum.images[0]?.url || "default_album_image.jpg"}
             title={randomAlbum.name}
-            subTitle={randomAlbum.artists.map(artist => artist.name).join(", ")}
+            subTitle={randomAlbum.artists
+              .map((artist) => artist.name)
+              .join(", ")}
           />
           <ListGridHorizontal className="flex items-center">
             {randomAlbumTracks.map((item) => (
               <TrackItem
                 key={item.track.id}
                 className="w-[28rem]"
-                cover={item.track.album.images[0]?.url || "default_album_image.jpg"}
+                cover={
+                  item.track.album.images[0]?.url || "default_album_image.jpg"
+                }
                 title={item.track.name}
                 album={item.track.album.name}
-                artist={item.track.artists.map(artist => artist.name).join(", ")}
+                artist={item.track.artists
+                  .map((artist) => artist.name)
+                  .join(", ")}
                 duration={formatDuration(item.track.duration_ms)}
+                playlists={playlists}
               />
             ))}
           </ListGridHorizontal>
@@ -152,8 +162,9 @@ export default function Trending({ accessToken }) {
                 cover={track.album.images[0]?.url || "default_album_image.jpg"}
                 title={track.name}
                 album={track.album.name}
-                artist={track.artists.map(artist => artist.name).join(", ")}
+                artist={track.artists.map((artist) => artist.name).join(", ")}
                 duration={formatDuration(track.duration_ms)}
+                playlists={playlists}
               />
             ))}
           </ListGridHorizontal>
