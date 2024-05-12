@@ -103,6 +103,85 @@ function TestPage({ children, playlists }) {
 
                 </ListGridHorizontal>
             </TileGridHorizontal>
+
+            <TileGridHorizontal title="Artist Spotlight: Taylor Swift" className="bc">
+                <TileRounded src="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Taylor Swift" type="Artist" />
+                <ListGridHorizontal className="flex items-center" rows="3">
+                    <TrackItem className="w-[28rem]"
+                        cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png"
+                        title="Red"
+                        album="But"
+                        artist="Regine Velasquez"
+                        duration="3:55"
+                        playlists={playlists}
+                    />
+                    <TrackItem className="w-[28rem]"
+                        cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png"
+                        title="Red"
+                        album="But"
+                        artist="Regine Velasquez"
+                        duration="3:55"
+                        playlists={playlists}
+                    />
+                    <TrackItem className="w-[28rem]"
+                        cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png"
+                        title="Red"
+                        album="But"
+                        artist="Regine Velasquez"
+                        duration="3:55"
+                        playlists={playlists}
+                    />
+                    <TrackItem className="w-[28rem]"
+                        cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png"
+                        title="Red"
+                        album="But"
+                        artist="Regine Velasquez"
+                        duration="3:55"
+                        playlists={playlists}
+                    />
+                    <TrackItem className="w-[28rem]"
+                        cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png"
+                        title="Red"
+                        album="But"
+                        artist="Regine Velasquez"
+                        duration="3:55"
+                        playlists={playlists}
+                    />
+                    <TrackItem className="w-[28rem]"
+                        cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png"
+                        title="Red"
+                        album="But"
+                        artist="Regine Velasquez"
+                        duration="3:55"
+                        playlists={playlists}
+                    />
+                    <TrackItem className="w-[28rem]"
+                        cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png"
+                        title="Red"
+                        album="But"
+                        artist="Regine Velasquez"
+                        duration="3:55"
+                        playlists={playlists}
+                    />
+                    <TrackItem className="w-[28rem]"
+                        cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png"
+                        title="Red"
+                        album="But"
+                        artist="Regine Velasquez"
+                        duration="3:55"
+                        playlists={playlists}
+                    />
+                    <TrackItem className="w-[28rem]"
+                        cover="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png"
+                        title="Red"
+                        album="But"
+                        artist="Regine Velasquez"
+                        duration="3:55"
+                        playlists={playlists}
+                    />
+
+                </ListGridHorizontal>
+            </TileGridHorizontal>
         </div>
     );
 }
