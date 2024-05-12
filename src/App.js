@@ -18,7 +18,7 @@ const CLIENT_SECRET = "48dfec19fefc4ae48dfdfd5e48cdaa40";
 function App() {
   const [accessToken, setAccessToken] = useState("");
   const [recent, setRecent] = useState({ albums: [], artists: [], tracks: [] });
-  const [discover, setDiscover] = useState({
+  const [data, setData] = useState({
     albums: [],
     artists: [],
     tracks: [],
@@ -67,10 +67,7 @@ function App() {
       if (updatedLikedTracks[trackId]) {
         updatedLikedTracks[trackId].liked = !updatedLikedTracks[trackId].liked;
       } else {
-        // Assuming discover is available in the scope of this function
-        const foundTrack = discover.tracks.find(
-          (track) => track.id === trackId
-        );
+        const foundTrack = data.tracks.find((track) => track.id === trackId);
         if (foundTrack) {
           foundTrack.liked = true;
           updatedLikedTracks[trackId] = foundTrack;
@@ -79,6 +76,24 @@ function App() {
       return updatedLikedTracks;
     });
   };
+
+  // const toggleLiked = (trackId) => {
+  //   setLikedTracks((prevLikedTracks) => {
+  //     const updatedLikedTracks = [...prevLikedTracks];
+  //     const existingTrackIndex = updatedLikedTracks.findIndex(
+  //       (track) => track.id === trackId
+  //     );
+  //     if (existingTrackIndex !== -1) {
+  //       // If track already exists in likedTracks, toggle its liked status
+  //       updatedLikedTracks[existingTrackIndex].liked =
+  //         !updatedLikedTracks[existingTrackIndex].liked;
+  //     } else {
+  //       // If track is not in likedTracks, add it with liked status true
+  //       updatedLikedTracks.push({ id: trackId, liked: true });
+  //     }
+  //     return updatedLikedTracks;
+  //   });
+  // };
 
   const removeTrack = (trackId) => {
     setLikedTracks((prevLikedTracks) => {
@@ -98,7 +113,20 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home accessToken={accessToken} />} />
+            <Route
+              index
+              element={
+                <Home
+                  accessToken={accessToken}
+                  setRecent={setRecent}
+                  likedTracks={likedTracks}
+                  data={data}
+                  setData={setData}
+                  setLikedTracks={setLikedTracks}
+                  toggleLiked={toggleLiked}
+                />
+              }
+            />
             <Route
               path="testpage"
               element={
@@ -107,20 +135,7 @@ function App() {
                 </TestPage>
               }
             />
-            <Route
-              index
-              element={
-                <Home
-                  accessToken={accessToken}
-                  setRecent={setRecent}
-                  likedTracks={likedTracks}
-                  discover={discover}
-                  setDiscover={setDiscover}
-                  setLikedTracks={setLikedTracks}
-                  toggleLiked={toggleLiked}
-                />
-              }
-            />
+
             <Route path="testpage" element={<TestPage />} />
             <Route
               path="discover"
@@ -129,8 +144,8 @@ function App() {
                   accessToken={accessToken}
                   setRecent={setRecent}
                   likedTracks={likedTracks}
-                  discover={discover}
-                  setDiscover={setDiscover}
+                  data={data}
+                  setData={setData}
                   setLikedTracks={setLikedTracks}
                   toggleLiked={toggleLiked}
                 />
