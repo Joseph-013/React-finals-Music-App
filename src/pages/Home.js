@@ -91,19 +91,6 @@ export default function Home({
     }
   }
 
-  // const handleItemClick = (item, category) => {
-  //   item.status = true;
-
-  //   setRecent((prevRecent) => {
-  //     const updatedRecent = {
-  //       ...prevRecent,
-  //       [category]: [...prevRecent[category], item],
-  //     };
-
-  //     return updatedRecent;
-  //   });
-  // };
-
   function convertMsToTime(duration_ms) {
     var seconds = Math.floor((duration_ms / 1000) % 60);
     var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);

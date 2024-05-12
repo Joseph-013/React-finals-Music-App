@@ -26,7 +26,7 @@ function App() {
 
   const [playlists, setPlaylists] = useState({});
   const [likedTracks, setLikedTracks] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     var authParameters = {
@@ -48,37 +48,6 @@ function App() {
         setLoading(false); // Update loading state once access token is fetched
       });
   }, []);
-
-  // const toggleLiked = (trackId) => {
-  //   setLikedTracks((prevLikedTracks) => {
-  //     return {
-  //       ...prevLikedTracks,
-  //       [trackId]: {
-  //         ...prevLikedTracks[trackId],
-  //         liked: !prevLikedTracks[trackId].liked,
-  //       },
-  //     };
-  //   });
-  // };
-
-  // const toggleLiked = (trackId) => {
-  //     setLikedTracks((prevState) => {
-  //         const updatedLikedTracks = { ...prevState };
-  //         if (updatedLikedTracks[trackId]) {
-  //             updatedLikedTracks[trackId].liked = !updatedLikedTracks[trackId].liked;
-  //         } else {
-  //             // Assuming discover is available in the scope of this function
-  //             const foundTrack = discover.tracks.find(
-  //                 (track) => track.id === trackId
-  //             );
-  //             if (foundTrack) {
-  //                 foundTrack.liked = true;
-  //                 updatedLikedTracks[trackId] = foundTrack;
-  //             }
-  //         }
-  //         return updatedLikedTracks;
-  //     });
-  // };
 
   const removeTrack = (trackId) => {
     setLikedTracks((prevLikedTracks) => {
@@ -108,37 +77,6 @@ function App() {
       return updatedLikedTracks;
     });
   };
-
-  // const toggleLiked = (trackId) => {
-  //   setLikedTracks((prevLikedTracks) => {
-  //     const updatedLikedTracks = [...prevLikedTracks];
-  //     const existingTrackIndex = updatedLikedTracks.findIndex(
-  //       (track) => track.id === trackId
-  //     );
-  //     if (existingTrackIndex !== -1) {
-  //       // If track already exists in likedTracks, toggle its liked status
-  //       updatedLikedTracks[existingTrackIndex].liked =
-  //         !updatedLikedTracks[existingTrackIndex].liked;
-  //     } else {
-  //       // If track is not in likedTracks, add it with liked status true
-  //       updatedLikedTracks.push({ id: trackId, liked: true });
-  //     }
-  //     return updatedLikedTracks;
-  //   });
-  // };
-
-  // const removeTrack = (trackId) => {
-  //   setLikedTracks((prevLikedTracks) => {
-  //     const updatedLikedTracks = Object.fromEntries(
-  //       Object.entries(prevLikedTracks).filter(([id, track]) => id !== trackId)
-  //     );
-  //     return updatedLikedTracks;
-  //   });
-  // };
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
