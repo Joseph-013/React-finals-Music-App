@@ -6,7 +6,15 @@ import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
 import { useEffect, useState } from "react";
 
-export default function Discover(disc) {
+export default function Discover({
+  accessToken,
+  setRecent,
+  likedTracks,
+  discover,
+  setDiscover,
+  setLikedTracks,
+  toggleLiked,
+}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
 
@@ -27,7 +35,7 @@ export default function Discover(disc) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + disc.accessToken,
+        Authorization: "Bearer " + accessToken,
       },
     };
 
@@ -41,7 +49,7 @@ export default function Discover(disc) {
 
       const data = await response.json();
 
-      disc.setDiscover({
+      setDiscover({
         albums: data.albums.items,
         artists: data.artists.items,
         tracks: data.tracks.items.map((track) => ({ ...track, liked: false })),
@@ -99,7 +107,7 @@ export default function Discover(disc) {
   const handleItemClick = (item, category) => {
     item.status = true;
 
-    disc.setRecent((prevRecent) => {
+    setRecent((prevRecent) => {
       const updatedRecent = {
         ...prevRecent,
         [category]: [...prevRecent[category], item],
@@ -130,7 +138,7 @@ export default function Discover(disc) {
 
       {showSearchResults && (
         <TileGridHorizontal title="Albums">
-          {disc.discover.albums.map((music) => (
+          {discover.albums.map((music) => (
             <TileSquared
               key={music.id}
               src={music.images[0]?.url}
@@ -145,7 +153,7 @@ export default function Discover(disc) {
 
       {showSearchResults && (
         <TileGridHorizontal title="Artists">
-          {disc.discover.artists.map((music) => (
+          {discover.artists.map((music) => (
             <TileRounded
               key={music.id}
               src={music.images[0]?.url}
@@ -159,7 +167,7 @@ export default function Discover(disc) {
 
       {showSearchResults && (
         <ListGridVertical title="Songs" cols="2">
-          {disc.discover.tracks.map((music) => (
+          {discover.tracks.map((music) => (
             <TrackItem
               key={music.id}
               trackId={music.id}
@@ -169,9 +177,9 @@ export default function Discover(disc) {
               type="Songs"
               duration={convertMsToTime(music.duration_ms)}
               liked={music.liked}
-              onLike={() => disc.toggleLiked(music.id)}
-              accessToken={disc.accessToken}
-              setLikedTracks={disc.setLikedTracks}
+              onLike={() => toggleLiked(music.id)}
+              accessToken={accessToken}
+              setLikedTracks={setLikedTracks}
               onClick={() => handleItemClick(music, "tracks")}
             />
           ))}
