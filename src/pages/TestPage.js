@@ -104,7 +104,7 @@ function TestPage({ children, playlists }) {
                 </ListGridHorizontal>
             </TileGridHorizontal>
 
-            <TileGridHorizontal title="Artist Spotlight: Taylor Swift" className="bc">
+            <TileGridHorizontal title="Artist Spotlight: Taylor Swift">
                 <TileRounded src="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" title="Taylor Swift" type="Artist" />
                 <ListGridHorizontal className="flex items-center" rows="3">
                     <TrackItem className="w-[28rem]"
