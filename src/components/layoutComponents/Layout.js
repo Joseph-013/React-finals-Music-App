@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import NavBar from "./NavBar";
-import PlayerDocked from "./PlayerDocked";
+import Player from "./Player";
 import { useState, useEffect } from "react";
 // import { NavbarToggle } from "flowbite-react";
 
-const Layout = () => {
+function Layout({ playerTracks, setPlayerTracks }) {
     const [navBarToggle, setNavBarToggle] = useState(true);
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const Layout = () => {
 
             {/* Player */}
             <section className="h-20 fixed bottom-0 overflow-hidden w-full z-player bg-[#084868]">
-                <PlayerDocked navBarState={navBarToggle} />
+                <Player navBarState={navBarToggle} playerTracks={playerTracks} setPlayerTracks={setPlayerTracks} />
             </section>
         </div>
     );
