@@ -55,7 +55,7 @@ function Overlay({ children, overlay, setOverlay, setPlaylists }) {
   }
 
   const renderOverlayContent = () => {
-    if (overlay === "createPlaylistForm") {
+    if (overlay) {
       return <CreatePlaylistForm />;
     }
     return null;
