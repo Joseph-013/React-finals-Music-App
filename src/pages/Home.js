@@ -13,6 +13,7 @@ export default function Home({
   setData,
   setLikedTracks,
   toggleLiked,
+  playlists,
 }) {
   const initialMusicsState = {
     albums: [],

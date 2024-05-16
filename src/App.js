@@ -1,8 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { PlaylistContext } from "./components/Context";
-
 import Layout from "./components/layoutComponents/Layout";
 import Home from "./pages/Home";
 import Discover from "./pages/Discover";
@@ -34,7 +32,20 @@ function App() {
     const [playlists, setPlaylists] = useState(tmpPlaylists);
     const [likedTracks, setLikedTracks] = useState([]);
     const [loading, setLoading] = useState(true); // Loading state
+    // const [overlay, setOverlay] = useState("createPlaylistForm");
     const [overlay, setOverlay] = useState(false);
+
+    // +++ For playback
+    // "https://p.scdn.co/mp3-preview/50c7dbdb7d3e86153d7cc2b2ba28fad29fa0ce6e?cid=1b6704c6a4c340899a3d4f5f0e407358"
+    const [playerTracks, setPlayerTracks] = useState({
+        // 0: {
+        //     title: "Stay",
+        //     artist: "Taylor Swifty",
+        //     src: "https://p.scdn.co/mp3-preview/50c7dbdb7d3e86153d7cc2b2ba28fad29fa0ce6e?cid=1b6704c6a4c340899a3d4f5f0e407358",
+        // }
+    });
+    // const
+    // --- For Playback
 
     useEffect(() => {
         var authParameters = {
@@ -86,89 +97,76 @@ function App() {
         });
     };
 
-    function addSongToPlaylist(playlistName, trackID) {
-        setPlaylists(() => {
-            var updatedPlaylist = [...playlists[playlistName], trackID];
-
-            console.log("Song is added");
-            return { ...playlists, [playlistName]: updatedPlaylist };
-        });
-    }
-
     return (
-        <PlaylistContext.Provider
-            value={{ playlists, setPlaylists, setOverlay, addSongToPlaylist }}
-        >
-            <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<Layout />}>
-                            <Route
-                                path="testpage"
-                                element={
-                                    <TestPage playlists={playlists}>
-                                        <NewPlaylist setPlaylists={setPlaylists} />
-                                    </TestPage>
-                                }
-                            />
-                            <Route
-                                index
-                                element={
-                                    <Home
-                                        accessToken={accessToken}
-                                        setRecent={setRecent}
-                                        likedTracks={likedTracks}
-                                        data={data}
-                                        setData={setData}
-                                        setLikedTracks={setLikedTracks}
-                                        toggleLiked={toggleLiked}
-                                    />
-                                }
-                            />
-                            <Route
-                                path="discover"
-                                element={
-                                    <Discover
-                                        accessToken={accessToken}
-                                        setRecent={setRecent}
-                                        likedTracks={likedTracks}
-                                        data={data}
-                                        setData={setData}
-                                        setLikedTracks={setLikedTracks}
-                                        toggleLiked={toggleLiked}
-                                    />
-                                }
-                            />
-                            <Route
-                                path="trending"
-                                element={<Trending accessToken={accessToken} />}
-                            />
-                            <Route path="recent" element={<Recent recent={recent} />} />
-                            <Route
-                                path="playlists"
-                                element={<Playlists playlists={playlists} />}
-                            />
-                            <Route
-                                path="favorites"
-                                element={
-                                    <Favorites
-                                        likedTracks={likedTracks}
-                                        toggleLiked={toggleLiked}
-                                        removeTrack={removeTrack}
-                                    />
-                                }
-                            />
-                        </Route>
-                        <Route path="*" element={<NoPage />} />
-                    </Routes>
-                </BrowserRouter>
-                <Overlay
-                    overlay={overlay}
-                    setOverlay={setOverlay}
-                    setPlaylists={setPlaylists}
-                />
-            </div>
-        </PlaylistContext.Provider>
+        <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout playerTracks={playerTracks} setPlayerTracks={setPlayerTracks} accessToken={accessToken} />}>
+                        <Route
+                            path="testpage"
+                            element={
+                                <TestPage playlists={playlists}>
+                                    <NewPlaylist setPlaylists={setPlaylists} />
+                                </TestPage>
+                            }
+                        />
+                        <Route
+                            index
+                            element={
+                                <Home
+                                    accessToken={accessToken}
+                                    setRecent={setRecent}
+                                    likedTracks={likedTracks}
+                                    data={data}
+                                    setData={setData}
+                                    setLikedTracks={setLikedTracks}
+                                    toggleLiked={toggleLiked}
+                                    playlists={playlists}
+                                />
+                            }
+                        />
+                        <Route
+                            path="discover"
+                            element={
+                                <Discover
+                                    accessToken={accessToken}
+                                    setRecent={setRecent}
+                                    likedTracks={likedTracks}
+                                    data={data}
+                                    setData={setData}
+                                    setLikedTracks={setLikedTracks}
+                                    toggleLiked={toggleLiked}
+                                    playlists={playlists}
+                                />
+                            }
+                        />
+                        <Route
+                            path="trending"
+                            element={
+                                <Trending accessToken={accessToken} playlists={playlists} />
+                            }
+                        />
+                        <Route path="recent" element={<Recent recent={recent} />} />
+                        <Route
+                            path="playlists"
+                            element={<Playlists playlists={playlists} />}
+                        />
+                        <Route
+                            path="favorites"
+                            element={
+                                <Favorites
+                                    likedTracks={likedTracks}
+                                    toggleLiked={toggleLiked}
+                                    removeTrack={removeTrack}
+                                />
+                            }
+                        />
+                    </Route>
+                    <Route path="*" element={<NoPage />} />
+                </Routes>
+            </BrowserRouter>
+            <Overlay overlay={overlay} setOverlay={setOverlay} />
+        </div>
     );
 }
 export default App;

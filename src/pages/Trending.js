@@ -12,7 +12,7 @@ const formatDuration = (ms) => {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
 
-export default function Trending({ accessToken }) {
+export default function Trending({ accessToken, playlists }) {
   const [tracks, setTracks] = useState([]);
   const [randomAlbumTracks, setRandomAlbumTracks] = useState([]);
   const [spotlightArtistTracks, setSpotlightArtistTracks] = useState([]);
@@ -114,6 +114,7 @@ export default function Trending({ accessToken }) {
             artist={item.track.artists.map((artist) => artist.name).join(", ")}
             title={item.track.name}
             duration={formatDuration(item.track.duration_ms)}
+            playlists={playlists}
           />
         ))}
       </ListGridVertical>
@@ -140,6 +141,7 @@ export default function Trending({ accessToken }) {
                   .map((artist) => artist.name)
                   .join(", ")}
                 duration={formatDuration(item.track.duration_ms)}
+                playlists={playlists}
               />
             ))}
           </ListGridHorizontal>
@@ -162,6 +164,7 @@ export default function Trending({ accessToken }) {
                 album={track.album.name}
                 artist={track.artists.map((artist) => artist.name).join(", ")}
                 duration={formatDuration(track.duration_ms)}
+                playlists={playlists}
               />
             ))}
           </ListGridHorizontal>

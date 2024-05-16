@@ -1,9 +1,9 @@
-import { useState } from "react";
-
 import visualizerGif from "./icons/visualizerGif.gif";
+import { useState } from "react";
 import IconPlayFilled from "./icons/IconPlayFilled";
 import IconHeart from "./icons/IconHeart";
-import TrackItemContext from "./TrackItemContext";
+import IconDotsVerical from "./icons/IconDotsVertical";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 function TrackItem({
   accessToken,
@@ -20,6 +20,7 @@ function TrackItem({
   playing,
   playerComponent,
   setLikedTracks,
+  playlists = {},
   onRemove,
   className,
   album,
@@ -27,6 +28,7 @@ function TrackItem({
   likedid,
 }) {
   const [hovered, setHovered] = useState(false);
+  const [contextDisplay, setContextDisplay] = useState("hidden"); //or block
 
   let widthCount = 0;
   let width;
@@ -63,11 +65,7 @@ function TrackItem({
       <div className={`h-full flex items-center space-x-3 ` + width}>
         <div className="relative w-fit">
           {!playing || (
-            <img
-              src={visualizerGif}
-              alt="Play"
-              className="opacity-40 absolute"
-            />
+            <img src={visualizerGif} alt="Play" className="opacity-40 absolute" />
           )}
           <IconPlayFilled
             size="25"
@@ -103,9 +101,42 @@ function TrackItem({
       <span className="h-full w-fit flex items-center text-slate-400">
         {duration}
       </span>
-      <TrackItemContext trackId={trackId} />
+      <TrackItemContext playlists={playlists} />
     </div>
   );
+
+  function TrackItemContext({ playlists }) {
+    const handleButtonClick = (e) => {
+      e.stopPropagation();
+      setContextDisplay(contextDisplay === "hidden" ? "block" : "hidden");
+    };
+
+    return (
+      <div className="relative">
+        <button
+          className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full"
+          onClick={handleButtonClick}
+          // onFocus={handleButtonClick}
+        >
+          <IconDotsVerical size="25" />
+        </button>
+        <ul
+          className={`py-2 absolute max-h-64 overflow-y-auto w-48 z-20 left-0 -translate-y-1/2 top-1/2 -translate-x-full bg-gray-700 ${contextDisplay}`}
+          onMouseEnter={() => setContextDisplay("block")}
+          onMouseLeave={() => setContextDisplay("hidden")}
+        >
+          <li className="h-12 px-2 flex items-center hover:bg-slate-500">
+            Add to Favorites
+          </li>
+          {Object.keys(playlists).map((playlistName) => (
+            <li className="h-12 px-2 flex items-center hover:bg-slate-500">
+              {playlistName}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 }
 
 export default TrackItem;
