@@ -6,47 +6,25 @@ import IconShuffle from "../icons/IconShuffle";
 import IconSkipLeft from "../icons/IconSkipLeft";
 import IconSkipRight from "../icons/IconSkipRight";
 import IconHeart from "../icons/IconHeart";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./VolumePop.css";
+import SpotifyWebPlayer from "react-spotify-web-playback";
 
-function Player({ navBarState, playerTracks, setPlayerTracks }) {
+function Player({ navBarState, playerTracks, accessToken }) {
     const [maximized, setMaximized] = useState(false);
     const togglePlayerMaximized = () => {
         setMaximized(!maximized);
     };
 
-    // function getAudio(url) {
-    //     return new Promise((resolve, reject) => {
-    //         const mp3 = new Audio(playerTracks[queueCount]);
-    //         if (mp3) {
-    //             resolve(mp3);
-    //         } else {
-    //             reject(false);
-    //         }
-    //     })
+
+
+    // const togglePlay = () => {
+    //     setPlayerState(!playerState);
+    // };
+
+    // function forcePlay() {
+    //     audio.play();
     // }
-
-    async function getAudio(url) {
-        return new Audio(url);
-    }
-
-    const [queueCount, setQueueCount] = useState(0);
-    const [audio, setAudio] = useState(new Audio(playerTracks[queueCount].src));
-    const [playerState, setPlayerState] = useState(false);
-
-    console.log(playerState)
-
-    const togglePlay = async (command) => {
-        if (!command) {
-            setPlayerState(!playerState);
-            if (playerState === true) audio.play();
-            else audio.pause();
-        } else if (command === "forcePlay") {
-            audio.play();
-        }
-    }
-
-
 
     return (
         <div
@@ -55,7 +33,7 @@ function Player({ navBarState, playerTracks, setPlayerTracks }) {
                 togglePlayerMaximized();
             }}
         >
-            {maximized ? <PlayerFull /> : ""}
+            {maximized ? <PlayerFull /> : null}
             <div className="w-3/5 sm:w-6/12 md:w-1/3 h-full flex justify-start items-center">
                 <div className="max-w-96 md:max-w-56 lg:max-w-72 w-fit flex items-center">
                     <TrackItem
@@ -72,7 +50,8 @@ function Player({ navBarState, playerTracks, setPlayerTracks }) {
                 </div>
             </div>
             <div className="sm:w-5/12 md:w-1/3 h-full hidden sm:flex justify-center">
-                <TrackControls togglePlay={togglePlay} />
+                {/* <TrackControls togglePlay={togglePlay} /> */}
+                <SpotifyWebPlayer token={accessToken} uris={[]} />
             </div>
             <div className="w-3/5 sm:w-1/12 md:w-1/3 h-full flex items-center justify-end space-x-9">
                 <div className="flex md:hidden flex-row items-center pr-3">

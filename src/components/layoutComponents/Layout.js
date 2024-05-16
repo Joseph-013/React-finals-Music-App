@@ -5,7 +5,7 @@ import Player from "./Player";
 import { useState, useEffect } from "react";
 // import { NavbarToggle } from "flowbite-react";
 
-function Layout({ playerTracks, setPlayerTracks }) {
+function Layout({ playerTracks, setPlayerTracks, accessToken }) {
     const [navBarToggle, setNavBarToggle] = useState(true);
 
     useEffect(() => {
@@ -41,7 +41,7 @@ function Layout({ playerTracks, setPlayerTracks }) {
 
             {/* Player */}
             <section className="h-20 fixed bottom-0 overflow-hidden w-full z-player bg-[#084868]">
-                <Player navBarState={navBarToggle} playerTracks={playerTracks} setPlayerTracks={setPlayerTracks} />
+                <Player navBarState={navBarToggle} playerTracks={playerTracks} setPlayerTracks={setPlayerTracks} accessToken={accessToken} />
             </section>
         </div>
     );

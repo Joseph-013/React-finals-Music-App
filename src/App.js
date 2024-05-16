@@ -38,11 +38,11 @@ function App() {
     // +++ For playback
     // "https://p.scdn.co/mp3-preview/50c7dbdb7d3e86153d7cc2b2ba28fad29fa0ce6e?cid=1b6704c6a4c340899a3d4f5f0e407358"
     const [playerTracks, setPlayerTracks] = useState({
-        0: {
-            title: "Stay",
-            artist: "Taylor Swifty",
-            src: "https://p.scdn.co/mp3-preview/50c7dbdb7d3e86153d7cc2b2ba28fad29fa0ce6e?cid=1b6704c6a4c340899a3d4f5f0e407358",
-        }
+        // 0: {
+        //     title: "Stay",
+        //     artist: "Taylor Swifty",
+        //     src: "https://p.scdn.co/mp3-preview/50c7dbdb7d3e86153d7cc2b2ba28fad29fa0ce6e?cid=1b6704c6a4c340899a3d4f5f0e407358",
+        // }
     });
     // const
     // --- For Playback
@@ -101,7 +101,7 @@ function App() {
         <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Layout playerTracks={playerTracks} setPlayerTracks={setPlayerTracks} />}>
+                    <Route path="/" element={<Layout playerTracks={playerTracks} setPlayerTracks={setPlayerTracks} accessToken={accessToken} />}>
                         <Route
                             path="testpage"
                             element={
