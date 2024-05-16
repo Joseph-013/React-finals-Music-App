@@ -25,6 +25,8 @@ function TrackItem({
   album,
   id,
   likedid,
+  playTrack,
+  uri,
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -46,8 +48,6 @@ function TrackItem({
     default:
       width = "w-full";
   }
-
-  console.log("Is track liked?", liked);
 
   return (
     <div
@@ -75,6 +75,8 @@ function TrackItem({
               `absolute justify-center items-center h-full w-full p-2 bg-gray-900 opacity-60 ` +
               (hovered && !playing && !playerComponent ? `flex` : `hidden`)
             }
+            playTrack={playTrack}
+            uri={uri}
           />
           <img src={cover} alt={title} className="size-12" />
         </div>

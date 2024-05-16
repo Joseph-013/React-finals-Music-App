@@ -35,6 +35,13 @@ function App() {
   const [likedTracks, setLikedTracks] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
   const [overlay, setOverlay] = useState(false);
+  const [playing, setPlaying] = useState(
+    "spotify:track:77DRzu7ERs0TX3roZcre7Q"
+  );
+
+  useEffect(() => {
+    console.log("Playing state changed to:", playing); // Log the new value of the playing state
+  }, [playing]);
 
   useEffect(() => {
     var authParameters = {
@@ -64,6 +71,11 @@ function App() {
       );
       return updatedLikedTracks;
     });
+  };
+
+  const playTrack = (trackURI) => {
+    console.log("Playing track with URI:", trackURI); // Log the URI of the track being played
+    setPlaying(trackURI);
   };
 
   if (loading) {
@@ -102,7 +114,7 @@ function App() {
       <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Layout playing={playing} />}>
               <Route
                 path="testpage"
                 element={
@@ -122,6 +134,7 @@ function App() {
                     setData={setData}
                     setLikedTracks={setLikedTracks}
                     toggleLiked={toggleLiked}
+                    playTrack={playTrack}
                   />
                 }
               />
@@ -136,6 +149,7 @@ function App() {
                     setData={setData}
                     setLikedTracks={setLikedTracks}
                     toggleLiked={toggleLiked}
+                    playTrack={playTrack}
                   />
                 }
               />

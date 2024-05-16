@@ -13,6 +13,7 @@ export default function Home({
   setData,
   setLikedTracks,
   toggleLiked,
+  playTrack,
 }) {
   const initialMusicsState = {
     albums: [],
@@ -142,6 +143,8 @@ export default function Home({
               onLike={() => toggleLiked(music.id)}
               accessToken={accessToken}
               setLikedTracks={setLikedTracks}
+              playTrack={playTrack}
+              uri={music.uri}
             />
           ))}
       </ListGridVertical>
