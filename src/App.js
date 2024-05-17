@@ -156,7 +156,12 @@ function App() {
               <Route
                 path="trending"
                 element={
-                  <Trending accessToken={accessToken} playTrack={playTrack} />
+                  <Trending
+                    accessToken={accessToken}
+                    toggleLiked={toggleLiked}
+                    setData={setData}
+                    playTrack={playTrack}
+                  />
                 }
               />
               <Route path="recent" element={<Recent recent={recent} />} />

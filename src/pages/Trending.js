@@ -12,7 +12,12 @@ const formatDuration = (ms) => {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
 
-export default function Trending({ accessToken, playTrack }) {
+export default function Trending({
+  accessToken,
+  playTrack,
+  toggleLiked,
+  setData,
+}) {
   const [tracks, setTracks] = useState([]);
   const [randomAlbumTracks, setRandomAlbumTracks] = useState([]);
   const [spotlightArtistTracks, setSpotlightArtistTracks] = useState([]);
@@ -44,11 +49,22 @@ export default function Trending({ accessToken, playTrack }) {
 
       const data = await response.json();
       const items = data.items ?? [];
-      setTracks(items);
+
+      const mappedTracks = items.map((item) => ({
+        ...item.track,
+        liked: false,
+      }));
+
+      setTracks(mappedTracks);
+      setData({
+        albums: [], // Adjust according to your global state requirements
+        artists: [], // Adjust according to your global state requirements
+        tracks: mappedTracks,
+      });
 
       if (items.length > 0) {
-        selectRandomAlbumAndArtist(items);
-        selectSpotlightArtist(items);
+        selectRandomAlbumAndArtist(mappedTracks);
+        selectSpotlightArtist(mappedTracks);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -58,18 +74,18 @@ export default function Trending({ accessToken, playTrack }) {
     }
   };
 
-  const selectRandomAlbumAndArtist = (items) => {
-    const randomIndex = Math.floor(Math.random() * items.length);
-    const randomTrack = items[randomIndex].track;
+  const selectRandomAlbumAndArtist = (tracks) => {
+    const randomIndex = Math.floor(Math.random() * tracks.length);
+    const randomTrack = tracks[randomIndex];
     setRandomAlbum(randomTrack.album);
     setRandomAlbumTracks(
-      items.filter((item) => item.track.album.id === randomTrack.album.id)
+      tracks.filter((track) => track.album.id === randomTrack.album.id)
     );
   };
 
-  const selectSpotlightArtist = async (items) => {
-    const randomIndex = Math.floor(Math.random() * items.length);
-    const artistId = items[randomIndex].track.artists[0].id;
+  const selectSpotlightArtist = async (tracks) => {
+    const randomIndex = Math.floor(Math.random() * tracks.length);
+    const artistId = tracks[randomIndex].artists[0].id;
     const artistDetails = await fetchArtistDetails(artistId);
     setSpotlightArtist(artistDetails);
     fetchArtistTracks(artistId);
@@ -77,45 +93,65 @@ export default function Trending({ accessToken, playTrack }) {
 
   const fetchArtistTracks = async (artistId) => {
     const url = `https://api.spotify.com/v1/artists/${artistId}/top-tracks?country=PH`;
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      const errorDetails = await response.json();
-      throw new Error(`Spotify API error: ${errorDetails.error.message}`);
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        const errorDetails = await response.json();
+        throw new Error(`Spotify API error: ${errorDetails.error.message}`);
+      }
+      const data = await response.json();
+      setSpotlightArtistTracks(data.tracks ?? []);
+    } catch (error) {
+      console.error("Error fetching artist tracks:", error);
     }
-    const data = await response.json();
-    setSpotlightArtistTracks(data.tracks ?? []);
   };
 
   const fetchArtistDetails = async (artistId) => {
     const url = `https://api.spotify.com/v1/artists/${artistId}`;
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch artist details");
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch artist details");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching artist details:", error);
+      return null;
     }
-    return await response.json();
+  };
+
+  const handleToggleLiked = (trackId) => {
+    setTracks((prevTracks) =>
+      prevTracks.map((track) =>
+        track.id === trackId ? { ...track, liked: !track.liked } : track
+      )
+    );
+    toggleLiked(trackId);
   };
 
   return (
     <div className="w-full space-y-10">
       <ListGridVertical title="Trending Tracks in the Philippines">
-        {tracks.map((item) => (
+        {tracks.map((track) => (
           <TrackItem
-            key={item.track.id}
-            cover={item.track.album.images[0]?.url || "default_album_image.jpg"}
-            artist={item.track.artists.map((artist) => artist.name).join(", ")}
-            title={item.track.name}
-            duration={formatDuration(item.track.duration_ms)}
-            playTrack={playTrack}
-            uri={item.track.uri}
+            key={track.id}
+            cover={track.album.images[0]?.url || "default_album_image.jpg"}
+            artist={track.artists.map((artist) => artist.name).join(", ")}
+            title={track.name}
+            duration={formatDuration(track.duration_ms)}
+            playTrack={() => playTrack(track.uri)}
+            uri={track.uri}
+            onLike={() => handleToggleLiked(track.id)}
+            liked={track.liked}
           />
         ))}
       </ListGridVertical>
@@ -129,21 +165,19 @@ export default function Trending({ accessToken, playTrack }) {
               .join(", ")}
           />
           <ListGridHorizontal className="flex items-center">
-            {randomAlbumTracks.map((item) => (
+            {randomAlbumTracks.map((track) => (
               <TrackItem
-                key={item.track.id}
+                key={track.id}
                 className="w-[28rem]"
-                cover={
-                  item.track.album.images[0]?.url || "default_album_image.jpg"
-                }
-                title={item.track.name}
-                album={item.track.album.name}
-                artist={item.track.artists
-                  .map((artist) => artist.name)
-                  .join(", ")}
-                duration={formatDuration(item.track.duration_ms)}
-                playTrack={playTrack}
-                uri={item.track.uri}
+                cover={track.album.images[0]?.url || "default_album_image.jpg"}
+                title={track.name}
+                album={track.album.name}
+                artist={track.artists.map((artist) => artist.name).join(", ")}
+                duration={formatDuration(track.duration_ms)}
+                playTrack={() => playTrack(track.uri)}
+                uri={track.uri}
+                onLike={() => handleToggleLiked(track.id)}
+                liked={track.liked}
               />
             ))}
           </ListGridHorizontal>
@@ -166,8 +200,10 @@ export default function Trending({ accessToken, playTrack }) {
                 album={track.album.name}
                 artist={track.artists.map((artist) => artist.name).join(", ")}
                 duration={formatDuration(track.duration_ms)}
-                playTrack={playTrack}
+                playTrack={() => playTrack(track.uri)}
                 uri={track.uri}
+                onLike={() => handleToggleLiked(track.id)}
+                liked={track.liked}
               />
             ))}
           </ListGridHorizontal>
