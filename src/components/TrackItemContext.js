@@ -10,14 +10,10 @@ function TrackItemContext({
   liked,
   isPlaylistPage,
   targetPlaylistName,
+  removeSongFromPlaylist,
 }) {
-  const {
-    playlists,
-    setPlaylist,
-    setOverlay,
-    addSongToPlaylist,
-    removeSongFromPlaylist,
-  } = useContext(PlaylistContext);
+  const { playlists, setPlaylist, setOverlay, addSongToPlaylist } =
+    useContext(PlaylistContext);
 
   const [hovered, setHovered] = useState(false);
   const [contextDisplay, setContextDisplay] = useState("hidden"); //or block
@@ -47,18 +43,13 @@ function TrackItemContext({
         onMouseEnter={() => setContextDisplay("block")}
         onMouseLeave={() => setContextDisplay("hidden")}
       >
-        {isPlaylistPage && targetPlaylistName ? (
+        {isPlaylistPage ? (
           <>
             <li
-              onClick={(e) =>
-                handleItemClick(
-                  e,
-                  () => removeSongFromPlaylist(targetPlaylistName, trackId) // Pass targetPlaylistName directly
-                )
-              }
+              onClick={(e) => handleItemClick(e, removeSongFromPlaylist)}
               className="h-12 px-2 flex items-center hover:bg-slate-500"
             >
-              Remove From {targetPlaylistName}
+              Remove Track from Playlist
             </li>
           </>
         ) : (

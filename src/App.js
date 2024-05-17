@@ -121,7 +121,6 @@ function App() {
         playlists,
         setOverlay,
         addSongToPlaylist,
-        removeSongFromPlaylist,
       }}
     >
       <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
@@ -181,6 +180,7 @@ function App() {
                     playlists={playlists}
                     accessToken={accessToken}
                     playTrack={playTrack}
+                    removeSongFromPlaylist={removeSongFromPlaylist}
                   />
                 }
               />

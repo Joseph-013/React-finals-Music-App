@@ -31,6 +31,7 @@ function TrackItem({
   showControls = true, //hide the heart and itemcontext while in trending page
   isPlaylistPage = false, // new prop to indicate if it's a trending page
   targetPlaylistName,
+  removeSongFromPlaylist,
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -125,6 +126,7 @@ function TrackItem({
         onLike={onLike}
         liked={liked}
         onRemovePlaylist={onRemovePlaylist}
+        removeSongFromPlaylist={removeSongFromPlaylist}
         isPlaylistPage={isPlaylistPage} // passing the new prop
         targetPlaylistName={targetPlaylistName}
       />

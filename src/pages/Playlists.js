@@ -1,20 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PlaylistItem from "../components/PlaylistItem";
 import SectionContainer from "../components/SectionContainer";
 import TileGridHorizontal from "../components/TileGridHorizontal";
 import TrackItem from "../components/TrackItem";
 
-export default function Playlists({ playlists, accessToken }) {
+export default function Playlists({
+  playlists,
+  accessToken,
+  removeSongFromPlaylist,
+}) {
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [targetPlaylistName, setTargetPlaylistName] = useState("");
 
-  let renderPlaylistTrack;
+  useEffect(() => {
+    if (selectedPlaylist) {
+      getPlaylistTracks(selectedPlaylist);
+    }
+  }, [selectedPlaylist]); // Fetch playlist tracks whenever selectedPlaylist changes
 
   function handleClick(playlistName) {
     setSelectedPlaylist(playlistName);
     setPlaylistTracks([]);
-    getPlaylistTracks(playlistName);
     setTargetPlaylistName(playlistName);
   }
 
@@ -47,23 +54,12 @@ export default function Playlists({ playlists, accessToken }) {
     }
   }
 
-  if (playlistTracks.length === 0) {
-    renderPlaylistTrack = <span>Playlist is empty</span>;
-  } else {
-    renderPlaylistTrack = playlistTracks.map((track) => (
-      <TrackItem
-        key={track.id}
-        cover={track.album.images[0].url}
-        artist={track.artists[0].name}
-        title={track.name}
-        duration={track.duration_ms}
-        trackId={track.id}
-        showControls={false}
-        isPlaylistPage={true}
-        targetPlaylistName={targetPlaylistName}
-      />
-    ));
-  }
+  const handleRemoveFromPlaylist = (trackId) => {
+    removeSongFromPlaylist(targetPlaylistName, trackId);
+    setPlaylistTracks((prevTracks) =>
+      prevTracks.filter((track) => track.id !== trackId)
+    );
+  };
 
   return (
     <div className="w-full flex flex-col">
@@ -78,7 +74,23 @@ export default function Playlists({ playlists, accessToken }) {
       </SectionContainer>
 
       <SectionContainer title={selectedPlaylist}>
-        {renderPlaylistTrack}
+        {playlistTracks.length === 0 ? (
+          <span>Playlist is empty</span>
+        ) : (
+          playlistTracks.map((track) => (
+            <TrackItem
+              key={track.id}
+              cover={track.album.images[0].url}
+              artist={track.artists[0].name}
+              title={track.name}
+              duration={track.duration_ms}
+              trackId={track.id}
+              showControls={false}
+              isPlaylistPage={true}
+              removeSongFromPlaylist={() => handleRemoveFromPlaylist(track.id)}
+            />
+          ))
+        )}
       </SectionContainer>
     </div>
   );
