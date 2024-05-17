@@ -18,8 +18,8 @@ import Overlay from "./components/Overlay";
 const CLIENT_ID = "1b6704c6a4c340899a3d4f5f0e407358";
 const CLIENT_SECRET = "48dfec19fefc4ae48dfdfd5e48cdaa40";
 const tmpPlaylists = {
-  "test playlist 1": ["song 1", "song 2"],
-  "test playlist 2": ["song 3", "song 4"],
+  "test playlist 1": [],
+  "test playlist 2": [],
 };
 
 function App() {
@@ -109,7 +109,7 @@ function App() {
 
   return (
     <PlaylistContext.Provider
-      value={{ playlists, setPlaylists, setOverlay, addSongToPlaylist }}
+      value={{ playlists, setOverlay, addSongToPlaylist }}
     >
       <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
         <BrowserRouter>
@@ -163,7 +163,7 @@ function App() {
               <Route
                 path="playlists"
                 element={
-                  <Playlists playlists={playlists} playTrack={playTrack} />
+                  <Playlists playlists={playlists} accessToken={accessToken} playTrack={playTrack} />
                 }
               />
               <Route
