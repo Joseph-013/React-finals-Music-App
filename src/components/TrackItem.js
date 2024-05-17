@@ -116,7 +116,14 @@ function TrackItem({
       <span className="h-full w-fit flex items-center text-slate-400">
         {duration}
       </span>
-      {showControls && <TrackItemContext trackId={trackId} />}
+      {showControls && (
+        <TrackItemContext
+          trackId={trackId}
+          onRemoveLike={onRemoveLike}
+          onLike={onLike}
+          liked={liked}
+        />
+      )}
     </div>
   );
 }

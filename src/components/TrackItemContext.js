@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 
 import IconDotsVerical from "./icons/IconDotsVertical";
 
-function TrackItemContext({ trackId }) {
+function TrackItemContext({ trackId, onRemoveLike, onLike, liked }) {
   const { playlists, setPlaylist, setOverlay, addSongToPlaylist } =
     useContext(PlaylistContext);
 
@@ -42,15 +42,19 @@ function TrackItemContext({ trackId }) {
           Create new playlist
         </li>
         <li
-          onClick={(e) =>
-            handleItemClick(e, () => {
-              /* Add to Favorites action */
-            })
-          }
-          className="h-12 px-2 flex items-center hover:bg-slate-500"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (liked) {
+              onRemoveLike();
+            } else {
+              onLike();
+            }
+          }}
+          className="h-12 px-2 flex items-center hover:bg-slate-500 cursor-pointer"
         >
-          Add to Favorites
+          {liked ? "Remove from Favorites" : "Add to Favorites"}
         </li>
+
         {Object.keys(playlists).map((playlistName) => (
           <li
             key={playlistName}
