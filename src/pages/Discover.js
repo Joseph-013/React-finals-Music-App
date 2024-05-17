@@ -19,17 +19,12 @@ export default function Discover({
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
-
-  // const [accessToken, setAccessToken] = useState("");
-  //   const [data, setData] = useState(null);
+  const [sortOption, setSortOption] = useState("popularity");
+  const [viewOption, setViewOption] = useState("all");
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
-
-  // const [data, setData] = useState({});
-
-  // let DATA
 
   async function search() {
     console.log("Searching for.. " + searchQuery);
@@ -67,34 +62,18 @@ export default function Discover({
     }
   }
 
-  // const toggleLiked = (trackId) => {
-  //   setLikedTracks((prevState) => {
-  //     console.log("prevState:", prevState);
-  //     console.log("prevState.tracks:", prevState?.tracks);
-
-  //     return {
-  //       ...prevState,
-  //       tracks: (prevState?.tracks || []).map((track) =>
-  //         track.id === trackId ? { ...track, liked: !track.liked } : track
-  //       ),
-  //     };
-  //   });
-  // };
-
-  // const toggleLiked = (trackId) => {
-  //   setLikedTracks((prevState) => {
-  //     const updatedLikedTracks = { ...prevState };
-  //     if (updatedLikedTracks[trackId]) {
-  //       updatedLikedTracks[trackId].liked = !updatedLikedTracks[trackId].liked;
-  //     } else {
-  //       updatedLikedTracks[trackId] = discover.tracks.find(
-  //         (track) => track.id === trackId
-  //       );
-  //       updatedLikedTracks[trackId].liked = true;
-  //     }
-  //     return updatedLikedTracks;
-  //   });
-  // };
+  const sortData = (data, option) => {
+    if (option === "popularity") {
+      return [...data].sort((a, b) => b.popularity - a.popularity);
+    } else if (option === "release_date") {
+      return [...data].sort(
+        (a, b) => new Date(b.release_date) - new Date(a.release_date)
+      );
+    } else if (option === "alphabetical") {
+      return [...data].sort((a, b) => a.name.localeCompare(b.name));
+    }
+    return data;
+  };
 
   function convertMsToTime(duration_ms) {
     var seconds = Math.floor((duration_ms / 1000) % 60);
@@ -105,6 +84,14 @@ export default function Discover({
 
     return displayMinutes + ":" + displaySeconds;
   }
+
+  const sortedAlbums = sortData(data.albums, sortOption);
+  const sortedArtists = sortData(data.artists, sortOption);
+  const sortedTracks = sortData(data.tracks, sortOption);
+
+  const displayAlbums = viewOption === "all" || viewOption === "albums";
+  const displayArtists = viewOption === "all" || viewOption === "artists";
+  const displayTracks = viewOption === "all" || viewOption === "tracks";
 
   return (
     <div className="w-full space-y-10">
@@ -125,9 +112,32 @@ export default function Discover({
         </button>
       </div>
 
-      {showSearchResults && (
+      <div className="flex space-x-4">
+        <select
+          className="bg-[#19272E] text-white p-2 rounded"
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
+          <option value="popularity">Popularity</option>
+          <option value="release_date">Release Date</option>
+          <option value="alphabetical">Alphabetical</option>
+        </select>
+
+        <select
+          className="bg-[#19272E] text-white p-2 rounded"
+          value={viewOption}
+          onChange={(e) => setViewOption(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="albums">Albums</option>
+          <option value="artists">Artists</option>
+          <option value="tracks">Tracks</option>
+        </select>
+      </div>
+
+      {showSearchResults && displayAlbums && (
         <TileGridHorizontal title="Albums">
-          {data.albums.map((music) => (
+          {sortedAlbums.map((music) => (
             <TileSquared
               key={music.id}
               src={music.images[0]?.url}
@@ -139,9 +149,9 @@ export default function Discover({
         </TileGridHorizontal>
       )}
 
-      {showSearchResults && (
+      {showSearchResults && displayArtists && (
         <TileGridHorizontal title="Artists">
-          {data.artists.map((music) => (
+          {sortedArtists.map((music) => (
             <TileRounded
               key={music.id}
               src={music.images[0]?.url}
@@ -152,9 +162,9 @@ export default function Discover({
         </TileGridHorizontal>
       )}
 
-      {showSearchResults && (
+      {showSearchResults && displayTracks && (
         <ListGridVertical title="Songs" cols="2">
-          {data.tracks.map((music) => (
+          {sortedTracks.map((music) => (
             <TrackItem
               key={music.id}
               trackId={music.id}
@@ -163,7 +173,7 @@ export default function Discover({
               title={music.name}
               type="Songs"
               duration={convertMsToTime(music.duration_ms)}
-              liked={likedTracks[music.id]?.liked || false} // <-- Pass liked state here
+              liked={likedTracks[music.id]?.liked || false}
               onLike={() => toggleLiked(music.id)}
               onRemoveLike={() => removeTrack(music.id)}
               accessToken={accessToken}
