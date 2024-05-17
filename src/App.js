@@ -11,7 +11,6 @@ import Recent from "./pages/Recent";
 import Playlists from "./pages/Playlists";
 import Favorites from "./pages/Favorites";
 import NoPage from "./pages/NoPage";
-import TestPage from "./pages/TestPage";
 import NewPlaylist from "./components/NewPlaylist";
 import Overlay from "./components/Overlay";
 
@@ -115,14 +114,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout playing={playing} />}>
-              <Route
-                path="testpage"
-                element={
-                  <TestPage playlists={playlists}>
-                    <NewPlaylist setPlaylists={setPlaylists} />
-                  </TestPage>
-                }
-              />
               <Route
                 index
                 element={
