@@ -96,10 +96,11 @@ function TrackItem({
       )}
       <button
         className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full"
-        onClick={() => {
+        onClick={(e) => {
           if (liked) {
             onRemove();
           } else {
+            e.stopPropagation();
             onLike();
           }
         }}
