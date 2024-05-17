@@ -181,6 +181,7 @@ export default function Trending({
         {tracks.map((track) => (
           <TrackItem
             key={track.id}
+            trackId={track.id}
             cover={track.album.images[0]?.url || "default_album_image.jpg"}
             artist={track.artists.map((artist) => artist.name).join(", ")}
             title={track.name}
@@ -206,6 +207,7 @@ export default function Trending({
             {randomAlbumTracks.map((track) => (
               <TrackItem
                 key={track.id}
+                trackId={track.id}
                 className="w-[28rem]"
                 cover={track.album.images[0]?.url || "default_album_image.jpg"}
                 title={track.name}
@@ -233,6 +235,7 @@ export default function Trending({
             {spotlightArtistTracks.map((track) => (
               <TrackItem
                 key={track.id}
+                trackId={track.id}
                 className="w-[28rem]"
                 cover={track.album.images[0]?.url || "default_album_image.jpg"}
                 title={track.name}
