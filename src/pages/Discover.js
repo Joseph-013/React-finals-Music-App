@@ -15,6 +15,7 @@ export default function Discover({
   setLikedTracks,
   toggleLiked,
   playTrack,
+  removeTrack,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -164,6 +165,7 @@ export default function Discover({
               duration={convertMsToTime(music.duration_ms)}
               liked={likedTracks[music.id]?.liked || false} // <-- Pass liked state here
               onLike={() => toggleLiked(music.id)}
+              onRemoveLike={() => removeTrack(music.id)}
               accessToken={accessToken}
               setLikedTracks={setLikedTracks}
               playTrack={playTrack}

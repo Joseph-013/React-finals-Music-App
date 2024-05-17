@@ -37,7 +37,7 @@ export default function Favorites({
               duration={convertMsToTime(track.duration_ms)}
               liked={true}
               onLike={() => toggleLiked(track.id)}
-              onRemove={() => handleRemoveTrack(track.id)}
+              onRemoveLike={() => handleRemoveTrack(track.id)}
               playTrack={playTrack}
               uri={track.uri}
             />

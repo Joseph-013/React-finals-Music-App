@@ -15,6 +15,12 @@ function TrackItemContext({ trackId }) {
     setContextDisplay(contextDisplay === "hidden" ? "block" : "hidden");
   };
 
+  const handleItemClick = (e, action) => {
+    e.stopPropagation();
+    action();
+    setContextDisplay("hidden");
+  };
+
   return (
     <div className="relative">
       <button
@@ -30,17 +36,27 @@ function TrackItemContext({ trackId }) {
         onMouseLeave={() => setContextDisplay("hidden")}
       >
         <li
-          onClick={() => setOverlay(true)}
+          onClick={(e) => handleItemClick(e, () => setOverlay(true))}
           className="h-12 px-2 flex items-center hover:bg-slate-500"
         >
           Create new playlist
         </li>
-        <li className="h-12 px-2 flex items-center hover:bg-slate-500">
+        <li
+          onClick={(e) =>
+            handleItemClick(e, () => {
+              /* Add to Favorites action */
+            })
+          }
+          className="h-12 px-2 flex items-center hover:bg-slate-500"
+        >
           Add to Favorites
         </li>
         {Object.keys(playlists).map((playlistName) => (
           <li
-            onClick={() => addSongToPlaylist(playlistName, trackId)}
+            key={playlistName}
+            onClick={(e) =>
+              handleItemClick(e, () => addSongToPlaylist(playlistName, trackId))
+            }
             className="h-12 px-2 flex items-center hover:bg-slate-500"
           >
             {playlistName}

@@ -17,7 +17,8 @@ export default function Trending({
   playTrack,
   toggleLiked,
   setData,
-  likedTracks, // Add likedTracks prop
+  likedTracks,
+  removeTrack,
 }) {
   const [tracks, setTracks] = useState([]);
   const [randomAlbumTracks, setRandomAlbumTracks] = useState([]);
@@ -139,6 +140,15 @@ export default function Trending({
     toggleLiked(trackId);
   };
 
+  const handleRemoveLike = (trackId) => {
+    setTracks((prevTracks) =>
+      prevTracks.map((track) =>
+        track.id === trackId ? { ...track, liked: false } : track
+      )
+    );
+    removeTrack(trackId);
+  };
+
   return (
     <div className="w-full space-y-10">
       <ListGridVertical title="Trending Tracks in the Philippines">
@@ -152,6 +162,7 @@ export default function Trending({
             playTrack={() => playTrack(track.uri)}
             uri={track.uri}
             onLike={() => handleToggleLiked(track.id)}
+            onRemoveLike={() => handleRemoveLike(track.id)}
             liked={track.liked}
           />
         ))}
@@ -178,6 +189,7 @@ export default function Trending({
                 playTrack={() => playTrack(track.uri)}
                 uri={track.uri}
                 onLike={() => handleToggleLiked(track.id)}
+                onRemoveLike={() => handleRemoveLike(track.id)}
                 liked={track.liked}
               />
             ))}
@@ -204,6 +216,7 @@ export default function Trending({
                 playTrack={() => playTrack(track.uri)}
                 uri={track.uri}
                 onLike={() => handleToggleLiked(track.id)}
+                onRemoveLike={() => handleRemoveLike(track.id)}
                 liked={track.liked}
               />
             ))}

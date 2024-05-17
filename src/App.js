@@ -126,6 +126,7 @@ function App() {
                     setLikedTracks={setLikedTracks}
                     toggleLiked={toggleLiked}
                     playTrack={playTrack}
+                    removeTrack={removeTrack}
                   />
                 }
               />
@@ -141,6 +142,7 @@ function App() {
                     setLikedTracks={setLikedTracks}
                     toggleLiked={toggleLiked}
                     playTrack={playTrack}
+                    removeTrack={removeTrack}
                   />
                 }
               />
@@ -153,6 +155,7 @@ function App() {
                     likedTracks={likedTracks}
                     setData={setData}
                     playTrack={playTrack}
+                    removeTrack={removeTrack}
                   />
                 }
               />

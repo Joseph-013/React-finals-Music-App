@@ -14,6 +14,7 @@ export default function Home({
   setLikedTracks,
   toggleLiked,
   playTrack,
+  removeTrack,
 }) {
   const initialMusicsState = {
     albums: [],
@@ -141,6 +142,7 @@ export default function Home({
               duration={convertMsToTime(music.duration_ms)}
               liked={likedTracks[music.id]?.liked || false} // <-- Pass liked state here
               onLike={() => toggleLiked(music.id)}
+              onRemoveLike={() => removeTrack(music.id)}
               accessToken={accessToken}
               setLikedTracks={setLikedTracks}
               playTrack={playTrack}

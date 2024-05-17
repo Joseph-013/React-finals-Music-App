@@ -56,6 +56,7 @@ export default function Playlists({ playlists, accessToken }) {
         title={track.name}
         duration={track.duration_ms}
         trackId={track.id}
+        showControls={false}
       />
     ));
   }

@@ -20,13 +20,14 @@ function TrackItem({
   playing,
   playerComponent,
   setLikedTracks,
-  onRemove,
+  onRemoveLike,
   className,
   album,
   id,
   likedid,
   playTrack,
   uri,
+  showControls = true, //hide the heart and itemcontext while in trending page
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -94,23 +95,28 @@ function TrackItem({
           {genre}
         </span>
       )}
-      <button
-        className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full"
-        onClick={(e) => {
-          if (liked) {
-            onRemove();
-          } else {
-            e.stopPropagation();
-            onLike();
-          }
-        }}
-      >
-        <IconHeart size="25" liked={liked} />
-      </button>
+      {showControls && (
+        <>
+          <button
+            className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full"
+            onClick={(e) => {
+              if (liked) {
+                e.stopPropagation();
+                onRemoveLike();
+              } else {
+                e.stopPropagation();
+                onLike();
+              }
+            }}
+          >
+            <IconHeart size="25" liked={liked} />
+          </button>
+        </>
+      )}
       <span className="h-full w-fit flex items-center text-slate-400">
         {duration}
       </span>
-      <TrackItemContext trackId={trackId} />
+      {showControls && <TrackItemContext trackId={trackId} />}
     </div>
   );
 }
