@@ -159,6 +159,7 @@ function App() {
                   <Trending
                     accessToken={accessToken}
                     toggleLiked={toggleLiked}
+                    setData={setData}
                     playTrack={playTrack}
                   />
                 }
