@@ -25,6 +25,8 @@ function TrackItem({
   album,
   id,
   likedid,
+  playTrack,
+  uri,
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -47,7 +49,10 @@ function TrackItem({
       width = "w-full";
   }
 
-  console.log("Is track liked?", liked);
+  const handlePlayClick = () => {
+    console.log("Play button clicked for URI:", uri); // Add this log for debugging
+    playTrack(uri);
+  };
 
   return (
     <div
@@ -58,6 +63,7 @@ function TrackItem({
       }
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={handlePlayClick}
     >
       {/* <span>{Object.keys(test)[0]}</span> */}
       <div className={`h-full flex items-center space-x-3 ` + width}>
@@ -90,10 +96,11 @@ function TrackItem({
       )}
       <button
         className="flex items-center justify-center size-10 hover:bg-cyan-700 hover:text-white rounded-full"
-        onClick={() => {
+        onClick={(e) => {
           if (liked) {
             onRemove();
           } else {
+            e.stopPropagation();
             onLike();
           }
         }}

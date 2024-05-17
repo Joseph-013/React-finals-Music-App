@@ -13,6 +13,7 @@ export default function Discover({
   setData,
   setLikedTracks,
   toggleLiked,
+  playTrack,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -103,19 +104,6 @@ export default function Discover({
     return displayMinutes + ":" + displaySeconds;
   }
 
-  const handleItemClick = (item, category) => {
-    item.status = true;
-
-    setRecent((prevRecent) => {
-      const updatedRecent = {
-        ...prevRecent,
-        [category]: [...prevRecent[category], item],
-      };
-
-      return updatedRecent;
-    });
-  };
-
   return (
     <div className="w-full space-y-10">
       <div className="relative w-full font-poppins md:w-1/2 flex justify-start h-10">
@@ -144,7 +132,6 @@ export default function Discover({
               type="Album"
               title={music.name}
               subTitle={music.artists[0].name}
-              onClick={() => handleItemClick(music, "albums")}
             />
           ))}
         </TileGridHorizontal>
@@ -158,7 +145,6 @@ export default function Discover({
               src={music.images[0]?.url}
               type="Artist"
               title={music.name}
-              onClick={() => handleItemClick(music, "artists")}
             />
           ))}
         </TileGridHorizontal>
@@ -179,7 +165,8 @@ export default function Discover({
               onLike={() => toggleLiked(music.id)}
               accessToken={accessToken}
               setLikedTracks={setLikedTracks}
-              onClick={() => handleItemClick(music, "tracks")}
+              playTrack={playTrack}
+              uri={music.uri}
             />
           ))}
         </ListGridVertical>
