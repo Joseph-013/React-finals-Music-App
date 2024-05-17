@@ -54,13 +54,13 @@ export default function Trending({
 
       const mappedTracks = items.map((item) => ({
         ...item.track,
-        liked: likedTracks[item.track.id]?.liked || false, // Set liked state based on likedTracks
+        liked: likedTracks[item.track.id]?.liked || false,
       }));
 
       setTracks(mappedTracks);
       setData({
-        albums: [], // Adjust according to your global state requirements
-        artists: [], // Adjust according to your global state requirements
+        albums: [],
+        artists: [],
         tracks: mappedTracks,
       });
 
@@ -131,21 +131,33 @@ export default function Trending({
     }
   };
 
-  const handleToggleLiked = (trackId) => {
+  const updateLikedStatus = (trackId, liked) => {
     setTracks((prevTracks) =>
       prevTracks.map((track) =>
-        track.id === trackId ? { ...track, liked: !track.liked } : track
+        track.id === trackId ? { ...track, liked } : track
       )
     );
+    setRandomAlbumTracks((prevTracks) =>
+      prevTracks.map((track) =>
+        track.id === trackId ? { ...track, liked } : track
+      )
+    );
+    setSpotlightArtistTracks((prevTracks) =>
+      prevTracks.map((track) =>
+        track.id === trackId ? { ...track, liked } : track
+      )
+    );
+  };
+
+  const handleToggleLiked = (trackId) => {
+    const track = tracks.find((track) => track.id === trackId);
+    const newLikedStatus = !track.liked;
+    updateLikedStatus(trackId, newLikedStatus);
     toggleLiked(trackId);
   };
 
   const handleRemoveLike = (trackId) => {
-    setTracks((prevTracks) =>
-      prevTracks.map((track) =>
-        track.id === trackId ? { ...track, liked: false } : track
-      )
-    );
+    updateLikedStatus(trackId, false);
     removeTrack(trackId);
   };
 
