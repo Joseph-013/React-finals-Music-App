@@ -49,6 +49,11 @@ function TrackItem({
       width = "w-full";
   }
 
+  const handlePlayClick = () => {
+    console.log("Play button clicked for URI:", uri); // Add this log for debugging
+    playTrack(uri);
+  };
+
   return (
     <div
       className={
@@ -58,6 +63,7 @@ function TrackItem({
       }
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={handlePlayClick}
     >
       {/* <span>{Object.keys(test)[0]}</span> */}
       <div className={`h-full flex items-center space-x-3 ` + width}>
@@ -75,8 +81,6 @@ function TrackItem({
               `absolute justify-center items-center h-full w-full p-2 bg-gray-900 opacity-60 ` +
               (hovered && !playing && !playerComponent ? `flex` : `hidden`)
             }
-            playTrack={playTrack}
-            uri={uri}
           />
           <img src={cover} alt={title} className="size-12" />
         </div>

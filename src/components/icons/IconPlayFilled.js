@@ -1,16 +1,10 @@
-function IconPlayFilled({ size, className, playTrack, uri }) {
-  const handlePlayClick = () => {
-    console.log("Play button clicked for URI:", uri); // Add this log for debugging
-    playTrack(uri);
-  };
-
+function IconPlayFilled({ size, className }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className={`icon icon-tabler icon-tabler-player-play-filled ` + className}
       width={size}
       height={size}
-      onClick={handlePlayClick}
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"

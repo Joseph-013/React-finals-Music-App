@@ -13,6 +13,7 @@ export default function Discover({
   setData,
   setLikedTracks,
   toggleLiked,
+  playTrack,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -180,6 +181,8 @@ export default function Discover({
               accessToken={accessToken}
               setLikedTracks={setLikedTracks}
               onClick={() => handleItemClick(music, "tracks")}
+              playTrack={playTrack}
+              uri={music.uri}
             />
           ))}
         </ListGridVertical>

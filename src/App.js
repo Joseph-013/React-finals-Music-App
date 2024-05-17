@@ -155,12 +155,16 @@ function App() {
               />
               <Route
                 path="trending"
-                element={<Trending accessToken={accessToken} />}
+                element={
+                  <Trending accessToken={accessToken} playTrack={playTrack} />
+                }
               />
               <Route path="recent" element={<Recent recent={recent} />} />
               <Route
                 path="playlists"
-                element={<Playlists playlists={playlists} />}
+                element={
+                  <Playlists playlists={playlists} playTrack={playTrack} />
+                }
               />
               <Route
                 path="favorites"
@@ -169,6 +173,7 @@ function App() {
                     likedTracks={likedTracks}
                     toggleLiked={toggleLiked}
                     removeTrack={removeTrack}
+                    playTrack={playTrack}
                   />
                 }
               />
