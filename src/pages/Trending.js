@@ -12,7 +12,7 @@ const formatDuration = (ms) => {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
 
-export default function Trending({ accessToken, playTrack }) {
+export default function Trending({ accessToken, playTrack, toggleLiked }) {
   const [tracks, setTracks] = useState([]);
   const [randomAlbumTracks, setRandomAlbumTracks] = useState([]);
   const [spotlightArtistTracks, setSpotlightArtistTracks] = useState([]);
@@ -116,6 +116,7 @@ export default function Trending({ accessToken, playTrack }) {
             duration={formatDuration(item.track.duration_ms)}
             playTrack={playTrack}
             uri={item.track.uri}
+            onLike={() => toggleLiked(item.track.id)}
           />
         ))}
       </ListGridVertical>
@@ -144,6 +145,7 @@ export default function Trending({ accessToken, playTrack }) {
                 duration={formatDuration(item.track.duration_ms)}
                 playTrack={playTrack}
                 uri={item.track.uri}
+                onLike={() => toggleLiked(item.track.id)}
               />
             ))}
           </ListGridHorizontal>
@@ -168,6 +170,7 @@ export default function Trending({ accessToken, playTrack }) {
                 duration={formatDuration(track.duration_ms)}
                 playTrack={playTrack}
                 uri={track.uri}
+                onLike={() => toggleLiked(track.id)}
               />
             ))}
           </ListGridHorizontal>
