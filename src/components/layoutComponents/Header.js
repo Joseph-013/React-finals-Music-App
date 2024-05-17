@@ -24,7 +24,7 @@ function Header({ onNavBarToggle, navBarState }) {
 
     useEffect(() => {
 
-    }, []);
+    }, [toast]);
 
     return (
         <section className="fixed top-0 left-0 w-full h-16 z-40 flex flex-row text-center border-b border-[#19272E] z-header">
@@ -105,11 +105,11 @@ function Header({ onNavBarToggle, navBarState }) {
                 </div>
             </div>
             {/* <FeedbackToastContainer text="Done." type="warning" /> */}
-            <FeedbackToastContainer text={toast.text} type={toast.type} />
+            <FeedbackToastContainer text={toast.text} type={toast.type} className="flex" />
         </section>
     );
 
-    function FeedbackToastContainer({ positive, neutral, negative, icon, text, type }) {
+    function FeedbackToastContainer({ className, positive, neutral, negative, icon, text, type }) {
         // set color; default type: neutral
         let color = (() => {
             if (type === "positive") return "text-green-500";
@@ -128,7 +128,7 @@ function Header({ onNavBarToggle, navBarState }) {
         icon = icon ? cloneElement(icon, { className: color }) : null;
 
         return (
-            <div className="mt-7 bg-[#19272E] border border-[#213641] rounded-lg py-3 px-4 fixed left-1/2 -translate-x-1/2 space-x-2 flex-row items-center flex">
+            <div className={`mt-7 bg-[#19272E] border border-[#213641] rounded-lg py-3 px-4 fixed left-1/2 -translate-x-1/2 space-x-2 flex-row items-center ${className}`}>
                 {icon}
                 <span className="text-lg">{text}</span>
             </div>
