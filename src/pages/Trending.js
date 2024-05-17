@@ -81,7 +81,12 @@ export default function Trending({
     const randomTrack = tracks[randomIndex];
     setRandomAlbum(randomTrack.album);
     setRandomAlbumTracks(
-      tracks.filter((track) => track.album.id === randomTrack.album.id)
+      tracks
+        .filter((track) => track.album.id === randomTrack.album.id)
+        .map((track) => ({
+          ...track,
+          liked: likedTracks[track.id]?.liked || false,
+        }))
     );
   };
 
@@ -107,7 +112,11 @@ export default function Trending({
         throw new Error(`Spotify API error: ${errorDetails.error.message}`);
       }
       const data = await response.json();
-      setSpotlightArtistTracks(data.tracks ?? []);
+      const mappedTracks = data.tracks.map((track) => ({
+        ...track,
+        liked: likedTracks[track.id]?.liked || false,
+      }));
+      setSpotlightArtistTracks(mappedTracks);
     } catch (error) {
       console.error("Error fetching artist tracks:", error);
     }
@@ -150,10 +159,15 @@ export default function Trending({
   };
 
   const handleToggleLiked = (trackId) => {
-    const track = tracks.find((track) => track.id === trackId);
-    const newLikedStatus = !track.liked;
-    updateLikedStatus(trackId, newLikedStatus);
-    toggleLiked(trackId);
+    const track =
+      tracks.find((track) => track.id === trackId) ||
+      randomAlbumTracks.find((track) => track.id === trackId) ||
+      spotlightArtistTracks.find((track) => track.id === trackId);
+    if (track) {
+      const newLikedStatus = !track.liked;
+      updateLikedStatus(trackId, newLikedStatus);
+      toggleLiked(trackId, newLikedStatus); // pass the new liked status
+    }
   };
 
   const handleRemoveLike = (trackId) => {
