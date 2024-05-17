@@ -7,6 +7,7 @@ import TrackItem from "../components/TrackItem";
 export default function Playlists({ playlists, accessToken }) {
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
   const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [targetPlaylistName, setTargetPlaylistName] = useState("");
 
   let renderPlaylistTrack;
 
@@ -14,6 +15,7 @@ export default function Playlists({ playlists, accessToken }) {
     setSelectedPlaylist(playlistName);
     setPlaylistTracks([]);
     getPlaylistTracks(playlistName);
+    setTargetPlaylistName(playlistName);
   }
 
   async function getPlaylistTracks(playlistName) {
@@ -57,6 +59,8 @@ export default function Playlists({ playlists, accessToken }) {
         duration={track.duration_ms}
         trackId={track.id}
         showControls={false}
+        isPlaylistPage={true}
+        targetPlaylistName={targetPlaylistName}
       />
     ));
   }

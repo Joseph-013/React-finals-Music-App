@@ -3,9 +3,21 @@ import { useContext, useState } from "react";
 
 import IconDotsVerical from "./icons/IconDotsVertical";
 
-function TrackItemContext({ trackId, onRemoveLike, onLike, liked }) {
-  const { playlists, setPlaylist, setOverlay, addSongToPlaylist } =
-    useContext(PlaylistContext);
+function TrackItemContext({
+  trackId,
+  onRemoveLike,
+  onLike,
+  liked,
+  isPlaylistPage,
+  targetPlaylistName,
+}) {
+  const {
+    playlists,
+    setPlaylist,
+    setOverlay,
+    addSongToPlaylist,
+    removeSongFromPlaylist,
+  } = useContext(PlaylistContext);
 
   const [hovered, setHovered] = useState(false);
   const [contextDisplay, setContextDisplay] = useState("hidden"); //or block
@@ -35,37 +47,57 @@ function TrackItemContext({ trackId, onRemoveLike, onLike, liked }) {
         onMouseEnter={() => setContextDisplay("block")}
         onMouseLeave={() => setContextDisplay("hidden")}
       >
-        <li
-          onClick={(e) => handleItemClick(e, () => setOverlay(true))}
-          className="h-12 px-2 flex items-center hover:bg-slate-500"
-        >
-          Create new playlist
-        </li>
-        <li
-          onClick={(e) => {
-            e.stopPropagation();
-            if (liked) {
-              onRemoveLike();
-            } else {
-              onLike();
-            }
-          }}
-          className="h-12 px-2 flex items-center hover:bg-slate-500 cursor-pointer"
-        >
-          {liked ? "Remove from Favorites" : "Add to Favorites"}
-        </li>
+        {isPlaylistPage && targetPlaylistName ? (
+          <>
+            <li
+              onClick={(e) =>
+                handleItemClick(
+                  e,
+                  () => removeSongFromPlaylist(targetPlaylistName, trackId) // Pass targetPlaylistName directly
+                )
+              }
+              className="h-12 px-2 flex items-center hover:bg-slate-500"
+            >
+              Remove From {targetPlaylistName}
+            </li>
+          </>
+        ) : (
+          <>
+            <li
+              onClick={(e) => handleItemClick(e, () => setOverlay(true))}
+              className="h-12 px-2 flex items-center hover:bg-slate-500"
+            >
+              Create new playlist
+            </li>
+            <li
+              onClick={(e) => {
+                e.stopPropagation();
+                if (liked) {
+                  onRemoveLike();
+                } else {
+                  onLike();
+                }
+              }}
+              className="h-12 px-2 flex items-center hover:bg-slate-500 cursor-pointer"
+            >
+              {liked ? "Remove from Favorites" : "Add to Favorites"}
+            </li>
 
-        {Object.keys(playlists).map((playlistName) => (
-          <li
-            key={playlistName}
-            onClick={(e) =>
-              handleItemClick(e, () => addSongToPlaylist(playlistName, trackId))
-            }
-            className="h-12 px-2 flex items-center hover:bg-slate-500"
-          >
-            {playlistName}
-          </li>
-        ))}
+            {Object.keys(playlists).map((playlistName) => (
+              <li
+                key={playlistName}
+                onClick={(e) =>
+                  handleItemClick(e, () =>
+                    addSongToPlaylist(playlistName, trackId)
+                  )
+                }
+                className="h-12 px-2 flex items-center hover:bg-slate-500"
+              >
+                Add to {playlistName}
+              </li>
+            ))}
+          </>
+        )}
       </ul>
     </div>
   );

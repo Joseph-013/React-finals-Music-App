@@ -106,9 +106,23 @@ function App() {
     });
   }
 
+  function removeSongFromPlaylist(playlistName, trackId) {
+    setPlaylists((prevPlaylists) => {
+      const updatedPlaylist = prevPlaylists[playlistName].filter(
+        (id) => id !== trackId
+      );
+      return { ...prevPlaylists, [playlistName]: updatedPlaylist };
+    });
+  }
+
   return (
     <PlaylistContext.Provider
-      value={{ playlists, setOverlay, addSongToPlaylist }}
+      value={{
+        playlists,
+        setOverlay,
+        addSongToPlaylist,
+        removeSongFromPlaylist,
+      }}
     >
       <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
         <BrowserRouter>

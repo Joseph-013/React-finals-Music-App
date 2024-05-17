@@ -24,10 +24,13 @@ function TrackItem({
   className,
   album,
   id,
+  onRemovePlaylist,
   likedid,
   playTrack,
   uri,
   showControls = true, //hide the heart and itemcontext while in trending page
+  isPlaylistPage = false, // new prop to indicate if it's a trending page
+  targetPlaylistName,
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -116,14 +119,15 @@ function TrackItem({
       <span className="h-full w-fit flex items-center text-slate-400">
         {duration}
       </span>
-      {showControls && (
-        <TrackItemContext
-          trackId={trackId}
-          onRemoveLike={onRemoveLike}
-          onLike={onLike}
-          liked={liked}
-        />
-      )}
+      <TrackItemContext
+        trackId={trackId}
+        onRemoveLike={onRemoveLike}
+        onLike={onLike}
+        liked={liked}
+        onRemovePlaylist={onRemovePlaylist}
+        isPlaylistPage={isPlaylistPage} // passing the new prop
+        targetPlaylistName={targetPlaylistName}
+      />
     </div>
   );
 }
