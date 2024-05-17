@@ -11,6 +11,7 @@ export default function Discover({
   setRecent,
   data,
   setData,
+  likedTracks,
   setLikedTracks,
   toggleLiked,
   playTrack,
@@ -161,7 +162,7 @@ export default function Discover({
               title={music.name}
               type="Songs"
               duration={convertMsToTime(music.duration_ms)}
-              liked={music.liked}
+              liked={likedTracks[music.id]?.liked || false} // <-- Pass liked state here
               onLike={() => toggleLiked(music.id)}
               accessToken={accessToken}
               setLikedTracks={setLikedTracks}

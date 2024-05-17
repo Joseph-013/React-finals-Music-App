@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 
-function IconHeart({ size, onClick }) {
-  const [liked, setLiked] = useState(false);
-
-  const handleHeartClick = () => {
-    setLiked(!liked);
-  };
+function IconHeart({ size, liked, onClick }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +13,7 @@ function IconHeart({ size, onClick }) {
       fill={liked ? "red" : "none"}
       strokeLinecap="round"
       strokeLinejoin="round"
-      onClick={handleHeartClick}
+      onClick={onClick}
       style={{ cursor: "pointer" }}
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />

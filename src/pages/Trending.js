@@ -17,6 +17,7 @@ export default function Trending({
   playTrack,
   toggleLiked,
   setData,
+  likedTracks, // Add likedTracks prop
 }) {
   const [tracks, setTracks] = useState([]);
   const [randomAlbumTracks, setRandomAlbumTracks] = useState([]);
@@ -52,7 +53,7 @@ export default function Trending({
 
       const mappedTracks = items.map((item) => ({
         ...item.track,
-        liked: false,
+        liked: likedTracks[item.track.id]?.liked || false, // Set liked state based on likedTracks
       }));
 
       setTracks(mappedTracks);

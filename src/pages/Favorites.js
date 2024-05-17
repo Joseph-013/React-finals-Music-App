@@ -1,4 +1,6 @@
 import React from "react";
+
+import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
 
 export default function Favorites({
@@ -23,26 +25,27 @@ export default function Favorites({
 
   return (
     <div>
-      <h1>Favorites</h1>
-      {likedTracks && Object.values(likedTracks).length > 0 ? (
-        Object.values(likedTracks).map((track) => (
-          <TrackItem
-            key={track.id}
-            cover={track.album.images[0]?.url}
-            artist={track.artists[0].name}
-            title={track.name}
-            type="Songs"
-            duration={convertMsToTime(track.duration_ms)}
-            liked={true}
-            onLike={() => toggleLiked(track.id)}
-            onRemove={() => handleRemoveTrack(track.id)}
-            playTrack={playTrack}
-            uri={track.uri}
-          />
-        ))
-      ) : (
-        <p>No liked tracks found</p>
-      )}
+      <ListGridVertical title="Favorites">
+        {likedTracks && Object.values(likedTracks).length > 0 ? (
+          Object.values(likedTracks).map((track) => (
+            <TrackItem
+              key={track.id}
+              cover={track.album.images[0]?.url}
+              artist={track.artists[0].name}
+              title={track.name}
+              type="Songs"
+              duration={convertMsToTime(track.duration_ms)}
+              liked={true}
+              onLike={() => toggleLiked(track.id)}
+              onRemove={() => handleRemoveTrack(track.id)}
+              playTrack={playTrack}
+              uri={track.uri}
+            />
+          ))
+        ) : (
+          <p>No liked tracks found</p>
+        )}
+      </ListGridVertical>
     </div>
   );
 }
