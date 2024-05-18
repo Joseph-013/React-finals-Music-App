@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import TrackItem from "../components/TrackItem";
 import ListGridVertical from "../components/ListGridVertical";
 import ListGridHorizontal from "../components/ListGridHorizontal";
@@ -6,15 +6,10 @@ import TileGridHorizontal from "../components/TileGridHorizontal";
 import TileRounded from "../components/TileRounded";
 import TileSquared from "../components/TileSquared";
 
-const formatDuration = (ms) => {
-  const minutes = Math.floor(ms / 60000);
-  const seconds = ((ms % 60000) / 1000).toFixed(0);
-  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-};
+import { TrackContext } from "../components/Context";
 
 export default function Trending({
   accessToken,
-  playTrack,
   toggleLiked,
   setData,
   likedTracks,
@@ -25,6 +20,7 @@ export default function Trending({
   const [spotlightArtistTracks, setSpotlightArtistTracks] = useState([]);
   const [randomAlbum, setRandomAlbum] = useState(null);
   const [spotlightArtist, setSpotlightArtist] = useState(null);
+  const { convertMsToTime } = useContext(TrackContext);
 
   useEffect(() => {
     if (accessToken) {
@@ -185,8 +181,7 @@ export default function Trending({
             cover={track.album.images[0]?.url || "default_album_image.jpg"}
             artist={track.artists.map((artist) => artist.name).join(", ")}
             title={track.name}
-            duration={formatDuration(track.duration_ms)}
-            playTrack={() => playTrack(track.uri)}
+            duration={convertMsToTime(track.duration_ms)}
             uri={track.uri}
             onLike={() => handleToggleLiked(track.id)}
             onRemoveLike={() => handleRemoveLike(track.id)}
@@ -213,8 +208,7 @@ export default function Trending({
                 title={track.name}
                 album={track.album.name}
                 artist={track.artists.map((artist) => artist.name).join(", ")}
-                duration={formatDuration(track.duration_ms)}
-                playTrack={() => playTrack(track.uri)}
+                duration={convertMsToTime(track.duration_ms)}
                 uri={track.uri}
                 onLike={() => handleToggleLiked(track.id)}
                 onRemoveLike={() => handleRemoveLike(track.id)}
@@ -241,8 +235,7 @@ export default function Trending({
                 title={track.name}
                 album={track.album.name}
                 artist={track.artists.map((artist) => artist.name).join(", ")}
-                duration={formatDuration(track.duration_ms)}
-                playTrack={() => playTrack(track.uri)}
+                duration={convertMsToTime(track.duration_ms)}
                 uri={track.uri}
                 onLike={() => handleToggleLiked(track.id)}
                 onRemoveLike={() => handleRemoveLike(track.id)}

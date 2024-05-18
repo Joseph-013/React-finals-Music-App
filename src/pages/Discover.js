@@ -4,7 +4,9 @@ import TileSquared from "../components/TileSquared";
 import TileRounded from "../components/TileRounded";
 import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
-import { useEffect, useState } from "react";
+
+import { useContext, useEffect, useState } from "react";
+import { TrackContext } from "../components/Context";
 
 export default function Discover({
   accessToken,
@@ -14,13 +16,13 @@ export default function Discover({
   likedTracks,
   setLikedTracks,
   toggleLiked,
-  playTrack,
   removeTrack,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [sortOption, setSortOption] = useState("popularity");
   const [viewOption, setViewOption] = useState("all");
+  const { convertMsToTime } = useContext(TrackContext);
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -74,16 +76,6 @@ export default function Discover({
     }
     return data;
   };
-
-  function convertMsToTime(duration_ms) {
-    var seconds = Math.floor((duration_ms / 1000) % 60);
-    var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);
-
-    var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
-    var displayMinutes = minutes < 10 ? "0" + minutes : minutes;
-
-    return displayMinutes + ":" + displaySeconds;
-  }
 
   const sortedAlbums = sortData(data.albums, sortOption);
   const sortedArtists = sortData(data.artists, sortOption);
@@ -178,7 +170,6 @@ export default function Discover({
               onRemoveLike={() => removeTrack(music.id)}
               accessToken={accessToken}
               setLikedTracks={setLikedTracks}
-              playTrack={playTrack}
               uri={music.uri}
             />
           ))}

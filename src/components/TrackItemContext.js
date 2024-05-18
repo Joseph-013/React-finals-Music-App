@@ -1,4 +1,4 @@
-import { OverlayContext, PlaylistContext } from "./Context";
+import { PlaylistContext } from "./Context";
 import { useContext, useState } from "react";
 
 import IconDotsVerical from "./icons/IconDotsVertical";
@@ -12,7 +12,7 @@ function TrackItemContext({
   targetPlaylistName,
   removeSongFromPlaylist,
 }) {
-  const { playlists, setPlaylist, setOverlay, addSongToPlaylist } =
+  const { playlists, setOverlay, addSongToPlaylist } =
     useContext(PlaylistContext);
 
   const [hovered, setHovered] = useState(false);

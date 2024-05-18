@@ -1,7 +1,7 @@
 import IconCirclePlus from "./icons/IconCirclePlus";
 import { useState } from "react";
 
-function Overlay({ children, overlay, setOverlay, setPlaylists }) {
+function Overlay({ children, overlay, setOverlay, addPlaylist }) {
   const [newPlaylistName, setNewPlaylistName] = useState("");
 
   const handleSubmit = (e) => {
@@ -11,10 +11,7 @@ function Overlay({ children, overlay, setOverlay, setPlaylists }) {
 
     if (!newPlaylistName) return;
 
-    setPlaylists((prevPlaylists) => ({
-      ...prevPlaylists,
-      [newPlaylistName]: [],
-    }));
+    addPlaylist(newPlaylistName);
 
     setNewPlaylistName("");
   };
