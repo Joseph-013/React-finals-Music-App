@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { TrackContext } from "../components/Context";
+
 import PlaylistItem from "../components/PlaylistItem";
 import SectionContainer from "../components/SectionContainer";
 import TileGridHorizontal from "../components/TileGridHorizontal";
@@ -12,6 +14,7 @@ export default function Playlists({
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [targetPlaylistName, setTargetPlaylistName] = useState("");
+  const { convertMsToTime } = useContext(TrackContext);
 
   useEffect(() => {
     if (selectedPlaylist) {
@@ -83,11 +86,12 @@ export default function Playlists({
               cover={track.album.images[0].url}
               artist={track.artists[0].name}
               title={track.name}
-              duration={track.duration_ms}
+              duration={convertMsToTime(track.duration_ms)}
               trackId={track.id}
               showControls={false}
               isPlaylistPage={true}
               removeSongFromPlaylist={() => handleRemoveFromPlaylist(track.id)}
+              uri={track.uri}
             />
           ))
         )}

@@ -1,23 +1,11 @@
-import React from "react";
-
+import React, { useContext } from "react";
 import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
 
-export default function Favorites({
-  likedTracks,
-  toggleLiked,
-  removeTrack,
-  playTrack,
-}) {
-  function convertMsToTime(duration_ms) {
-    var seconds = Math.floor((duration_ms / 1000) % 60);
-    var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);
+import { TrackContext } from "../components/Context";
 
-    var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
-    var displayMinutes = minutes < 10 ? "0" + minutes : minutes;
-
-    return displayMinutes + ":" + displaySeconds;
-  }
+export default function Favorites({ likedTracks, toggleLiked, removeTrack }) {
+  const { convertMsToTime } = useContext(TrackContext);
 
   const handleRemoveTrack = (trackId) => {
     removeTrack(trackId);
@@ -38,7 +26,6 @@ export default function Favorites({
               liked={true}
               onLike={() => toggleLiked(track.id)}
               onRemoveLike={() => handleRemoveTrack(track.id)}
-              playTrack={playTrack}
               uri={track.uri}
             />
           ))

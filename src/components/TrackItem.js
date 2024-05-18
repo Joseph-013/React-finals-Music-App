@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TrackContext } from "./Context";
 
 import visualizerGif from "./icons/visualizerGif.gif";
 import IconPlayFilled from "./icons/IconPlayFilled";
@@ -26,7 +27,6 @@ function TrackItem({
   id,
   onRemovePlaylist,
   likedid,
-  playTrack,
   uri,
   showControls = true, //hide the heart and itemcontext while in trending page
   isPlaylistPage = false, // new prop to indicate if it's a trending page
@@ -34,6 +34,7 @@ function TrackItem({
   removeSongFromPlaylist,
 }) {
   const [hovered, setHovered] = useState(false);
+  const { playTrack } = useContext(TrackContext);
 
   let widthCount = 0;
   let width;

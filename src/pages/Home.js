@@ -3,7 +3,8 @@ import TileSquared from "../components/TileSquared";
 import TileRounded from "../components/TileRounded";
 import ListGridVertical from "../components/ListGridVertical";
 import TrackItem from "../components/TrackItem";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { TrackContext } from "../components/Context";
 
 export default function Home({
   accessToken,
@@ -13,7 +14,6 @@ export default function Home({
   setData,
   setLikedTracks,
   toggleLiked,
-  playTrack,
   removeTrack,
 }) {
   const initialMusicsState = {
@@ -22,6 +22,7 @@ export default function Home({
     tracks: [],
   };
   const [musics, setMusic] = useState(initialMusicsState);
+  const { convertMsToTime } = useContext(TrackContext);
 
   function getRandomSearch() {
     const characters = "abcdefghijklmnopqrstuvwxyz";
@@ -92,16 +93,6 @@ export default function Home({
     }
   }
 
-  function convertMsToTime(duration_ms) {
-    var seconds = Math.floor((duration_ms / 1000) % 60);
-    var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);
-
-    var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
-    var displayMinutes = minutes < 10 ? "0" + minutes : minutes;
-
-    return displayMinutes + ":" + displaySeconds;
-  }
-
   return (
     <div className="w-full space-y-10">
       <TileGridHorizontal title="Recommended Albums">
@@ -145,7 +136,6 @@ export default function Home({
               onRemoveLike={() => removeTrack(music.id)}
               accessToken={accessToken}
               setLikedTracks={setLikedTracks}
-              playTrack={playTrack}
               uri={music.uri}
             />
           ))}

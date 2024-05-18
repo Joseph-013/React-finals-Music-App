@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PlaylistContext } from "./components/Context";
+import { TrackContext } from "./components/Context";
 
 import Layout from "./components/layoutComponents/Layout";
 import Home from "./pages/Home";
@@ -63,24 +64,28 @@ function App() {
       });
   }, []);
 
-  const removeTrack = (trackId) => {
-    setLikedTracks((prevLikedTracks) => {
-      const updatedLikedTracks = Object.fromEntries(
-        Object.entries(prevLikedTracks).filter(([id, track]) => id !== trackId)
-      );
-      return updatedLikedTracks;
-    });
-  };
+  // ===== Track operations =====
+  function convertMsToTime(duration_ms) {
+    var seconds = Math.floor((duration_ms / 1000) % 60);
+    var minutes = Math.floor((duration_ms / (1000 * 60)) % 60);
+
+    var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+    var displayMinutes = minutes < 10 ? "0" + minutes : minutes;
+
+    return displayMinutes + ":" + displaySeconds;
+  }
 
   const playTrack = (trackURI) => {
     console.log("Playing track with URI:", trackURI); // Log the URI of the track being played
     setPlaying(trackURI);
   };
+  // ===== end of Track operations =====
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  //===== favorite functions ======
   const toggleLiked = (trackId) => {
     setLikedTracks((prevState) => {
       const updatedLikedTracks = { ...prevState };
@@ -97,11 +102,45 @@ function App() {
     });
   };
 
+  const removeTrack = (trackId) => {
+    setLikedTracks((prevLikedTracks) => {
+      const updatedLikedTracks = Object.fromEntries(
+        Object.entries(prevLikedTracks).filter(([id, track]) => id !== trackId)
+      );
+      return updatedLikedTracks;
+    });
+  };
+  // ===== end of favorite functions ======
+
+  // ===== playlist operations =====
+  function addPlaylist(newPlaylistName) {
+    if (newPlaylistName in playlists) {
+      alert("Playlist has already been created!");
+      return;
+    }
+
+    setPlaylists((prevPlaylists) => ({
+      ...prevPlaylists,
+      [newPlaylistName]: [],
+    }));
+    alert("Playlist is created!");
+    return;
+  }
+
   function addSongToPlaylist(playlistName, trackID) {
+    var checkIfSongExist = playlists[playlistName].some(
+      (playlistSong) => playlistSong === trackID
+    );
+
+    if (checkIfSongExist) {
+      alert(`Song already added to ${playlistName}`);
+      return;
+    }
+
     setPlaylists(() => {
       var updatedPlaylist = [...playlists[playlistName], trackID];
 
-      console.log("Song is added");
+      alert(`Song is added to ${playlistName}`);
       return { ...playlists, [playlistName]: updatedPlaylist };
     });
   }
@@ -114,6 +153,7 @@ function App() {
       return { ...prevPlaylists, [playlistName]: updatedPlaylist };
     });
   }
+  // ===== end of playlist operations =====
 
   return (
     <PlaylistContext.Provider
@@ -123,88 +163,85 @@ function App() {
         addSongToPlaylist,
       }}
     >
-      <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout playing={playing} />}>
-              <Route
-                index
-                element={
-                  <Home
-                    accessToken={accessToken}
-                    setRecent={setRecent}
-                    likedTracks={likedTracks}
-                    data={data}
-                    setData={setData}
-                    setLikedTracks={setLikedTracks}
-                    toggleLiked={toggleLiked}
-                    playTrack={playTrack}
-                    removeTrack={removeTrack}
-                  />
-                }
-              />
-              <Route
-                path="discover"
-                element={
-                  <Discover
-                    accessToken={accessToken}
-                    setRecent={setRecent}
-                    likedTracks={likedTracks}
-                    data={data}
-                    setData={setData}
-                    setLikedTracks={setLikedTracks}
-                    toggleLiked={toggleLiked}
-                    playTrack={playTrack}
-                    removeTrack={removeTrack}
-                  />
-                }
-              />
-              <Route
-                path="trending"
-                element={
-                  <Trending
-                    accessToken={accessToken}
-                    toggleLiked={toggleLiked}
-                    likedTracks={likedTracks}
-                    setData={setData}
-                    playTrack={playTrack}
-                    removeTrack={removeTrack}
-                  />
-                }
-              />
-              <Route path="recent" element={<Recent recent={recent} />} />
-              <Route
-                path="playlists"
-                element={
-                  <Playlists
-                    playlists={playlists}
-                    accessToken={accessToken}
-                    playTrack={playTrack}
-                    removeSongFromPlaylist={removeSongFromPlaylist}
-                  />
-                }
-              />
-              <Route
-                path="favorites"
-                element={
-                  <Favorites
-                    likedTracks={likedTracks}
-                    toggleLiked={toggleLiked}
-                    removeTrack={removeTrack}
-                    playTrack={playTrack}
-                  />
-                }
-              />
-            </Route>
-            <Route path="*" element={<NoPage />} />
-          </Routes>
-        </BrowserRouter>
-        <Overlay
-          overlay={overlay}
-          setOverlay={setOverlay}
-          setPlaylists={setPlaylists}
-        />
-      </div>
+      <TrackContext.Provider value={{ convertMsToTime, playTrack }}>
+        <div className="w-screen h-screen text-[#d9d9d9] bg-[#121C21] tracking-wide">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout playing={playing} />}>
+                <Route
+                  index
+                  element={
+                    <Home
+                      accessToken={accessToken}
+                      setRecent={setRecent}
+                      likedTracks={likedTracks}
+                      data={data}
+                      setData={setData}
+                      setLikedTracks={setLikedTracks}
+                      toggleLiked={toggleLiked}
+                      removeTrack={removeTrack}
+                    />
+                  }
+                />
+                <Route
+                  path="discover"
+                  element={
+                    <Discover
+                      accessToken={accessToken}
+                      setRecent={setRecent}
+                      likedTracks={likedTracks}
+                      data={data}
+                      setData={setData}
+                      setLikedTracks={setLikedTracks}
+                      toggleLiked={toggleLiked}
+                      removeTrack={removeTrack}
+                    />
+                  }
+                />
+                <Route
+                  path="trending"
+                  element={
+                    <Trending
+                      accessToken={accessToken}
+                      toggleLiked={toggleLiked}
+                      likedTracks={likedTracks}
+                      setData={setData}
+                      removeTrack={removeTrack}
+                    />
+                  }
+                />
+                <Route path="recent" element={<Recent recent={recent} />} />
+                <Route
+                  path="playlists"
+                  element={
+                    <Playlists
+                      playlists={playlists}
+                      accessToken={accessToken}
+                      removeSongFromPlaylist={removeSongFromPlaylist}
+                    />
+                  }
+                />
+                <Route
+                  path="favorites"
+                  element={
+                    <Favorites
+                      likedTracks={likedTracks}
+                      toggleLiked={toggleLiked}
+                      removeTrack={removeTrack}
+                    />
+                  }
+                />
+              </Route>
+              <Route path="*" element={<NoPage />} />
+            </Routes>
+          </BrowserRouter>
+          <Overlay
+            overlay={overlay}
+            setOverlay={setOverlay}
+            addPlaylist={addPlaylist}
+          />
+        </div>
+      </TrackContext.Provider>
     </PlaylistContext.Provider>
   );
 }
