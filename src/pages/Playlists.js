@@ -10,6 +10,7 @@ export default function Playlists({
   playlists,
   accessToken,
   removeSongFromPlaylist,
+  onDeletePlaylist,
 }) {
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
   const [playlistTracks, setPlaylistTracks] = useState([]);
@@ -64,13 +65,24 @@ export default function Playlists({
     );
   };
 
+  const handleDeletePlaylist = (playlistName, e) => {
+    e.stopPropagation(); // Prevent event propagation to the parent div
+    onDeletePlaylist(playlistName);
+    setSelectedPlaylist("");
+    setPlaylistTracks([]);
+  };
+
   return (
     <div className="w-full flex flex-col">
       <SectionContainer title="Playlists">
         <TileGridHorizontal>
           {Object.entries(playlists).map(([playlistName, songs]) => (
             <div key={playlistName} onClick={() => handleClick(playlistName)}>
-              <PlaylistItem title={playlistName} count={songs.length} />
+              <PlaylistItem
+                title={playlistName}
+                count={songs.length}
+                onDelete={(e) => handleDeletePlaylist(playlistName, e)}
+              />
             </div>
           ))}
         </TileGridHorizontal>

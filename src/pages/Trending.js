@@ -138,19 +138,13 @@ export default function Trending({
 
   const updateLikedStatus = (trackId, liked) => {
     setTracks((prevTracks) =>
-      prevTracks.map((track) =>
-        track.id === trackId ? { ...track, liked } : track
-      )
+      prevTracks.map((track) => (track.id === trackId ? { ...track, liked } : track))
     );
     setRandomAlbumTracks((prevTracks) =>
-      prevTracks.map((track) =>
-        track.id === trackId ? { ...track, liked } : track
-      )
+      prevTracks.map((track) => (track.id === trackId ? { ...track, liked } : track))
     );
     setSpotlightArtistTracks((prevTracks) =>
-      prevTracks.map((track) =>
-        track.id === trackId ? { ...track, liked } : track
-      )
+      prevTracks.map((track) => (track.id === trackId ? { ...track, liked } : track))
     );
   };
 
@@ -173,51 +167,6 @@ export default function Trending({
 
   return (
     <div className="w-full space-y-10">
-      <ListGridVertical title="Trending Tracks in the Philippines">
-        {tracks.map((track) => (
-          <TrackItem
-            key={track.id}
-            trackId={track.id}
-            cover={track.album.images[0]?.url || "default_album_image.jpg"}
-            artist={track.artists.map((artist) => artist.name).join(", ")}
-            title={track.name}
-            duration={convertMsToTime(track.duration_ms)}
-            uri={track.uri}
-            onLike={() => handleToggleLiked(track.id)}
-            onRemoveLike={() => handleRemoveLike(track.id)}
-            liked={track.liked}
-          />
-        ))}
-      </ListGridVertical>
-      {randomAlbum && (
-        <TileGridHorizontal title={`Album Spotlight: ${randomAlbum.name}`}>
-          <TileSquared
-            src={randomAlbum.images[0]?.url || "default_album_image.jpg"}
-            title={randomAlbum.name}
-            subTitle={randomAlbum.artists
-              .map((artist) => artist.name)
-              .join(", ")}
-          />
-          <ListGridHorizontal className="flex items-center">
-            {randomAlbumTracks.map((track) => (
-              <TrackItem
-                key={track.id}
-                trackId={track.id}
-                className="w-[28rem]"
-                cover={track.album.images[0]?.url || "default_album_image.jpg"}
-                title={track.name}
-                album={track.album.name}
-                artist={track.artists.map((artist) => artist.name).join(", ")}
-                duration={convertMsToTime(track.duration_ms)}
-                uri={track.uri}
-                onLike={() => handleToggleLiked(track.id)}
-                onRemoveLike={() => handleRemoveLike(track.id)}
-                liked={track.liked}
-              />
-            ))}
-          </ListGridHorizontal>
-        </TileGridHorizontal>
-      )}
       {spotlightArtist && (
         <TileGridHorizontal title={`Artist Spotlight: ${spotlightArtist.name}`}>
           <TileRounded
@@ -245,6 +194,49 @@ export default function Trending({
           </ListGridHorizontal>
         </TileGridHorizontal>
       )}
+      {randomAlbum && (
+        <TileGridHorizontal title={`Album Spotlight: ${randomAlbum.name}`}>
+          <TileSquared
+            src={randomAlbum.images[0]?.url || "default_album_image.jpg"}
+            title={randomAlbum.name}
+            subTitle={randomAlbum.artists.map((artist) => artist.name).join(", ")}
+          />
+          <ListGridHorizontal className="flex items-center">
+            {randomAlbumTracks.map((track) => (
+              <TrackItem
+                key={track.id}
+                trackId={track.id}
+                className="w-[28rem]"
+                cover={track.album.images[0]?.url || "default_album_image.jpg"}
+                title={track.name}
+                album={track.album.name}
+                artist={track.artists.map((artist) => artist.name).join(", ")}
+                duration={convertMsToTime(track.duration_ms)}
+                uri={track.uri}
+                onLike={() => handleToggleLiked(track.id)}
+                onRemoveLike={() => handleRemoveLike(track.id)}
+                liked={track.liked}
+              />
+            ))}
+          </ListGridHorizontal>
+        </TileGridHorizontal>
+      )}
+      <ListGridVertical title="Trending Tracks in the Philippines">
+        {tracks.map((track) => (
+          <TrackItem
+            key={track.id}
+            trackId={track.id}
+            cover={track.album.images[0]?.url || "default_album_image.jpg"}
+            artist={track.artists.map((artist) => artist.name).join(", ")}
+            title={track.name}
+            duration={convertMsToTime(track.duration_ms)}
+            uri={track.uri}
+            onLike={() => handleToggleLiked(track.id)}
+            onRemoveLike={() => handleRemoveLike(track.id)}
+            liked={track.liked}
+          />
+        ))}
+      </ListGridVertical>
     </div>
   );
 }

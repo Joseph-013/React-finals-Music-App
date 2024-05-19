@@ -35,9 +35,7 @@ function App() {
   const [likedTracks, setLikedTracks] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
   const [overlay, setOverlay] = useState(false);
-  const [playing, setPlaying] = useState(
-    "spotify:track:77DRzu7ERs0TX3roZcre7Q"
-  );
+  const [playing, setPlaying] = useState("spotify:track:77DRzu7ERs0TX3roZcre7Q");
 
   useEffect(() => {
     console.log("Playing state changed to:", playing); // Log the new value of the playing state
@@ -153,6 +151,14 @@ function App() {
       return { ...prevPlaylists, [playlistName]: updatedPlaylist };
     });
   }
+
+  function deletePlaylist(playlistName) {
+    setPlaylists((prevPlaylists) => {
+      const updatedPlaylists = { ...prevPlaylists };
+      delete updatedPlaylists[playlistName];
+      return updatedPlaylists;
+    });
+  }
   // ===== end of playlist operations =====
 
   return (
@@ -218,6 +224,7 @@ function App() {
                       playlists={playlists}
                       accessToken={accessToken}
                       removeSongFromPlaylist={removeSongFromPlaylist}
+                      onDeletePlaylist={deletePlaylist}
                     />
                   }
                 />
