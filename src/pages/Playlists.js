@@ -24,6 +24,9 @@ export default function Playlists({
   }, [selectedPlaylist]); // Fetch playlist tracks whenever selectedPlaylist changes
 
   function handleClick(playlistName) {
+    if (playlistName === selectedPlaylist) {
+      return;
+    }
     setSelectedPlaylist(playlistName);
     setPlaylistTracks([]);
     setTargetPlaylistName(playlistName);
