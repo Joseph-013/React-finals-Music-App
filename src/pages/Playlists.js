@@ -82,6 +82,7 @@ export default function Playlists({
                 title={playlistName}
                 count={songs.length}
                 onDelete={(e) => handleDeletePlaylist(playlistName, e)}
+                tracks={playlistTracks}
               />
             </div>
           ))}
