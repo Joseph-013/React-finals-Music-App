@@ -11,6 +11,7 @@ export default function Playlists({
   accessToken,
   removeSongFromPlaylist,
   onDeletePlaylist,
+  renamePlaylist,
 }) {
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
   const [playlistTracks, setPlaylistTracks] = useState([]);
@@ -75,6 +76,14 @@ export default function Playlists({
     setPlaylistTracks([]);
   };
 
+  const handleRenamePlaylist = (oldName, newName) => {
+    renamePlaylist(oldName, newName);
+    if (selectedPlaylist === oldName) {
+      setSelectedPlaylist(newName);
+      setTargetPlaylistName(newName);
+    }
+  };
+
   return (
     <div className="w-full flex flex-col">
       <SectionContainer title="Playlists">
@@ -85,6 +94,8 @@ export default function Playlists({
                 title={playlistName}
                 count={songs.length}
                 onDelete={(e) => handleDeletePlaylist(playlistName, e)}
+                onRename={handleRenamePlaylist} // Pass the rename function
+
               />
             </div>
           ))}
