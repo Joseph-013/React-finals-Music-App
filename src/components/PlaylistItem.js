@@ -1,6 +1,24 @@
-import { FaTrash } from "react-icons/fa";
+import { useState } from "react";
+import { FaTrash, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
 
-function PlaylistItem({ title, count, onDelete }) {
+function PlaylistItem({ title, count, onDelete, onRename }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newName, setNewName] = useState(title);
+
+  const handleRename = (e) => {
+    e.stopPropagation();
+    if (newName && newName !== title) {
+      onRename(title, newName);
+    }
+    setIsEditing(false);
+  };
+
+  const handleCancelRename = (e) => {
+    e.stopPropagation();
+    setIsEditing(false);
+    setNewName(title);
+  };
+
   return (
     <div className="gap-y-2 w-44 flex flex-col justify-center text-left hover:underline hover:cursor-pointer hover:bg-slate-700 rounded-lg px-3 py-4">
       <div className="size-36 rounded-md">
@@ -22,16 +40,55 @@ function PlaylistItem({ title, count, onDelete }) {
         </svg>
       </div>
       <div className="flex justify-between items-center">
-        <div>
-          <span className="truncate block">{title}</span>
-          <span className="truncate block text-slate-500">{count} tracks</span>
+        {isEditing ? (
+          <input
+            className="bg-transparent border-b border-gray-400 focus:outline-none w-28" // Updated width to make the input line shorter
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            onClick={(e) => e.stopPropagation()}
+          />
+        ) : (
+          <div>
+            <span className="truncate block">{title}</span>
+            <span className="truncate block text-slate-500">{count} tracks</span>
+          </div>
+        )}
+        <div className="flex items-center">
+          {isEditing ? (
+            <>
+              <button
+                className="text-green-500 hover:text-green-700 cursor-pointer mx-1"
+                onClick={handleRename}
+              >
+                <FaCheck />
+              </button>
+              <button
+                className="text-red-500 hover:text-red-700 cursor-pointer"
+                onClick={handleCancelRename}
+              >
+                <FaTimes />
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="text-blue-500 hover:text-blue-700 cursor-pointer mx-1"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsEditing(true);
+                }}
+              >
+                <FaEdit />
+              </button>
+              <button
+                className="text-red-500 hover:text-red-700 cursor-pointer bg-[#2c3b43b5] hover:bg-[#2c3b40] px-2 rounded-md py-1.5"
+                onClick={onDelete}
+              >
+                <FaTrash />
+              </button>
+            </>
+          )}
         </div>
-        <button
-          className="text-red-500 hover:text-red-700 cursor-pointer bg-[#2c3b43b5] hover:bg-[#2c3b40] px-2 rounded-md py-1.5"
-          onClick={onDelete}
-        >
-          <FaTrash />
-        </button>
       </div>
     </div>
   );

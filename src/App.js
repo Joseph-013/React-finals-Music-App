@@ -36,6 +36,10 @@ function App() {
   const [loading, setLoading] = useState(true); // Loading state
   const [overlay, setOverlay] = useState(false);
   const [playing, setPlaying] = useState("spotify:track:77DRzu7ERs0TX3roZcre7Q");
+  const [editingPlaylist, setEditingPlaylist] = useState(null);
+  const [newPlaylistName, setNewPlaylistName] = useState("");
+  
+
 
   useEffect(() => {
     console.log("Playing state changed to:", playing); // Log the new value of the playing state
@@ -135,6 +139,9 @@ function App() {
       return;
     }
 
+
+
+
     setPlaylists(() => {
       var updatedPlaylist = [...playlists[playlistName], trackID];
 
@@ -159,6 +166,26 @@ function App() {
       return updatedPlaylists;
     });
   }
+
+
+  const renamePlaylist = (oldName, newName) => {
+    if (newName in playlists) {
+      alert("Playlist with this name already exists!");
+      return;
+    }
+  
+    setPlaylists((prevPlaylists) => {
+      const updatedPlaylists = { ...prevPlaylists };
+      updatedPlaylists[newName] = updatedPlaylists[oldName];
+      delete updatedPlaylists[oldName];
+      return updatedPlaylists;
+    });
+    setEditingPlaylist(null);
+    setNewPlaylistName("");
+  };
+
+
+
   // ===== end of playlist operations =====
 
   return (
@@ -225,6 +252,7 @@ function App() {
                       accessToken={accessToken}
                       removeSongFromPlaylist={removeSongFromPlaylist}
                       onDeletePlaylist={deletePlaylist}
+                      renamePlaylist={renamePlaylist}
                     />
                   }
                 />
