@@ -3,7 +3,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Application Screenshots:
-![Screenshot](pictures/436175974_466716409200175_1606241674900646485_n.png?raw=true "Title")
+![Screenshot](pictures/436175974_466716409200175_1606241674900646485_n.png?raw=true "Screenshot")
+![Screenshot](pictures/440229253_297813820083944_4062509134096776607_n.jpg?raw=true "Screenshot")
+![Screenshot](pictures/440582038_1096251218117695_417834131336829218_n.jpg?raw=true "Screenshot")
+![Screenshot](pictures/440802795_377978651889050_4150708990670533070_n.jpg?raw=true "Screenshot")
+![Screenshot](pictures/440822590_839047608255290_41101185737198648_n.png?raw=true "Screenshot")
+![Screenshot](pictures/440938251_786385496804026_9084275931135000014_n.png?raw=true "Screenshot")
+![Screenshot](pictures/441361948_829228639069603_6547893849389881503_n.png?raw=true "Screenshot")
+![Screenshot](pictures/445366065_1974712362984221_8644164820313028106_n%20(1).png?raw=true "Screenshot")
+![Screenshot](pictures/445366065_1974712362984221_8644164820313028106_n.png?raw=true "Screenshot")
+
+
+## Technology Stack
+ReactJS and Tailwind
 
 <!-- ## Available Scripts
 
