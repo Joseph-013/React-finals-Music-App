@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Application Screenshots:
+## Application Screenshots:
 ![Screenshot](pictures/436175974_466716409200175_1606241674900646485_n.png?raw=true "Screenshot")
 ![Screenshot](pictures/440229253_297813820083944_4062509134096776607_n.jpg?raw=true "Screenshot")
 ![Screenshot](pictures/440582038_1096251218117695_417834131336829218_n.jpg?raw=true "Screenshot")
